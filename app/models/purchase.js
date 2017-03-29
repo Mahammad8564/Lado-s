@@ -1,7 +1,7 @@
 "use strict";
 module.exports = function (sequelize, DataTypes) {
-    var Inventory = sequelize.define("Inventory", {
-        inventoryName: {
+    var Purchase = sequelize.define("Purchase", {
+        purchaseName: {
             type: DataTypes.STRING,
             allowNull: false,
             unique: {
@@ -10,19 +10,27 @@ module.exports = function (sequelize, DataTypes) {
             }
         },
         purchaseDate: {
-            type: DataTypes.DATE,
+            type: DataTypes.STRING,
             allowNull: false
 
         },
-        price: {
+        description: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
+        totalItems: {
             allowNull: false,
             type: DataTypes.DECIMAL
-        }
+        },
+        totalCost: {
+            allowNull: false,
+            type: DataTypes.DECIMAL
+        },
     }, {
             classMethods: {
                 associate: function (models) {
 
-                    Inventory.hasMany(models.Product);
+                     Purchase.hasMany(models.Product);
 
                 }
             }
@@ -31,5 +39,5 @@ module.exports = function (sequelize, DataTypes) {
 
     );
 
-    return Inventory;
+    return Purchase;
 };

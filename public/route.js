@@ -43,9 +43,6 @@
                 controllerAs: 'vm'
             })
 
-
-
-            //==================================================================
             .state('secure.category', {
                 url: '/category',
                 templateUrl: '/category/category.html',
@@ -65,6 +62,8 @@
                 controller: 'CategoryController',
                 controllerAs: 'vm'
             })
+
+
             .state('secure.inventory', {
                 url: '/inventory',
                 templateUrl: '/inventory/inventory.html',
@@ -73,17 +72,62 @@
                 controller: 'InventoryController',
                 controllerAs: 'vm'
             })
-            .state('secure.edit-inventory', {
-                url: '/inventory/{id}',
+            .state('secure.manageInventory', {
+                url: '/manageInventory',
+                templateUrl: '/inventory/manageInventory/manageInventory.html',
+                title: 'Manage Inventory',
+                highlight: 'manageInventory',
+                controller: 'ManageInventoryController',
+                controllerAs: 'vm'
+            })
+            .state('secure.purchases', {
+                url: '/purchases',
+                templateUrl: '/inventory/purchases/purchases.html',
+                title: 'Purchases',
+                highlight: 'purchases',
+                controller: 'PurchasesController',
+                controllerAs: 'vm'
+            })
+            .state('secure.edit-purchases', {
+                url: '/purchases/{id}',
                 params: {
                     id: { value: 'new' }
                 },
-                templateUrl: '/inventory/edit-inventory.html',
-                title: 'Inventory',
-                highlight: 'inventory',
-                controller: 'InventoryController',
+                templateUrl: '/inventory/purchases/edit-purchases.html',
+                title: 'Purchases',
+                highlight: 'purchases',
+                controller: 'PurchasesController',
                 controllerAs: 'vm'
             })
+            .state('secure.product', {
+                url: '/product',
+                templateUrl: '/inventory/purchases/product/product.html',
+                title: 'Product',
+                highlight: 'product',
+                controller: 'ProductController',
+                controllerAs: 'vm'
+            })
+            .state('secure.edit-product', {
+                url: '/product/{id}',
+                params: {
+                    id: { value: 'new' }
+                },
+                templateUrl: '/inventory/purchases/product/edit-product.html',
+                title: 'Product',
+                highlight: 'product',
+                controller: 'ProductController',
+                controllerAs: 'vm'
+            })
+
+            .state('secure.sales', {
+                url: '/sales',
+                templateUrl: '/inventory/sales/sales.html',
+                title: 'Sales',
+                highlight: 'sales',
+                controller: 'SalesController',
+                controllerAs: 'vm'
+            })
+
             .state('secure.branch', {
                 url: '/branch',
                 templateUrl: '/branch/branch.html',

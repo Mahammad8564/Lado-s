@@ -19,7 +19,11 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        price: {
+        unitPrice: {
+            allowNull: false,
+            type: DataTypes.DECIMAL
+        },
+        unitCost: {
             allowNull: false,
             type: DataTypes.DECIMAL
         },

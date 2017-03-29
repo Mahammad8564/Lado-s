@@ -3,14 +3,22 @@
 
     angular.module('lados').controller('CategoryController', CategoryController);
 
-    CategoryController.$inject = ['Authentication','Restangular', '$state', 'SweetAlert', '$stateParams'];
+    CategoryController.$inject = ['Authentication', 'Restangular', '$state', 'SweetAlert', '$stateParams'];
 
-    function CategoryController(Authentication,Restangular, $state, SweetAlert, $stateParams) {
+    function CategoryController(Authentication, Restangular, $state, SweetAlert, $stateParams) {
         var vm = this;
         vm.user = Authentication.user;
         console.log(vm.user);
         vm.save = save;
         vm.getList = getList;
+        vm.edit = edit;
+
+        if ($stateParams.id && $stateParams.id != 'new') {
+            Restangular.one('api/category/' + $stateParams.id).get().then(function (res) {
+                console.log(res.data);
+                vm.category = res.data;
+            });
+        }
 
         function getList() {
             Restangular.all('api/category').getList().then(function (res) {
@@ -21,13 +29,28 @@
 
 
         function save() {
-            Restangular.all('api/category').post(vm.category).then(function (res) {
-                SweetAlert.swal("Material saved successfully!");
-                $state.go('secure.category');
-            }, function (err) {
-                vm.error = err.data.message;
-                vm.startProcessing = false;
-            });
+            if (!vm.category.id) {
+                Restangular.all('api/category').post(vm.category).then(function (res) {
+                    SweetAlert.swal("Material saved successfully!");
+                    $state.go('secure.category');
+                }, function (err) {
+                    vm.error = err.data.message;
+                    vm.startProcessing = false;
+                });
+            }
+            else {
+                Restangular.one('api/category/' + vm.category.id).patch(vm.category).then(function (res) {
+                    SweetAlert.swal("Material updated successfully!");
+                    $state.go('secure.category');
+                }, function (err) {
+                    vm.error = err.data.message;
+                    vm.startProcessing = false;
+                });
+            }
+        }
+
+        function edit(obj) {
+            $state.go('secure.edit-category', { id: obj.id });
         }
     }
 
