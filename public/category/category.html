@@ -1,0 +1,18 @@
+﻿<div ng-init="vm.getList()">
+  <div class="sub-header-title">Manage Category</div>
+  <div class="search-box"><input type="text" placeholder="Search by Category Name" ng-model="search">
+    <a href="#!/secure/category/new"><input class="add-new-btn" type="button" value="Add New"></a>
+  </div>
+
+  <table class="table-part" border="0" cellspacing="0" cellpadding="0">
+    <tr class="top-purpal-color-row">
+      <th>Category Name</th>
+      <th>Status</th>
+    </tr>
+    <tr ng-repeat="data in vm.list | filter: search">
+      <td data-th="Attributes: " class="top-purpal-color-row2"><a href="">{{data.categoryName}}</a></td>
+      <td data-th="Status: " class="top-purpal-color-row2 ">{{data.isActive}}</td>
+    </tr>
+
+  </table>
+</div>

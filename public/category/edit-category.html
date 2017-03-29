@@ -1,0 +1,19 @@
+﻿<div>
+	<div class="sub-header-title">Add/Edit Category</div>
+	<div class="add-category-box-cont">
+		<label>Category Name:</label>
+		<input type="text" ng-model="vm.category.categoryName">
+	</div>
+	<div class="add-category-box-cont">
+		<label>Description:</label>
+		<textarea rows="4" cols="50" ng-model="vm.category.description"></textarea>
+	</div>
+	<div class="add-category-box-cont">
+		<label style="padding-top: 0px;">Is Active:</label>
+		<input type="checkbox" name="Is Active" style="width: auto;" ng-model="vm.category.isActive">
+	</div>
+	<div class="add-category-box-cont">
+		<label style="padding-top: 0px;">&nbsp;</label>
+		<div class="save-cancel-btn"><input class="save-new-btn" type="button" value="Save" ng-click="vm.save()"> <input class="cancel-new-btn" type="button" value="Cancel"></div>
+	</div>
+</div>
