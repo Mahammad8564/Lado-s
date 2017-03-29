@@ -10,7 +10,7 @@ module.exports = function (sequelize, DataTypes) {
             }
         },
         purchaseDate: {
-            type: DataTypes.STRING,
+            type: DataTypes.DATE,
             allowNull: false
 
         },

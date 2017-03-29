@@ -99,8 +99,22 @@
                 controller: 'PurchasesController',
                 controllerAs: 'vm'
             })
+            .state('secure.track', {
+                url: '/purchases/{purchaseId}/track',
+                params: {
+                    purchaseId: null
+                },
+                templateUrl: '/inventory/purchases/track/track.html',
+                title: 'Track',
+                highlight: 'track',
+                controller: 'TrackController',
+                controllerAs: 'vm'
+            })
             .state('secure.product', {
-                url: '/product',
+                url: '/purchases/{purchaseId}/product',
+                params: {
+                    purchaseId: null
+                },
                 templateUrl: '/inventory/purchases/product/product.html',
                 title: 'Product',
                 highlight: 'product',
@@ -108,8 +122,9 @@
                 controllerAs: 'vm'
             })
             .state('secure.edit-product', {
-                url: '/product/{id}',
+                url: '/purchases/{purchaseId}/product/{id}',
                 params: {
+                    purchaseId: null,
                     id: { value: 'new' }
                 },
                 templateUrl: '/inventory/purchases/product/edit-product.html',

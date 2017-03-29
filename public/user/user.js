@@ -13,6 +13,7 @@
         vm.list = [];
         vm.save = save;
         vm.edit = edit;
+        vm.getBranchList = getBranchList;
         vm.user = {
             isActive: true
         }
@@ -34,6 +35,12 @@
             }, function (err) {
                 console.log(err);
                 vm.error = err.data.message;
+            });
+        }
+
+        function getBranchList() {
+            Restangular.all('api/branch').getList().then(function (res) {
+                vm.branch = res.data;
             });
         }
 

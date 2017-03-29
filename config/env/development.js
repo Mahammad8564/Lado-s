@@ -1,7 +1,7 @@
 ﻿module.exports = {
     host: 'localhost',
     port: 3306,
-    dbname: "lados",
+    dbname: "ladosDb",
     dbusername: "root",
     dbpass: "root",
     sessionSecret: 'developmentSessionSecret'

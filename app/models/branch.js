@@ -24,6 +24,9 @@ module.exports = function (sequelize, DataTypes) {
 
                     Branch.hasMany(models.User);
 
+                    Branch.hasMany(models.Product);
+                    
+
                 }
             }
         }

@@ -286,8 +286,18 @@ ul.alert-dropdown {width: 200px;}
 }
 .add-product-btn:hover{background: #2da210;}
 
+.action-dropdown-menu .assign-branch-btn{
+	background: #2cba08;
+	padding: 10px;
+	color: #fff !important;
+	border-radius: 4px;
+	font-size: 16px;
+	text-align: center;
+	text-decoration: none !important;
+	margin-left:10px;
+}
 
-
+.assign-branch-btns:hover{background: #2da210;}
 /*ProT Boutique Class for notifications*/
 
 .main-contant-part{width:100%; float: left; background: #fff; padding: 30px; box-sizing: border-box;min-height: 500px;}

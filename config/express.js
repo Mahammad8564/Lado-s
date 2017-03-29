@@ -51,6 +51,8 @@ module.exports = function(){
     require('../app/routes/index.js')(app);
     require('../app/routes/branch.js')(app);
     require('../app/routes/category.js')(app);
+    require('../app/routes/purchase.js')(app);
+    require('../app/routes/product.js')(app);
 
     app.use(express.static('./public'));
     app.use(express.static('./uploads'));

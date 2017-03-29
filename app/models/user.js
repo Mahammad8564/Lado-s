@@ -50,6 +50,17 @@ module.exports = function (sequelize, DataTypes) {
             allowNull: false,
             defaultValue: false
         }
+    }, {
+        classMethods: {
+            associate: function (models) {
+                User.belongsTo(models.Branch, {
+                    onDelete: "CASCADE",
+                    foreignKey: {
+                        allowNull: true
+                    }
+                });
+            }
+        }
     }
 
 

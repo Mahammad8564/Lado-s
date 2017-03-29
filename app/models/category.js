@@ -18,7 +18,15 @@ module.exports = function (sequelize, DataTypes) {
             allowNull: false,
             defaultValue: false
         }
-    }
+    }, {
+        classMethods: {
+            associate: function (models) {
+
+                Category.hasMany(models.Product);
+
+            }
+        }
+    } 
 
     );
 

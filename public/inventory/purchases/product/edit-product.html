@@ -2,39 +2,44 @@
     <div class="sub-header-title">Add/Edit Product</div>
     <div class="add-category-box-cont">
         <label>Product Code:</label>
-        <input type="text" value="">
+        <input type="text" ng-model="vm.product.productCode">
     </div>
     <div class="add-category-box-cont">
         <label>Product Name:</label>
-        <input type="text" value="">
+        <input type="text" ng-model="vm.product.productName">
     </div>
     <div class="add-category-box-cont">
         <label>Tag:</label>
-        <input type="text" value="">
+        <input type="text" value="{{vm.product.productCode}} - {{vm.product.productName}}" disabled>
     </div>
-    <div class="add-category-box-cont">
-        <label>Category:</label>
-        <select class="select-action">
-						  <option>Select Action</option>
-						  <option>Branch 1</option>
-						  <option>Branch 2</option>
-						  <option>Branch 3</option>
-						</select>
+
+
+    <div class="add-category-box-cont" ng-init="vm.getCategoryList()">
+        <label><em style="color:Red">*</em>Category:</label>
+        <select required class="select-action" name="designId" ng-model="vm.product.CategoryId">
+            <option value="">Please Select</option>
+            <option ng-repeat="item in vm.category | filter:{isActive :true}" value="{{item.id}}">{{item.categoryName}}</option>
+        </select>
+        <!--<span ng-if="styleForm.designId.$dirty && styleForm.designId.$error.required"><i><b>Design</b></i> is required.</span>-->
     </div>
+
     <div class="add-category-box-cont">
         <label>Unit Price:</label>
-        <input type="text" value="">
+        <input type="number" ng-model="vm.product.unitPrice">
     </div>
     <div class="add-category-box-cont">
         <label>Unit Cost:</label>
-        <input type="text" value="">
+        <input type="number" ng-model="vm.product.unitCost">
     </div>
     <div class="add-category-box-cont">
         <label>Description:</label>
-        <textarea rows="4" cols="50"></textarea>
+        <textarea rows="4" cols="50" ng-model="vm.product.description"></textarea>
     </div>
     <div class="add-category-box-cont">
         <label style="padding-top: 0px;">&nbsp;</label>
-        <div class="save-cancel-btn"><input class="save-new-btn" type="button" value="Save"> <input class="add-next-btn" type="button" value="Add Next">            <input class="cancel-new-btn" type="button" value="Cancel"></div>
+        <div class="save-cancel-btn">
+            <input class="save-new-btn" type="button" value="Save" ng-click="vm.save()">
+            <input class="add-next-btn" type="button" value="Add Next" ng-click="vm.addNext()">
+            <input class="cancel-new-btn" type="button" value="Cancel" ui-sref="secure.product"></div>
     </div>
 </div>

@@ -1,7 +1,7 @@
 "use strict";
 module.exports = function (sequelize, DataTypes) {
     var Product = sequelize.define("Product", {
-        productnNme: {
+        productName: {
             type: DataTypes.STRING,
             allowNull: false,
             unique: {
@@ -14,7 +14,10 @@ module.exports = function (sequelize, DataTypes) {
             allowNull: false
 
         },
-
+        description: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
         productTag: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -28,7 +31,7 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.DECIMAL
         },
         image: {
-            allowNull: false,
+            allowNull: true,
             type: DataTypes.STRING
         }
     }, {
@@ -38,17 +41,22 @@ module.exports = function (sequelize, DataTypes) {
                     Product.belongsTo(models.Branch, {
                         onDelete: "CASCADE",
                         foreignKey: {
-                            allowNull: false
-                        },
-                        as: 'branch'
+                            allowNull: true
+                        }
                     });
 
                     Product.belongsTo(models.Category, {
                         onDelete: "CASCADE",
                         foreignKey: {
                             allowNull: false
-                        },
-                        as: 'category'
+                        }
+                    });
+
+                    Product.belongsTo(models.Purchase, {
+                        onDelete: "CASCADE",
+                        foreignKey: {
+                            allowNull: false
+                        }
                     });
                 }
             }
