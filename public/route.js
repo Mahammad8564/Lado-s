@@ -16,7 +16,7 @@
                 title: 'Login',
                 onEnter: ['$state', 'Authentication', function ($state, Authentication) {
                     if (Authentication.isAuthenticated()) {
-                        $state.go('secure.home');
+                        $state.go('secure.dashboard');
                     }
                 }],
             })

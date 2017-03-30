@@ -13,6 +13,9 @@
         vm.activate = activate;
         vm.ifLoaded = false;
 
+        Restangular.all('api/branch').getList().then(function (res) {
+            vm.branch = res.data;
+        });
         // vm.series = ['Series A', 'Series B'];
 
         function activate() {
@@ -26,7 +29,7 @@
             });
         }
 
-        function getChartByPurchase(){
+        function getChartByPurchase() {
             console.log(vm.purchaseId);
             vm.getInventoryDistribution();
         }
