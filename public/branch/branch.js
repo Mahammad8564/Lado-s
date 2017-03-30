@@ -3,9 +3,9 @@
 
     angular.module('lados').controller('BranchController', BranchController);
 
-    BranchController.$inject = ['Authentication', 'Restangular', '$state', 'SweetAlert', '$stateParams'];
+    BranchController.$inject = ['Authentication', 'Restangular', '$state', '$stateParams'];
 
-    function BranchController(Authentication, Restangular, $state, SweetAlert, $stateParams) {
+    function BranchController(Authentication, Restangular, $state, $stateParams) {
         var vm = this;
         vm.user = Authentication.user;
         vm.save = save;
@@ -41,7 +41,7 @@
 
             if (!vm.branch.id) {
                 Restangular.all('api/branch').post(vm.branch).then(function (res) {
-                    SweetAlert.swal("Material saved successfully!");
+                    swal(vm.branch.branchName, "barnch is saved successfully", "success");
                     $state.go('secure.branch');
                 }, function (err) {
                     vm.error = err.data.message;
@@ -50,7 +50,7 @@
             }
             else {
                 Restangular.one('api/branch/' + vm.branch.id).patch(vm.branch).then(function (res) {
-                    SweetAlert.swal("Material updated successfully!");
+                    swal(vm.branch.branchName, "branch is updated successfully", "success");
                     $state.go('secure.branch');
                 }, function (err) {
                     vm.error = err.data.message;

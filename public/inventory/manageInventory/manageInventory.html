@@ -1,17 +1,20 @@
 <div ng-init="vm.getList()">
     <div class="sub-header-title">Manage Inventory</div>
+    <form name="Form" novalidate>
     <div ng-if="vm.list.length" class="action-dropdown-menu" ng-init="vm.getBranchList()">
-        <select required class="select-action" name="designId" ng-model="vm.branchId">
+        <select required class="select-action" name="branchId" ng-model="vm.branchId">
             <option value="">Please Select</option>
             <option ng-repeat="item in vm.branch | filter:{isActive :true}" value="{{item.id}}">{{item.branchName}}</option>
         </select>
-        <a href="" class="assign-branch-btn" ng-click="vm.allocate()">Allocate</a>
+        <a href="" class="assign-branch-btn" ng-click="vm.allocate(Form)">Allocate</a>
+        <span class="validation-msg-error2" ng-if="(Form.branchId.$dirty || vm.isSubmitted) && Form.branchId.$error.required">Select <i>Branch</i> first.</span>
     </div>
+    </form>
     <h2 class="no-record-found-text" ng-if="!vm.list.length">No data found</h2>
 
     <table ng-if="vm.list.length" class="table-part" border="0" cellspacing="0" cellpadding="0">
         <tr class="top-purpal-color-row">
-            <th><input type="checkbox" name="Is Active"></th>
+            <th><input type="checkbox" ng-model="temp" ng-change="vm.checkAll(temp)"></th>
             <th>Product Code</th>
             <th>Product Name</th>
             <th>Tag</th>
@@ -20,7 +23,7 @@
             <th>Unit Price</th>
             <th>Unit Cost</th>
         </tr>
-        <tr ng-repeat="data in vm.list | filter: search">
+        <tr ng-repeat="data in vm.list | filter: search">{{vm.selected}}
             <td data-th="Select: " class="top-purpal-color-row2 "><input type="checkbox"  ng-model="vm.selected[data.id]"></td>
             <td data-th="Product Code: " class="top-purpal-color-row2">{{data.productCode}}</td>
             <td data-th="Product Name: " class="top-purpal-color-row2">{{data.productName}}</td>

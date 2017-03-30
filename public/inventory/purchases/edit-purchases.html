@@ -10,8 +10,12 @@
         </div>
         <div class="add-category-box-cont">
             <label>Purchase Date:</label>
-            <input type="date" name="purchaseDate" ng-model="vm.purchase.purchaseDate">
+            <input type="date" readonly name="purchaseDate" uib-datepicker-popup="" is-open="open.dob" convert-to-date ng-model="vm.purchase.purchaseDate"
+                ng-click="open.dob = !open.dob" ng-max="vm.today" required>
+            <span class="validation-msg-error" ng-if="(purchaseForm.purchaseDate.$dirty || vm.isSubmitted) && purchaseForm.purchaseDate.$error.max"><i><b>Purchase Date</b></i> should not be future date.</span>
+            <span class="validation-msg-error" ng-if="(purchaseForm.purchaseDate.$dirty || vm.isSubmitted) && purchaseForm.purchaseDate.$error.required"><i><b>Purchase Date</b></i> is required.</span>
         </div>
+
         <div class="add-category-box-cont">
             <label>Description:</label>
             <textarea rows="4" cols="50" name="description" ng-model="vm.purchase.description"></textarea>

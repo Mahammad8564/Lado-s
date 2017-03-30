@@ -3,9 +3,9 @@
 
     angular.module('lados').controller('CategoryController', CategoryController);
 
-    CategoryController.$inject = ['Authentication', 'Restangular', '$state', 'SweetAlert', '$stateParams'];
+    CategoryController.$inject = ['Authentication', 'Restangular', '$state', '$stateParams'];
 
-    function CategoryController(Authentication, Restangular, $state, SweetAlert, $stateParams) {
+    function CategoryController(Authentication, Restangular, $state, $stateParams) {
         var vm = this;
         vm.user = Authentication.user;
         console.log(vm.user);
@@ -42,7 +42,7 @@
 
             if (!vm.category.id) {
                 Restangular.all('api/category').post(vm.category).then(function (res) {
-                    SweetAlert.swal("Material saved successfully!");
+                    swal(vm.category.categoryName, "category is saved successfully.", "success");
                     $state.go('secure.category');
                 }, function (err) {
                     vm.error = err.data.message;
@@ -51,7 +51,7 @@
             }
             else {
                 Restangular.one('api/category/' + vm.category.id).patch(vm.category).then(function (res) {
-                    SweetAlert.swal("Material updated successfully!");
+                    swal(vm.category.categoryName, "category is updated successfully.", "success");
                     $state.go('secure.category');
                 }, function (err) {
                     vm.error = err.data.message;

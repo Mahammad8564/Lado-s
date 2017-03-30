@@ -7,7 +7,6 @@ var mainApplicationModule = angular.module(mainApplicationModuleName ,
         'ngAnimate',
         'ngFileUpload',
         'ui.bootstrap',
-        'angularjs-dropdown-multiselect',
         'toastr'
 ]);
 

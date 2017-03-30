@@ -3,9 +3,9 @@
 
     angular.module('lados').controller('ProductController', ProductController);
 
-    ProductController.$inject = ['Authentication', 'Restangular', '$state', 'SweetAlert', '$stateParams'];
+    ProductController.$inject = ['Authentication', 'Restangular', '$state', '$stateParams'];
 
-    function ProductController(Authentication, Restangular, $state, SweetAlert, $stateParams) {
+    function ProductController(Authentication, Restangular, $state, $stateParams) {
         var vm = this;
         vm.user = Authentication.user;
         vm.save = save;
@@ -57,7 +57,7 @@
 
             if (!vm.product.id) {
                 Restangular.all('api/product').post(vm.product).then(function (res) {
-                    SweetAlert.swal("Material saved successfully!");
+                    swal(vm.product.productCode, "product is saved successfully", "success");
                     $state.go('secure.product', { purchaseId: $stateParams.purchaseId });
                 }, function (err) {
                     vm.error = err.data.message;
@@ -66,7 +66,7 @@
             }
             else {
                 Restangular.one('api/product/' + vm.product.id).patch(vm.product).then(function (res) {
-                    SweetAlert.swal("Material updated successfully!");
+                    swal(vm.product.productCode, "product is updated successfully", "success");
                     $state.go('secure.product', { purchaseId: $stateParams.purchaseId });
                 }, function (err) {
                     vm.error = err.data.message;

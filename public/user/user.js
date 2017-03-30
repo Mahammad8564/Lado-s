@@ -5,9 +5,9 @@
 
     angular.module('lados').controller('UserController', UserController);
 
-    UserController.$inject = ['Restangular', '$state', 'SweetAlert', '$stateParams','Authentication'];
+    UserController.$inject = ['Restangular', '$state', '$stateParams','Authentication'];
 
-    function UserController(Restangular, $state, SweetAlert, $stateParams, Authentication) {
+    function UserController(Restangular, $state, $stateParams, Authentication) {
         var vm = this;
         vm.currentUser = Authentication.user;
         vm.list = [];
@@ -65,7 +65,7 @@
             }
             vm.startProcessing = true;
             Restangular.one('api/user/' + vm.user.id + '/reset').patch(vm.user1).then(function (res) {
-                SweetAlert.swal("Password reset successfully!");
+                swal("Password reset successfully!");
                 $state.go('secure.user');
             }, function (err) {
                 console.log(err);
@@ -93,7 +93,7 @@
                     return true;
                 }
                 Restangular.all('api/user').post(vm.user).then(function (res) {
-                    SweetAlert.swal("User saved successfully!");
+                    swal(vm.user.username, "username is saved successfully", "success");
                     $state.go('secure.user');
                 }, function (err) {
                     console.log(err);
@@ -103,7 +103,7 @@
             }
             else {
                 Restangular.one('api/user/' + vm.user.id).patch(vm.user).then(function (res) {
-                    SweetAlert.swal("User updated successfully!");
+                    swal(vm.user.username, "username is updated successfully", "success");
                     $state.go('secure.user');
                 }, function (err) {
                     console.log(err);

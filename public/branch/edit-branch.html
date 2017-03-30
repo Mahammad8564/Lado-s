@@ -4,6 +4,7 @@
 		<div class="add-category-box-cont">
 			<label>Branch Name:</label>
 			<input type="text" name="branchName" ng-model="vm.branch.branchName" ng-minlength="2" ng-maxlength="50" required>
+			<span class="validation-msg-error">{{vm.error}}</span>
 			<span class="validation-msg-error" ng-if="(branchForm.branchName.$dirty || vm.isSubmitted) && branchForm.branchName.$error.required"><i><b>Branch name</b></i> is required.</span>
 			<span class="validation-msg-error" ng-if="(branchForm.branchName.$dirty || vm.isSubmitted) && branchForm.branchName.$error.minlength"><i><b>Branch name</b></i> should be at least 2 characters long.</span>
 			<span class="validation-msg-error" ng-if="(branchForm.branchName.$dirty || vm.isSubmitted) && branchForm.branchName.$error.maxlength"><i><b>Branch name</b></i> should not be more than 50 characters long.</span>
