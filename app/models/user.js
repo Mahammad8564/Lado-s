@@ -59,6 +59,8 @@ module.exports = function (sequelize, DataTypes) {
                         allowNull: true
                     }
                 });
+
+                User.hasMany(models.Sale);
             }
         }
     }

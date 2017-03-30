@@ -53,6 +53,7 @@ module.exports = function(){
     require('../app/routes/category.js')(app);
     require('../app/routes/purchase.js')(app);
     require('../app/routes/product.js')(app);
+    require('../app/routes/sale')(app);
 
     app.use(express.static('./public'));
     app.use(express.static('./uploads'));

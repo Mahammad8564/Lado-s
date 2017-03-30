@@ -42,6 +42,17 @@
                 controller: 'HomeController',
                 controllerAs: 'vm'
             })
+            .state('secure.edit-home', {
+                url: '/home/{id}',
+                params: {
+                    id: { value: 'new' }
+                },
+                templateUrl: '/home/edit-home.html',
+                title: 'Home',
+                highlight: 'dashboard',
+                controller: 'HomeController',
+                controllerAs: 'vm'
+            })
 
             .state('secure.category', {
                 url: '/category',

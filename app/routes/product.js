@@ -17,6 +17,9 @@ module.exports = function (app) {
     app.route('/api/unallocateProduct')
         .get(product.list2);
 
+    app.route('/api/unsold/:BranchId')
+        .get(product.getUnsoldList);
+
     app.route('/api/getByBranchId/:BranchId')
         .get(product.getByBranchId);
 

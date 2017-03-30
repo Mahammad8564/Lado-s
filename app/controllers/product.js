@@ -45,6 +45,20 @@ exports.list2 = function (req, res) {
     });
 }
 
+exports.getUnsoldList = function (req, res) {
+    Product.findAndCountAll({
+        where: { BranchId: req.params.BranchId,status: 'new' },
+        include: [Category, Purchase]
+        // include: [{ model: Category }, { model: Purchase }]
+    }).then(function (arrs) {
+        res.setHeader('total', arrs.count);
+        res.json(arrs.rows);
+    }).catch(function (err) {
+        console.log(err);
+        res.status(400).send({ message: getErrorMessage(err) });
+    });
+}
+
 exports.read = function (req, res) {
     res.json(req.product);
 }

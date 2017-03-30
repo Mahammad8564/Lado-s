@@ -30,9 +30,10 @@ module.exports = function (sequelize, DataTypes) {
             allowNull: false,
             type: DataTypes.DECIMAL
         },
-        image: {
-            allowNull: true,
-            type: DataTypes.STRING
+        status: {
+            allowNull: false,
+            type: DataTypes.STRING,
+            defaultValue: 'new'
         }
     }, {
             classMethods: {
@@ -58,6 +59,8 @@ module.exports = function (sequelize, DataTypes) {
                             allowNull: false
                         }
                     });
+
+                    Product.hasOne(models.Sale);
                 }
             }
         }

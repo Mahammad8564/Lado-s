@@ -94,6 +94,7 @@
             if (!vm.product.id) {
                 Restangular.all('api/product').post(vm.product).then(function (res) {
                     vm.product = {};
+                    // $state.go('secure.product');
                 }, function (err) {
                     vm.error = err.data.message;
                     vm.startProcessing = false;
@@ -102,6 +103,7 @@
             else {
                 Restangular.one('api/product/' + vm.product.id).patch(vm.product).then(function (res) {
                     vm.product = {};
+                    // $state.go('secure.product');
                 }, function (err) {
                     vm.error = err.data.message;
                     vm.startProcessing = false;
