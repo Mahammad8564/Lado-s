@@ -4,9 +4,11 @@ var mainApplicationModule = angular.module(mainApplicationModuleName ,
         'ui.router',
         'restangular',
         'oitozero.ngSweetAlert',
+        'ngAnimate',
         'ngFileUpload',
         'ui.bootstrap',
-        'angularjs-dropdown-multiselect'
+        'angularjs-dropdown-multiselect',
+        'toastr'
 ]);
 
 angular.element(document).ready(function () {

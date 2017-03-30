@@ -1,22 +1,27 @@
 ﻿<div>
 	<div class="sub-header-title">Add/Edit Category</div>
-	<div class="add-category-box-cont">
-		<label>Category Name:</label>
-		<input type="text" ng-model="vm.category.categoryName">
-	</div>
-	<div class="add-category-box-cont">
-		<label>Description:</label>
-		<textarea rows="4" cols="50" ng-model="vm.category.description"></textarea>
-	</div>
-	<div class="add-category-box-cont">
-		<label style="padding-top: 0px;">Is Active:</label>
-		<input type="checkbox" name="Is Active" style="width: auto;" ng-init="vm.category.isActive = true" ng-model="vm.category.isActive">
-	</div>
-	<div class="add-category-box-cont">
-		<label style="padding-top: 0px;">&nbsp;</label>
-		<div class="save-cancel-btn">
-			<input class="save-new-btn" type="button" value="Save" ng-click="vm.save()"> 
-		<input class="cancel-new-btn" type="button" value="Cancel" ui-sref="secure.category">
+	<form name="categoryForm" novalidate>
+		<div class="add-category-box-cont">
+			<label>Category Name:</label>
+			<input type="text" name="categoryName" ng-model="vm.category.categoryName" required ng-minlength="2" ng-maxlength="50">
+			<span class="validation-msg-error" ng-if="(categoryForm.categoryName.$dirty || vm.isSubmitted) && categoryForm.categoryName.$error.required"><i><b>Category name</b></i> is required.</span>
+			<span class="validation-msg-error" ng-if="(categoryForm.categoryName.$dirty || vm.isSubmitted) && categoryForm.categoryName.$error.minlength"><i><b>Category name</b></i> should be at least 2 characters long.</span>
+			<span class="validation-msg-error" ng-if="(categoryForm.categoryName.$dirty || vm.isSubmitted) && categoryForm.categoryName.$error.maxlength"><i><b>Category name</b></i> should not be more than 50 characters long.</span>
 		</div>
-	</div>
+		<div class="add-category-box-cont">
+			<label>Description:</label>
+			<textarea rows="4" cols="50" ng-model="vm.category.description"></textarea>
+		</div>
+		<div class="add-category-box-cont">
+			<label style="padding-top: 0px;">Is Active:</label>
+			<input type="checkbox" name="Is Active" style="width: auto;" ng-init="vm.category.isActive = true" ng-model="vm.category.isActive">
+		</div>
+		<div class="add-category-box-cont">
+			<label style="padding-top: 0px;">&nbsp;</label>
+			<div class="save-cancel-btn">
+				<input class="save-new-btn" type="button" value="Save" ng-click="vm.save(categoryForm)">
+				<input class="cancel-new-btn" type="button" value="Cancel" ui-sref="secure.category">
+			</div>
+		</div>
+	</form>
 </div>

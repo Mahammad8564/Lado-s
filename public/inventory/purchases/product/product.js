@@ -39,7 +39,18 @@
         }
 
 
-        function save() {
+        function save(form) {
+
+            if (form.$invalid) {
+                _.forEach(form.$error, function (err) {
+                    _.forEach(err, function (frm) {
+                        frm.$setDirty();
+                    });
+                });
+                vm.isSubmitted = true;
+                return;
+            }
+
             vm.product.PurchaseId = $stateParams.purchaseId;
             vm.product.productTag = vm.product.productCode + ' - ' + vm.product.productName;
             vm.product.categoryId = parseInt(vm.product.categoryId);
@@ -64,7 +75,18 @@
             }
         }
 
-        function addNext() {
+        function addNext(form) {
+
+            if (form.$invalid) {
+                _.forEach(form.$error, function (err) {
+                    _.forEach(err, function (frm) {
+                        frm.$setDirty();
+                    });
+                });
+                vm.isSubmitted = true;
+                return;
+            }
+
             vm.product.PurchaseId = $stateParams.purchaseId;
             vm.product.productTag = vm.product.productCode + ' - ' + vm.product.productName;
             vm.product.CategoryId = parseInt(vm.product.CategoryId);

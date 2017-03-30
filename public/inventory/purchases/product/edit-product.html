@@ -1,45 +1,53 @@
 <div>
     <div class="sub-header-title">Add/Edit Product</div>
-    <div class="add-category-box-cont">
-        <label>Product Code:</label>
-        <input type="text" ng-model="vm.product.productCode">
-    </div>
-    <div class="add-category-box-cont">
-        <label>Product Name:</label>
-        <input type="text" ng-model="vm.product.productName">
-    </div>
-    <div class="add-category-box-cont">
-        <label>Tag:</label>
-        <input type="text" value="{{vm.product.productCode}} - {{vm.product.productName}}" disabled>
-    </div>
+    <form name="productForm" novalidate>
+        <div class="add-category-box-cont">
+            <label>Product Code:</label>
+            <input type="text" name="productCode" ng-model="vm.product.productCode" required>
+            <span class="validation-msg-error" ng-if="(productForm.productCode.$dirty || vm.isSubmitted) && productForm.productCode.$error.required"><i><b>Product Code</b></i> is required.</span>
+        </div>
+        <div class="add-category-box-cont">
+            <label>Product Name:</label>
+            <input type="text" name="productName" ng-model="vm.product.productName" ng-minlength="2" ng-maxlength="50" required>
+            <span class="validation-msg-error" ng-if="(productForm.productName.$dirty || vm.isSubmitted) && productForm.productName.$error.required"><i><b>Product Name</b></i> is required.</span>
+            <span class="validation-msg-error" ng-if="(productForm.productName.$dirty || vm.isSubmitted) && productForm.productName.$error.minlength"><i><b>Product Name</b></i> should be at least 2 characters long.</span>
+            <span class="validation-msg-error" ng-if="(productForm.productName.$dirty || vm.isSubmitted) && productForm.productName.$error.maxlength"><i><b>Product Name</b></i> should not be more than 50 characters long.</span>
+        </div>
+        <div class="add-category-box-cont">
+            <label>Tag:</label>
+            <input type="text" value="{{vm.product.productCode}} - {{vm.product.productName}}" disabled>
+        </div>
 
 
-    <div class="add-category-box-cont" ng-init="vm.getCategoryList()">
-        <label><em style="color:Red">*</em>Category:</label>
-        <select required class="select-action" name="designId" ng-model="vm.product.CategoryId">
+        <div class="add-category-box-cont" ng-init="vm.getCategoryList()">
+            <label><em style="color:Red">*</em>Category:</label>
+            <select required class="select-action" name="CategoryId" ng-model="vm.product.CategoryId">
             <option value="">Please Select</option>
             <option ng-repeat="item in vm.category | filter:{isActive :true}" value="{{item.id}}">{{item.categoryName}}</option>
         </select>
-        <!--<span ng-if="styleForm.designId.$dirty && styleForm.designId.$error.required"><i><b>Design</b></i> is required.</span>-->
-    </div>
+            <span class="validation-msg-error" ng-if="(productForm.CategoryId.$dirty || vm.isSubmitted) && productForm.CategoryId.$error.required"><i><b>Category</b></i> is required.</span>
+        </div>
 
-    <div class="add-category-box-cont">
-        <label>Unit Price:</label>
-        <input type="number" ng-model="vm.product.unitPrice">
-    </div>
-    <div class="add-category-box-cont">
-        <label>Unit Cost:</label>
-        <input type="number" ng-model="vm.product.unitCost">
-    </div>
-    <div class="add-category-box-cont">
-        <label>Description:</label>
-        <textarea rows="4" cols="50" ng-model="vm.product.description"></textarea>
-    </div>
-    <div class="add-category-box-cont">
-        <label style="padding-top: 0px;">&nbsp;</label>
-        <div class="save-cancel-btn">
-            <input class="save-new-btn" type="button" value="Save" ng-click="vm.save()">
-            <input class="add-next-btn" type="button" value="Add Next" ng-click="vm.addNext()">
-            <input class="cancel-new-btn" type="button" value="Cancel" ui-sref="secure.product"></div>
-    </div>
+        <div class="add-category-box-cont">
+            <label>Unit Price:</label>
+            <input type="number" name="unitPrice" ng-model="vm.product.unitPrice" required>
+            <span class="validation-msg-error" ng-if="(productForm.unitPrice.$dirty || vm.isSubmitted) && productForm.unitPrice.$error.required"><i><b>Unit Price</b></i> is required.</span>
+        </div>
+        <div class="add-category-box-cont">
+            <label>Unit Cost:</label>
+            <input type="number" name="unitCost" ng-model="vm.product.unitCost" required>
+            <span class="validation-msg-error" ng-if="(productForm.unitCost.$dirty || vm.isSubmitted) && productForm.unitCost.$error.required"><i><b>Unit Cost</b></i> is required.</span>
+        </div>
+        <div class="add-category-box-cont">
+            <label>Description:</label>
+            <textarea rows="4" cols="50" name="" ng-model="vm.product.description"></textarea>
+        </div>
+        <div class="add-category-box-cont">
+            <label style="padding-top: 0px;">&nbsp;</label>
+            <div class="save-cancel-btn">
+                <input class="save-new-btn" type="button" value="Save" ng-click="vm.save(productForm)">
+                <input class="add-next-btn" type="button" value="Add Next" ng-click="vm.addNext(productForm)">
+                <input class="cancel-new-btn" type="button" value="Cancel" ui-sref="secure.product"></div>
+        </div>
+    </form>
 </div>

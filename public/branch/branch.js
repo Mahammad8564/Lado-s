@@ -27,7 +27,17 @@
         }
 
 
-        function save() {
+        function save(form) {
+
+            if (form.$invalid) {
+                _.forEach(form.$error, function (err) {
+                    _.forEach(err, function (frm) {
+                        frm.$setDirty();
+                    });
+                });
+                vm.isSubmitted = true;
+                return;
+            }
 
             if (!vm.branch.id) {
                 Restangular.all('api/branch').post(vm.branch).then(function (res) {

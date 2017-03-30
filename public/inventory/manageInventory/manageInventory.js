@@ -3,15 +3,17 @@
 
     angular.module('lados').controller('ManageInventoryController', ManageInventoryController);
 
-    ManageInventoryController.$inject = ['Authentication', 'Restangular', '$state', 'SweetAlert', '$stateParams'];
+    ManageInventoryController.$inject = ['Authentication', 'Restangular', '$state', 'SweetAlert', '$stateParams','toastr'];
 
-    function ManageInventoryController(Authentication, Restangular, $state, SweetAlert, $stateParams) {
+    function ManageInventoryController(Authentication, Restangular, $state, SweetAlert, $stateParams,toastr) {
         var vm = this;
         vm.selected = {};
         vm.user = Authentication.user;
         vm.getList = getList;
         vm.allocate = allocate;
         vm.getBranchList = getBranchList;
+
+        toastr.success('Hello world!', 'Toastr fun!');
 
         function getBranchList() {
             Restangular.all('api/branch').getList().then(function (res) {

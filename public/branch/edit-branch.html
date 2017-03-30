@@ -1,22 +1,27 @@
 ﻿<div>
 	<div class="sub-header-title">Add/Edit Branch</div>
-	<div class="add-category-box-cont">
-		<label>Branch Name:</label>
-		<input type="text" ng-model="vm.branch.branchName">
-	</div>
-	<div class="add-category-box-cont">
-		<label>Description:</label>
-		<textarea rows="4" cols="50" ng-model="vm.branch.description"></textarea>
-	</div>
-	<div class="add-category-box-cont">
-		<label style="padding-top: 0px;">Is Active:</label>
-		<input type="checkbox" name="Is Active" style="width: auto;" ng-init="vm.branch.isActive = true" ng-model="vm.branch.isActive">
-	</div>
-	<div class="add-category-box-cont">
-		<label style="padding-top: 0px;">&nbsp;</label>
-		<div class="save-cancel-btn">
-			<input class="save-new-btn" type="button" value="Save" ng-click="vm.save()"> 
-			<input class="cancel-new-btn" type="button" value="Cancel" ui-sref="secure.branch">
+	<form name="branchForm" novalidate>
+		<div class="add-category-box-cont">
+			<label>Branch Name:</label>
+			<input type="text" name="branchName" ng-model="vm.branch.branchName" ng-minlength="2" ng-maxlength="50" required>
+			<span class="validation-msg-error" ng-if="(branchForm.branchName.$dirty || vm.isSubmitted) && branchForm.branchName.$error.required"><i><b>Branch name</b></i> is required.</span>
+			<span class="validation-msg-error" ng-if="(branchForm.branchName.$dirty || vm.isSubmitted) && branchForm.branchName.$error.minlength"><i><b>Branch name</b></i> should be at least 2 characters long.</span>
+			<span class="validation-msg-error" ng-if="(branchForm.branchName.$dirty || vm.isSubmitted) && branchForm.branchName.$error.maxlength"><i><b>Branch name</b></i> should not be more than 50 characters long.</span>
 		</div>
-	</div>
+		<div class="add-category-box-cont">
+			<label>Description:</label>
+			<textarea rows="4" cols="50" ng-model="vm.branch.description"></textarea>
+		</div>
+		<div class="add-category-box-cont">
+			<label style="padding-top: 0px;">Is Active:</label>
+			<input type="checkbox" name="Is Active" style="width: auto;" ng-init="vm.branch.isActive = true" ng-model="vm.branch.isActive">
+		</div>
+		<div class="add-category-box-cont">
+			<label style="padding-top: 0px;">&nbsp;</label>
+			<div class="save-cancel-btn">
+				<input class="save-new-btn" type="button" value="Save" ng-click="vm.save(branchForm)">
+				<input class="cancel-new-btn" type="button" value="Cancel" ui-sref="secure.branch">
+			</div>
+		</div>
+	</form>
 </div>

@@ -28,7 +28,18 @@
         }
 
 
-        function save() {
+        function save(form) {
+
+            if (form.$invalid) {
+                _.forEach(form.$error, function (err) {
+                    _.forEach(err, function (frm) {
+                        frm.$setDirty();
+                    });
+                });
+                vm.isSubmitted = true;
+                return;
+            }
+
             if (!vm.category.id) {
                 Restangular.all('api/category').post(vm.category).then(function (res) {
                     SweetAlert.swal("Material saved successfully!");
