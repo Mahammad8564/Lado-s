@@ -1,92 +1,68 @@
-﻿
-
-(function () {
+﻿(function () {
     'use strict';
 
     angular.module('lados').controller('DashboardController', DashboardController);
 
-    DashboardController.$inject = ['Restangular','$state'];
-    
+    DashboardController.$inject = ['Restangular', '$state'];
+
     function DashboardController(Restangular, $state) {
         var vm = this;
-        vm.getList = getList;
-        vm.search = search;
-        vm.order = order;
-        vm.pageChange = pageChange;
+        vm.getInventoryDistribution = getInventoryDistribution;
+        vm.getPurchaseList = getPurchaseList;
+        vm.getChartByPurchase = getChartByPurchase;
         vm.activate = activate;
-        vm.edit = edit;
-        vm.list = {
-            //one: [],
-            //two: [],
-            //three: [],
-            //four : []
-        }
-        vm.options = {
-            one: {
-                pagesize: 10,
-                totalItems: 0,
-                page: 1,
-                search: '',
-                where: 'OrderStatusId;$or|a|1.2',
-                sort: 'deliveryDate asc'
-            },
-            two: {
-                pagesize: 10,
-                totalItems: 0,
-                page: 1,
-                search: '',
-                where: 'OrderStatusId;1',
-                sort: 'deliveryDate asc'
-            },
-            three: {
-                pagesize: 10,
-                totalItems: 0,
-                page: 1,
-                search: '',
-                where: 'OrderStatusId;3',
-                sort: 'completeDate desc'
-            },
-            four: {
-                pagesize: 10,
-                totalItems: 0,
-                page: 1,
-                search: '',
-                where: 'OrderStatusId;4',
-                sort: 'cancelDate desc'
-            }
+        vm.ifLoaded = false;
+
+        // vm.series = ['Series A', 'Series B'];
+
+        function activate() {
+            vm.getPurchaseList();
+            vm.getInventoryDistribution();
         }
 
-        function edit(obj) {
-            $state.go('secure.edit-order', { id: obj.OrderId });
-        }
-        function getList(typ) {
-            Restangular.all('api/orderItem').getList(vm.options[typ]).then(function (res) {
-                vm.list[typ] = res.data;
-                vm.options[typ].totalItems = parseInt(res.headers('total'));
+        function getPurchaseList() {
+            Restangular.all('api/purchase').getList().then(function (res) {
+                vm.purchase = res.data;
             });
         }
-        function activate() {
-            getList('one');
-            getList('two');
-            getList('three');
-            getList('four');
+
+        function getChartByPurchase(){
+            console.log(vm.purchaseId);
+            vm.getInventoryDistribution();
         }
 
-        function pageChange(typ) {
-            getList(typ);
-        }
-        function search(typ) {
-            vm.options[typ].page = 1;
-            getList(typ);
+
+        function getInventoryDistribution() {
+            if (vm.purchaseId == 'All') {
+                vm.labels = [];
+                vm.data = [];
+                Restangular.all('api/branch').getList().then(function (res) {
+                    res.data.forEach(function (element) {
+                        vm.labels.push(element.branchName);
+                        Restangular.all('api/getByBranchId/' + element.id).getList().then(function (res) {
+                            vm.data.push(res.data.length);
+                        });
+                        // vm.data.push(0);
+                    }, this);
+                });
+            }
+            else {
+                vm.labels = [];
+                vm.data = [];
+                Restangular.all('api/branch').getList().then(function (res) {
+                    res.data.forEach(function (element) {
+                        vm.labels.push(element.branchName);
+                        Restangular.all('api/getByBranchIdByInventory/' + element.id + '/' + vm.purchaseId).getList().then(function (res) {
+                            vm.data.push(res.data.length);
+                        });
+                        // vm.data.push(0);
+                    }, this);
+                });
+            }
+
         }
 
-        function order(col, ord) {
-            vm.asc = !vm.asc;
-            var ascL = vm.asc ? 'asc' : 'desc';
-            vm.options.sort = col + ' ' + ascL;
-            vm.options.page = 1;
-            getList(typ);
-        }
+
     }
 
 })();

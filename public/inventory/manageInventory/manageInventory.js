@@ -15,14 +15,13 @@
         vm.checkAll = checkAll;
 
         function checkAll(bool){
-            console.log(bool);
             if(bool){
                 vm.list.forEach(function(element) {
-                    // vm.selected.push({element.id:true});
+                    vm.selected[element.id] = true;
                 }, this);
             }
             else{
-
+                vm.selected = {};
             }
         }
 

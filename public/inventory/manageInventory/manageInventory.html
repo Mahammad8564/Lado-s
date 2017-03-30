@@ -23,7 +23,7 @@
             <th>Unit Price</th>
             <th>Unit Cost</th>
         </tr>
-        <tr ng-repeat="data in vm.list | filter: search">{{vm.selected}}
+        <tr ng-repeat="data in vm.list | filter: search">
             <td data-th="Select: " class="top-purpal-color-row2 "><input type="checkbox"  ng-model="vm.selected[data.id]"></td>
             <td data-th="Product Code: " class="top-purpal-color-row2">{{data.productCode}}</td>
             <td data-th="Product Name: " class="top-purpal-color-row2">{{data.productName}}</td>

@@ -76,7 +76,7 @@
                 url: '/manageInventory',
                 templateUrl: '/inventory/manageInventory/manageInventory.html',
                 title: 'Manage Inventory',
-                highlight: 'manageInventory',
+                highlight: 'inventory',
                 controller: 'ManageInventoryController',
                 controllerAs: 'vm'
             })
@@ -84,7 +84,7 @@
                 url: '/purchases',
                 templateUrl: '/inventory/purchases/purchases.html',
                 title: 'Purchases',
-                highlight: 'purchases',
+                highlight: 'inventory',
                 controller: 'PurchasesController',
                 controllerAs: 'vm'
             })
@@ -95,7 +95,7 @@
                 },
                 templateUrl: '/inventory/purchases/edit-purchases.html',
                 title: 'Purchases',
-                highlight: 'purchases',
+                highlight: 'inventory',
                 controller: 'PurchasesController',
                 controllerAs: 'vm'
             })
@@ -106,7 +106,7 @@
                 },
                 templateUrl: '/inventory/purchases/track/track.html',
                 title: 'Track',
-                highlight: 'track',
+                highlight: 'inventory',
                 controller: 'TrackController',
                 controllerAs: 'vm'
             })
@@ -117,7 +117,7 @@
                 },
                 templateUrl: '/inventory/purchases/product/product.html',
                 title: 'Product',
-                highlight: 'product',
+                highlight: 'inventory',
                 controller: 'ProductController',
                 controllerAs: 'vm'
             })
@@ -129,7 +129,7 @@
                 },
                 templateUrl: '/inventory/purchases/product/edit-product.html',
                 title: 'Product',
-                highlight: 'product',
+                highlight: 'inventory',
                 controller: 'ProductController',
                 controllerAs: 'vm'
             })
@@ -138,7 +138,7 @@
                 url: '/sales',
                 templateUrl: '/inventory/sales/sales.html',
                 title: 'Sales',
-                highlight: 'sales',
+                highlight: 'inventory',
                 controller: 'SalesController',
                 controllerAs: 'vm'
             })

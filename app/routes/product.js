@@ -9,13 +9,19 @@ module.exports = function (app) {
     app.route('/api/product/:productId')
         .get(product.read)
         .patch(product.update);
-        //.delete(measurement.delete);
+    //.delete(measurement.delete);
 
     app.route('/api/productByPurchase/:purchaseId')
         .get(product.getByPurchaseId);
 
     app.route('/api/unallocateProduct')
         .get(product.list2);
+
+    app.route('/api/getByBranchId/:BranchId')
+        .get(product.getByBranchId);
+
+    app.route('/api/getByBranchIdByInventory/:BranchId/:PurchaseId')
+        .get(product.getByBranchIdByInventory);
 
     app.param('productId', product.getById);
     // app.param('purchaseId', product.getByPurchaseId);

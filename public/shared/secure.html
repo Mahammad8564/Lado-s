@@ -16,12 +16,12 @@
         <ul class="nav navbar-right top-nav">
 
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="user-img"><img src="images/default.png" alt=""/></i> Admin <b class="caret"></b></a>
-                <ul class="dropdown-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="user-img"> <img src="images/default.png" alt=""/></i> </a>
+                <!--<ul class="dropdown-menu">
                     <li><a href="#"><i class="fa fa-fw fa-user"></i> My Account</a></li>
                     <li class="divider"></li>
                     <li><a href="#"><i class="fa fa-fw fa-power-off"></i> Sign Out</a></li>
-                </ul>
+                </ul>-->
             </li>
         </ul>
         <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
@@ -32,13 +32,13 @@
     <div id="page-wrapper">
         <div class="main-top-icon-box">
             <ul>
-                <li class="active"><a href="#!/secure/home"><span><img src="images/dashboard-icon.png" alt="" /></span>Dashboard</a><i class="li-arrow-corner"></i></li>
-                <li><a href="#!/secure/inventory"><span><img src="images/inventory.png" alt="" /></span>Inventory</a></li>
-                <li><a href="#!/secure/category"><span><img src="images/categories.png" alt="" /></span>Categories</a></li>
-                <li><a href="#!/secure/branch"><span><img src="images/branches.png" alt="" /></span>Branches</a></li>
-                <li><a href="#!/secure/user"><span><img src="images/users.png" alt="" /></span>Users</a></li>
-                <li><a href="#!/secure/notifications"><span><img src="images/notification-icon.png" alt="" /></span>Notifications</a></li>
-                <li><a href="#!/secure/home"><span><img src="images/reports-icon.png" alt="" /></span>Reports</a></li>
+                <li ng-class="{'active' : $root.toState.highlight === 'dashboard'}"><a  href="#!/secure/dashboard"><span><img src="images/dashboard-icon.png" alt="" /></span>Dashboard</a><i ng-class="{'li-arrow-corner' : $root.toState.highlight === 'dashboard'}"></i></li>
+                <li ng-class="{'active' : $root.toState.highlight === 'inventory'}"><a href="#!/secure/inventory"><span><img src="images/inventory.png" alt="" /></span>Inventory</a><i ng-class="{'li-arrow-corner' : $root.toState.highlight === 'inventory'}"></i></li>
+                <li ng-class="{'active' : $root.toState.highlight === 'category'}"><a href="#!/secure/category"><span><img src="images/categories.png" alt="" /></span>Categories</a><i ng-class="{'li-arrow-corner' : $root.toState.highlight === 'category'}"></i></li>
+                <li ng-class="{'active' : $root.toState.highlight === 'branch'}"><a href="#!/secure/branch"><span><img src="images/branches.png" alt="" /></span>Branches</a><i ng-class="{'li-arrow-corner' : $root.toState.highlight === 'branch'}"></i></li>
+                <li ng-class="{'active' : $root.toState.highlight === 'user'}"><a href="#!/secure/user"><span><img src="images/users.png" alt="" /></span>Users</a><i ng-class="{'li-arrow-corner' : $root.toState.highlight === 'user'}"></i></li>
+                <li ng-class="{'active' : $root.toState.highlight === 'notifications'}"><a href="#!/secure/notifications"><span><img src="images/notification-icon.png" alt="" /></span>Notifications</a><i ng-class="{'li-arrow-corner' : $root.toState.highlight === 'notifications'}"></i></li>
+                <li ng-class="{'active' : $root.toState.highlight === 'reports'}"><a href="#!/secure/reports"><span><img src="images/reports-icon.png" alt="" /></span>Reports</a><i ng-class="{'li-arrow-corner' : $root.toState.highlight === 'reports'}"></i></li>
             </ul>
         </div>
 

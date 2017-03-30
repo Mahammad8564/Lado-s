@@ -73,6 +73,29 @@ exports.getByPurchaseId = function (req, res, next) {
     });
 }
 
+exports.getByBranchId = function (req, res, next) {
+    Product.findAll({
+        where: { BranchId: req.params.BranchId },
+    }).then(function (obj) {
+        res.json(obj);
+        next();
+    }).catch(function (err) {
+        res.status(400).send({ message: getErrorMessage(err) });
+    });
+}
+
+exports.getByBranchIdByInventory = function (req, res, next) {
+    Product.findAll({
+        where: { BranchId: req.params.BranchId, PurchaseId: req.params.PurchaseId },
+    }).then(function (obj) {
+        res.json(obj);
+        next();
+    }).catch(function (err) {
+        res.status(400).send({ message: getErrorMessage(err) });
+    });
+}
+
+
 exports.create = function (req, res) {
     Product.create(req.body).then(function (obj) {
         if (!obj) {

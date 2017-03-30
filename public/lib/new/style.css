@@ -101,8 +101,8 @@ ul.alert-dropdown {width: 200px;}
 .main-top-icon-box ul li{list-style: none;width:162px; cursor: pointer;float: left; position: relative; background: #2c2c2c; height: 100px; border-radius: 5px; color: #fff; font-size: 15px; font-weight: 600; text-align: center; margin-left: 20px;}
 
 .main-top-icon-box ul li:first-child{margin-left: 0px;}
-.main-top-icon-box ul li a{color: #fff; outline:0; border:0;}
-.main-top-icon-box ul li a:hover{text-decoration: none; outline:0; border:0;}
+.main-top-icon-box ul li a{color: #fff; outline:0; border:0;text-decoration: none;}
+.main-top-icon-box ul li a:hover{text-decoration: none; outline:0; border:0;text-decoration: none;}
 .main-top-icon-box ul li a span{width: 100%; display: table;}
 .main-top-icon-box ul li a span img{width:42%;margin-top: 12px;padding-bottom: 4px; outline:0; border:0;}
 .main-top-icon-box ul li:hover{background: #2fb0fa;-webkit-transition: color 300ms, background-color 300ms;
@@ -111,7 +111,7 @@ ul.alert-dropdown {width: 200px;}
   transition:  color 300ms, background-color 300ms;
 }
 /*.main-top-icon-box ul li::before{content: ""; position: absolute;bottom: 0px; left: 0px; z-index: 999; background: url("cont-arrow-icon.png") no-repeat;}*/
-.main-top-icon-box ul li.active{background: #2fb0fa;}
+.main-top-icon-box ul li.active{background: #2fb0fa; text-decoration: none;}
 
 .no-record-found-text {
     text-align: center;
@@ -121,6 +121,13 @@ ul.alert-dropdown {width: 200px;}
     border-radius: 4px;
     margin-top: 15px;
 	box-sizing: border-box;
+}
+
+.dashboard-bx-align{
+	margin-bottom: 50px;
+    width: 49%;
+    float: left;
+    margin-right: 10px;
 }
 
 .main-footer{width:100%; float: left; background: #1d1d1d; height: 40px; line-height: 40px; text-align: center; font-size: 15px; color: #fff; position: fixed; bottom: 0px; z-index: 999;}
@@ -514,6 +521,145 @@ transform: translate(-50%, -50%);
   box-sizing: border-box;
   margin-bottom: 15px;
 }
+
+
+/*====================Radio Tab=========================*/
+
+
+.tabGroup {
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+}
+
+/* Configure the radio buttons to hide off screen */
+.tabGroup > input[type="radio"] {
+    position: absolute;
+    left:-100px;
+    top:-100px;
+}
+
+.wd{
+    width: 230px !important;
+}
+
+.fromtodatepicker{
+    float: left;
+        margin-right: 25px;width:21%;
+}
+
+/* Configure labels to look like tabs */
+.tabGroup > input[type="radio"] + label {
+    /* inline-block such that the label can be given dimensions */
+    display: inline-block;
+     cursor: pointer;
+    font-size: 15px;
+    /* A nice curved border around the tab */
+    border: 1px solid #00BFFF;
+    border-radius: 4px 4px 0 0;
+    -moz-border-radius: 4px 4px 0 0;
+    -webkit-border-radius: 4px 4px 0 0;
+
+    /* the bottom border is handled by the tab content div */
+    border-bottom: 0;
+
+    /* Padding around tab text */
+    padding: 10px 0px;
+    color: #fff;
+
+    /* Set the background color to default gray (non-selected tab) */
+    background-color:#00BFFF;
+    width: 150px;
+    text-align: center;
+    margin-bottom: 0px !important;
+}
+
+/* Focused tabs need to be highlighted as such */
+.tabGroup > input[type="radio"]:focus + label {
+    border:1px solid #DEDBD1; cursor: pointer;
+}
+
+/* Checked tabs must be white with the bottom border removed */
+.tabGroup > input[type="radio"]:checked + label {
+    background-color:white;
+    font-weight: normal;
+    border-bottom: 1px solid white !important;
+    margin-bottom: -1px;
+    color: #000;
+    border:1px solid #DEDBD1;
+}
+
+/* The tab content must fill the widgets size and have a nice border */
+.tabGroup > div {
+    display: none;
+    border: 1px solid #DEDBD1;
+    background-color: white;
+    padding: 20px 15px;
+    height: 81%;
+    overflow: auto;
+    margin-top: -1px;
+
+    border-radius: 0 4px 4px 4px;
+    -moz-border-radius: 0 4px 4px 4px;
+    -webkit-border-radius: 0 4px 4px 4px;
+}
+
+/* This matchs tabs displaying to thier associated radio inputs */
+#rad1:checked ~ .tab1, #rad2:checked ~ .tab2, #rad3:checked ~ .tab3, #rad4:checked ~ .tab4 {
+    display: block;
+}
+
+/*===============================================================*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
