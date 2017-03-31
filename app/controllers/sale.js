@@ -1,5 +1,9 @@
 ﻿var models = require('../models');
 var Sale = models.Sale;
+var Branch = models.Branch;
+var Category = models.Category;
+var Purchase = models.Purchase;
+var Product = models.Product;
 var User = models.User;
 var Sequelize = require('sequelize');
 var _ = require('underscore');
@@ -19,6 +23,7 @@ var getErrorMessage = function (err) {
 //getting List of 
 //For Geting list of Sales
 exports.list = function (req, res) {
+    req.options.include = [{model:Product,include:[Branch,Category,Purchase]},User];
     Sale.findAndCountAll(req.options).then(function (arrs) {
         res.setHeader('total', arrs.count);
         res.json(arrs.rows);

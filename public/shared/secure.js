@@ -22,8 +22,8 @@
             // window.location.href = "/signout";
             console.log('sgerh');
             delete window.user;
-            $state.go('login');
-            window.location.href = "#!/login";
+            $state.go('secure.dashboard');
+            // window.location.href = "#!/login";
         }
 
         function toggle() {
