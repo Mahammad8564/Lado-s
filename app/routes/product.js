@@ -15,16 +15,31 @@ module.exports = function (app) {
         .get(product.getByPurchaseId);
 
     app.route('/api/unallocateProduct')
-        .get(product.list2);
+        .get(product.unallocateProduct);
+
+    app.route('/api/unsoldList/:BranchId')
+        .get(product.getUnsoldList);
 
     app.route('/api/unsold/:BranchId')
-        .get(product.getUnsoldList);
+        .get(product.getUnSoldCount);
+
+    app.route('/api/sold/:BranchId')
+        .get(product.getSoldCount);
+
+    app.route('/api/groupByBranchId/:BranchId')
+        .get(product.groupByBranchId);
 
     app.route('/api/getByBranchId/:BranchId')
         .get(product.getByBranchId);
 
+    app.route('/api/getByBranchIdAndSold/:BranchId')
+        .get(product.getByBranchIdAndSold);
+
     app.route('/api/getByBranchIdByInventory/:BranchId/:PurchaseId')
         .get(product.getByBranchIdByInventory);
+
+    app.route('/api/getByBranchIdByInventoryAndSold/:BranchId/:PurchaseId')
+        .get(product.getByBranchIdByInventoryAndSold);
 
     app.param('productId', product.getById);
     // app.param('purchaseId', product.getByPurchaseId);

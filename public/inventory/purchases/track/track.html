@@ -1,23 +1,20 @@
-<div ng-init="vm.getList()">
-    <div class="sub-header-title"><span>{{vm.purchaseName}}</span> - Product Listing</div>
+<div>
+    <div class="sub-header-title"><span>{{vm.purchaseName}}</span> - Track</div>
 
-    <table class="table-part" border="0" cellspacing="0" cellpadding="0">
-        <tr class="top-purpal-color-row">
-            <th>Product Code</th>
-            <th>Product Name</th>
-            <th>Tag</th>
-            <th>Category</th>
-            <th>Unit Price</th>
-            <th>Unit Cost</th>
-        </tr>
-        <tr ng-repeat="data in vm.list | filter: search">
-            <td data-th="Product Code: " class="top-purpal-color-row2"><a href=""  ng-click="vm.edit(data)">{{data.productCode}}</a></td>
-            <td data-th="Product Name: " class="top-purpal-color-row2">{{data.productName}}</td>
-            <td data-th="Tag: " class="top-purpal-color-row2">{{data.productTag}}</td>
-            <td data-th="Category: " class="top-purpal-color-row2">{{data.Category.categoryName}}</td>
-            <td data-th="Unit Price: " class="top-purpal-color-row2">{{data.unitPrice}}</td>
-            <td data-th="Unit Cost: " class="top-purpal-color-row2">{{data.unitCost}}</td>
-        </tr>
+    <div class="purchase-track-box">
+           
+           <div class="row">
+            <div class="col-md-2"><div class="box-track">100</div><span>Total Items</span></div>
+            <div class="col-md-2"><div class="box-track">70</div><span>Added Items</span></div>
+            <div class="col-md-2"><div class="box-track">1,00,000</div><span>Total Cost</span></div>
+            <div class="col-md-2"><div class="box-track">40</div><span>Branch 1</span></div>
+            <div class="col-md-2"><div class="box-track">20</div><span>Branch 2</span></div>
+            <div class="col-md-2"><div class="box-track">40</div><span>Branch 3</span></div>
+            <div class="col-md-2"><div class="box-track">40</div><span>In Stock Items</span></div>
+            <div class="col-md-2"><div class="box-track">60</div><span>Sold Items</span></div>
+            <div class="col-md-2"><div class="box-track">60,000</div><span>Total Price</span></div>
+            <div class="col-md-2"><div class="box-track">40,000</div><span>Profit</span></div>
+           </div>
+    </div>
 
-    </table>
 </div>

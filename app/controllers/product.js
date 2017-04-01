@@ -31,7 +31,7 @@ exports.list = function (req, res) {
     });
 }
 
-exports.list2 = function (req, res) {
+exports.unallocateProduct = function (req, res) {
     Product.findAndCountAll({
         where: { branchId: null },
         include: [Category, Purchase]
@@ -47,7 +47,7 @@ exports.list2 = function (req, res) {
 
 exports.getUnsoldList = function (req, res) {
     Product.findAndCountAll({
-        where: { BranchId: req.params.BranchId,status: 'new' },
+        where: { BranchId: req.params.BranchId, status: 'new' },
         include: [Category, Purchase]
         // include: [{ model: Category }, { model: Purchase }]
     }).then(function (arrs) {
@@ -57,6 +57,58 @@ exports.getUnsoldList = function (req, res) {
         console.log(err);
         res.status(400).send({ message: getErrorMessage(err) });
     });
+}
+
+exports.getSoldCount = function (req, res) {
+    if (req.params.BranchId == 'all') {
+        Product.findAndCountAll({
+            where: { status: 'sold' }
+        }).then(function (arrs) {
+            res.setHeader('total', arrs.count);
+            res.json(arrs.count);
+        }).catch(function (err) {
+            console.log(err);
+            res.status(400).send({ message: getErrorMessage(err) });
+        });
+    }
+    else {
+        Product.findAndCountAll({
+            where: { BranchId: req.params.BranchId, status: 'sold' }
+        }).then(function (arrs) {
+            res.setHeader('total', arrs.count);
+            res.json(arrs.count);
+        }).catch(function (err) {
+            console.log(err);
+            res.status(400).send({ message: getErrorMessage(err) });
+        });
+    }
+
+}
+
+exports.getUnSoldCount = function (req, res) {
+    if (req.params.BranchId == 'all') {
+        Product.findAndCountAll({
+            where: { status: 'new' }
+        }).then(function (arrs) {
+            res.setHeader('total', arrs.count);
+            res.json(arrs.count);
+        }).catch(function (err) {
+            console.log(err);
+            res.status(400).send({ message: getErrorMessage(err) });
+        });
+    }
+    else {
+        Product.findAndCountAll({
+            where: { BranchId: req.params.BranchId, status: 'new' }
+        }).then(function (arrs) {
+            res.setHeader('total', arrs.count);
+            res.json(arrs.count);
+        }).catch(function (err) {
+            console.log(err);
+            res.status(400).send({ message: getErrorMessage(err) });
+        });
+    }
+
 }
 
 exports.read = function (req, res) {
@@ -98,6 +150,41 @@ exports.getByBranchId = function (req, res, next) {
     });
 }
 
+exports.getByBranchIdAndSold = function (req, res, next) {
+    Product.findAll({
+        where: { BranchId: req.params.BranchId, status: 'sold' },
+    }).then(function (obj) {
+        res.json(obj);
+        next();
+    }).catch(function (err) {
+        res.status(400).send({ message: getErrorMessage(err) });
+    });
+}
+
+exports.groupByBranchId = function (req, res, next) {
+
+    Product.findAll({
+        attributes: ['BranchId',
+            Sequelize.fn('count', Sequelize.col('status'))],
+        group: ["Product.BranchId"]
+    }).then(function (obj) { 
+        res.json(obj);
+    });
+
+    // Product.findAll({
+    //     where: { BranchId: req.params.BranchId },
+    //     attributes: ['status', [sequelize.fn('count', sequelize.col('likes.id')), 'likecount']],
+    //     include: [{ attributes: [], model: Like }],
+    //     group: ['status']
+    // }).then(function (obj) {
+    //     res.json(obj);
+    //     next();
+    // }).catch(function (err) {
+    //     res.status(400).send({ message: getErrorMessage(err) });
+    // });
+
+}
+
 exports.getByBranchIdByInventory = function (req, res, next) {
     Product.findAll({
         where: { BranchId: req.params.BranchId, PurchaseId: req.params.PurchaseId },
@@ -109,6 +196,16 @@ exports.getByBranchIdByInventory = function (req, res, next) {
     });
 }
 
+exports.getByBranchIdByInventoryAndSold = function (req, res, next) {
+    Product.findAll({
+        where: { BranchId: req.params.BranchId, PurchaseId: req.params.PurchaseId, status: 'sold' },
+    }).then(function (obj) {
+        res.json(obj);
+        next();
+    }).catch(function (err) {
+        res.status(400).send({ message: getErrorMessage(err) });
+    });
+}
 
 exports.create = function (req, res) {
     Product.create(req.body).then(function (obj) {
