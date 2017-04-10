@@ -16,7 +16,8 @@
                 title: 'Login',
                 onEnter: ['$state', 'Authentication', function ($state, Authentication) {
                     if (Authentication.isAuthenticated()) {
-                        $state.go('secure.dashboard');
+                        if (Authentication.isAdmin()) { $state.go('secure.dashboard'); }
+                        else { $state.go('secureUser.dashboard'); }
                     }
                 }],
             })
@@ -26,6 +27,19 @@
                 templateUrl: '/shared/secure.html',
                 title: 'Secure',
                 controller: 'SecureController',
+                controllerAs: 'vm',
+                abstract: true,
+                onEnter: ['$state', 'Authentication', function ($state, Authentication) {
+                    if (!Authentication.isAuthenticated()) {
+                        $state.go('login');
+                    }
+                }],
+            })
+            .state('secureUser', {
+                url: '/secureUser',
+                templateUrl: '/shared/secureUser.html',
+                title: 'secureUser',
+                controller: 'secureUserController',
                 controllerAs: 'vm',
                 abstract: true,
                 onEnter: ['$state', 'Authentication', function ($state, Authentication) {
@@ -184,7 +198,33 @@
                 controller: 'DashboardController',
                 controllerAs: 'vm'
             })
-
+            .state('secureUser.dashboard', {
+                url: '/Dashboard',
+                templateUrl: '/userDashboard/userDashboard.html',
+                title: 'Dashboard',
+                highlight: 'dashboard',
+                controller: 'UserDashboardController',
+                controllerAs: 'vm'
+            })
+            .state('secureUser.sale', {
+                url: '/sale',
+                templateUrl: '/usersale/usersale.html',
+                title: 'Sale',
+                highlight: 'sale',
+                controller: 'UserSaleController',
+                controllerAs: 'vm'
+            })
+            .state('secureUser.edit-sale', {
+                url: '/sale/{id}',
+                params: {
+                    id: { value: 'new' }
+                },
+                templateUrl: '/usersale/edit-usersale.html',
+                title: 'Sale',
+                highlight: 'sale',
+                controller: 'UserSaleController',
+                controllerAs: 'vm'
+            })
             .state('secure.reports', {
                 url: '/reports',
                 templateUrl: '/reports/reports.html',

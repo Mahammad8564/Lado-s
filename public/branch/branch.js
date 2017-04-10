@@ -11,6 +11,15 @@
         vm.save = save;
         vm.getList = getList;
         vm.edit = edit;
+        vm.search = search;
+        vm.order = order;
+        vm.pageChange = pageChange;
+        vm.options = {
+            pagesize: 10,
+            totalItems: 0,
+            page: 1,
+            search: ''
+        }
 
         if ($stateParams.id && $stateParams.id != 'new') {
             Restangular.one('api/branch/' + $stateParams.id).get().then(function (res) {
@@ -20,9 +29,9 @@
         }
 
         function getList() {
-            Restangular.all('api/branch').getList().then(function (res) {
+            Restangular.all('api/branch').getList(vm.options).then(function (res) {
                 vm.list = res.data;
-                // vm.options.totalItems = parseInt(res.headers('total'));
+                vm.options.totalItems = parseInt(res.headers('total'));
             });
         }
 
@@ -61,6 +70,30 @@
 
         function edit(obj) {
             $state.go('secure.edit-branch', { id: obj.id });
+        }
+
+        function pageChange() {
+            getList();
+        }
+        function search() {
+            vm.options.page = 1;
+            vm.options.where = 'branchName;$like|s|%' + vm.options.search + '%';
+            getList();
+        }
+
+        function order(col, ord) {
+            if (vm.asc != undefined) {
+                var cp = angular.copy(vm.asc[col]);
+                vm.asc = {};
+                vm.asc[col] = !cp;
+            } else {
+                vm.asc = {};
+                vm.asc[col] = !vm.asc[col];
+            }
+            var ascL = vm.asc[col] ? 'asc' : 'desc';
+            vm.options.sort = col + ' ' + ascL;
+            vm.options.page = 1;
+            getList();
         }
     }
 

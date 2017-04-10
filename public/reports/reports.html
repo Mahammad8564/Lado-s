@@ -3,6 +3,7 @@
 
     <div>
         <div class="action-dropdown-menu">
+            <label>Branch</label>
             <select class="select-action" name="dropdown2" ng-init="vm.dropdown2 = 'All'" ng-model="vm.dropdown2" ng-change="vm.getChartByDropdown2()">
             <option value="All">All</option>
             <option ng-repeat="item in vm.branch | filter:{isActive :true}" value="{{item.id}}">{{item.branchName}}</option>
@@ -12,6 +13,8 @@
 
     <div>
         <div class="action-dropdown-menu">
+            <label>Purchase</label>
+
             <select class="select-action" name="dropdown1" ng-init="vm.dropdown1 = 'All'" ng-model="vm.dropdown1" ng-change="vm.getChartByDropdown1()">
             <option value="All">All</option>
             <option ng-repeat="item in vm.purchase" value="{{item.id}}">{{item.purchaseName}}</option>
@@ -21,10 +24,46 @@
 
     <div>
         <div class="action-dropdown-menu">
+            <label>Category</label>
+
             <select class="select-action" name="dropdown3" ng-init="vm.dropdown3 = 'All'" ng-model="vm.dropdown3" ng-change="vm.getChartByDropdown3()">
             <option value="All">All</option>
             <option ng-repeat="item in vm.category | filter:{isActive :true}" value="{{item.id}}">{{item.categoryName}}</option>
         </select>
         </div>
+    </div>
+
+    <div>
+        <label>Option</label>
+
+        <input type="radio" name="option" ng-model="vm.option">frequency
+        <input type="radio" name="option" ng-model="vm.option">Custome
+    </div>
+
+    <br>
+
+    <div>
+        <div class="action-dropdown-menu">
+            <label>frequency</label>
+
+            <select class="select-action" name="dropdown4" ng-init="vm.frequency='today'" ng-model="vm.frequency" ng-change="vm.frequency()">
+            <option value="today">Today</option>
+            <option value="week">Last 7 Days</option>
+            <option value="month">Last 30 Days</option>
+            <option value="monthly">Monthly</option>
+        </select>
+        </div>
+    </div>
+
+    <div>
+        <label>Date Range</label>
+
+        <input class="floatdate" type="date" readonly name="datefrom" uib-datepicker-popup="" is-open="vm.open_datefrom" convert-to-date
+            ng-model="vm.datefrom" ng-click="vm.openCal1()" ng-change="vm.change(vm.datefrom)" ng-max="vm.today" ng-required="true">
+
+
+        <input class="floatdate" type="date" readonly name="dateto" uib-datepicker-popup="" is-open="vm.open_dateto" convert-to-date
+            ng-model="vm.dateto" ng-click="vm.openCal2()" ng-change="vm.change(vm.dateto)" ng-max="vm.today" ng-required="true">
+
     </div>
 </div>

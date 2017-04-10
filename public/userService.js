@@ -5,6 +5,9 @@
         isAuthenticated: function () {
             return user ? true : false;
             //return true;
+        },
+        isAdmin: function(){
+            return user.userrole == 'admin' ? true : false;
         }
     };
 });
