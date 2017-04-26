@@ -10,9 +10,9 @@
     <div class="tab1">
         <div class="sub-header-title">Inventory Summary</div>
         <div class="action-dropdown-menu">
-            <select class="select-action" name="dropdown2" ng-model="vm.dropdown2" ng-change="vm.getChartByDropdown2()">
+            <select class="select-action" name="tab1BranchDropdown" ng-model="vm.tab1BranchDropdownId" ng-change="vm.changeTab1BranchDropdown(vm.tab1BranchDropdownId)">
                 <option value="All">All</option>
-                <option ng-repeat="item in vm.branch | filter:{isActive :true}" value="{{item.id}}">{{item.branchName}}</option>
+                <option ng-repeat="item in vm.branchCopy | filter:{isActive :true}" value="{{item.id}}">{{item.branchName}}</option>
             </select>
         </div>
         <div class="dashboard-cont-box">

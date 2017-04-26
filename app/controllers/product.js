@@ -130,7 +130,7 @@ exports.getById = function (req, res, next) {
 exports.getByPurchaseId = function (req, res, next) {
     Product.findAll({
         where: { PurchaseId: req.params.purchaseId },
-        include: [Category]
+        include: [Category,Branch]
     }).then(function (obj) {
         res.json(obj);
         next();

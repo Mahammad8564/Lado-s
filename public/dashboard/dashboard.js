@@ -12,6 +12,7 @@
         vm.branchName = [];
         vm.InStock = [];
         vm.Sold = [];
+        vm.tab1BranchDropdownId = 'All';
 
         function getStats() {
             vm.branch.forEach(function (element) {
@@ -31,6 +32,11 @@
                 return acc + val;
             }, 0);
         }
+
+        vm.changeTab1BranchDropdown = function(){
+            // vm.branchCopy = 
+        }
+
 
 
         //===============================================Tab 2===============================================
@@ -55,6 +61,7 @@
 
         Restangular.all('api/branch').getList().then(function (res) {
             vm.branch = res.data;
+            vm.branchCopy = res.data;
         });
 
         function activate() {
