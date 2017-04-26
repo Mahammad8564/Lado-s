@@ -15,7 +15,7 @@
             <span ng-if="vm.asc['categoryName'] === true">
             <img ng-src="/images/up-arrow-1.png" alt="">
           </span>
-            <span ng-show="vm.asc['id'] === false">
+            <span ng-show="vm.asc['categoryName'] === false">
             <img ng-src="/images/down-arrow-1.png" alt="">
           </span>
           </a>
@@ -30,7 +30,7 @@
     </table>
   </div>
 
-  <div class="paging" ng-if="vm.list.length > 0">
+  <div class="paging" ng-if="vm.options.totalItems > 10">
     <span class="showing-text-bx">
             Showing {{ ((vm.options.page - 1) * vm.options.pagesize) + 1 }} to
             <t ng-if="(vm.options.page * vm.options.pagesize) > vm.options.totalItems">{{vm.options.totalItems}}</t>

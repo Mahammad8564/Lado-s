@@ -309,7 +309,7 @@ ul.alert-dropdown {width: 200px;}
 	margin-left: 3%;
 }
 .add-product-btn{
-	width: 47%;
+	width: 52%;
 	background: #2cba08;
 	padding: 5px 0px 4px 0px;
 	color: #fff !important;
@@ -330,6 +330,10 @@ ul.alert-dropdown {width: 200px;}
 	text-decoration: none !important;
 	display: inline-block;
 	margin-left: 10px;
+}
+
+.danger{
+	color: red;
 }
 
 .main-top-icon-box .li-arrow-corner{
@@ -402,6 +406,18 @@ min-height: 440px;
 
 .right-heading-bx span{font-size:16px; color:#333; margin:0px; padding:0 0 0px 0;line-height:22px;}
 
+.showing-text-bx{
+    width: 100%;
+text-align: center;
+display: inline-block;
+padding-top: 15px;
+}
+.paging-text{
+    width: 100%;
+margin: 0 auto;
+display: table;
+text-align: center;
+}
 
 /*ProT Boutique Class for login page*/
 

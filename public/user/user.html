@@ -16,7 +16,7 @@
                                 <span ng-if="vm.asc['username'] === true">
                                     <img ng-src="/images/up-arrow-1.png" alt="">
                                 </span>
-                                <span ng-show="vm.asc['id'] === false">
+                                <span ng-show="vm.asc['username'] === false">
                                     <img ng-src="/images/down-arrow-1.png" alt="">
                                 </span>
                             </a>
@@ -27,7 +27,7 @@
                                 <span ng-if="vm.asc['fullname'] === true">
                                     <img ng-src="/images/up-arrow-1.png" alt="">
                                 </span>
-                                <span ng-show="vm.asc['id'] === false">
+                                <span ng-show="vm.asc['fullname'] === false">
                                     <img ng-src="/images/down-arrow-1.png" alt="">
                                 </span>
                             </a>
@@ -38,22 +38,12 @@
                                 <span ng-if="vm.asc['userrole'] === true">
                                     <img ng-src="/images/up-arrow-1.png" alt="">
                                 </span>
-                                <span ng-show="vm.asc['id'] === false">
+                                <span ng-show="vm.asc['userrole'] === false">
                                     <img ng-src="/images/down-arrow-1.png" alt="">
                                 </span>
                             </a>
                         </th>
-                        <th>
-                            <a href="" ng-click="vm.order('phone',vm.asc)">
-                                <font>Mobile </font>
-                                <span ng-if="vm.asc['phone'] === true">
-                                    <img ng-src="/images/up-arrow-1.png" alt="">
-                                </span>
-                                <span ng-show="vm.asc['id'] === false">
-                                    <img ng-src="/images/down-arrow-1.png" alt="">
-                                </span>
-                            </a>
-                        </th>
+                        <th>Mobile</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
@@ -71,7 +61,7 @@
 
         </div>
     </div>
-    <div class="paging" ng-if="vm.list.length > 0" >
+    <div class="paging" ng-if="vm.options.totalItems > 10" >
         <span class="showing-text-bx">
             Showing {{ ((vm.options.page - 1) * vm.options.pagesize) + 1 }} to
             <t ng-if="(vm.options.page * vm.options.pagesize) > vm.options.totalItems">{{vm.options.totalItems}}</t>

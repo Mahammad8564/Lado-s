@@ -1,7 +1,7 @@
 <div ng-init="vm.getList()">
     <div class="sub-header-title"><span>{{vm.purchaseName}}</span> - Product Listing</div>
     <div class="search-box"><input type="text" value="" placeholder="Search by Product Code and Name">
-        <a href="" ng-click="vm.add()"><input class="add-new-btn" type="button" value="Add New"></a>
+        <input ng-if="vm.list.length < vm.totalItems" class="add-new-btn" type="button" value="Add New" ng-click="vm.add()">
     </div>
     <table class="table-part" border="0" cellspacing="0" cellpadding="0">
         <tr class="top-purpal-color-row">

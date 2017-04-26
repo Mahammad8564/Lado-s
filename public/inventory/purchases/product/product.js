@@ -17,6 +17,7 @@
 
         Restangular.one('api/purchase/' + $stateParams.purchaseId).get().then(function (res) {
             vm.purchaseName = res.data.purchaseName;
+            vm.totalItems = res.data.totalItems;
         });
 
         if ($stateParams.id && $stateParams.id != 'new') {
@@ -83,6 +84,7 @@
                         frm.$setDirty();
                     });
                 });
+
                 vm.isSubmitted = true;
                 return;
             }
@@ -91,24 +93,15 @@
             vm.product.productTag = vm.product.productCode + ' - ' + vm.product.productName;
             vm.product.CategoryId = parseInt(vm.product.CategoryId);
 
-            if (!vm.product.id) {
-                Restangular.all('api/product').post(vm.product).then(function (res) {
-                    vm.product = {};
-                    // $state.go('secure.product');
-                }, function (err) {
-                    vm.error = err.data.message;
-                    vm.startProcessing = false;
-                });
-            }
-            else {
-                Restangular.one('api/product/' + vm.product.id).patch(vm.product).then(function (res) {
-                    vm.product = {};
-                    // $state.go('secure.product');
-                }, function (err) {
-                    vm.error = err.data.message;
-                    vm.startProcessing = false;
-                });
-            }
+            Restangular.all('api/product').post(vm.product).then(function (res) {
+                vm.product = {};
+                form.$setPristine();
+                from.$setUntouched();
+            }, function (err) {
+                vm.error = err.data.message;
+                vm.startProcessing = false;
+            });
+
         }
 
         function edit(obj) {
