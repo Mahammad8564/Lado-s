@@ -1,25 +1,39 @@
 <div ng-init="vm.getList()">
-    <div class="sub-header-title">Purchases</div>
-    <div class="search-box"><input type="text" value="" placeholder="Search by Purchase Name">
-        <a href="#!/secure/purchases/new"><input class="add-new-btn" type="button" value="Add New"></a>
-    </div>
-    <table class="table-part" border="0" cellspacing="0" cellpadding="0">
-        <tr class="top-purpal-color-row">
-            <th>Purchase Name</th>
-            <th>Purchase Date</th>
-            <th>Total Items</th>
-            <th>Total Cost</th>
-            <th>Status</th>
-            <th>Action</th>
-        </tr>
-        <tr ng-repeat="data in vm.list | filter: search" >
-            <td data-th="Purchase Name: " class="top-purpal-color-row2"><a href="" ng-click="vm.edit(data)">{{data.purchaseName}}</a></td>
-            <td data-th="Purchase Date: " class="top-purpal-color-row2">{{data.purchaseDate | date:"dd MMMM yyyy"}}</td>
-            <td data-th="Total Items: " class="top-purpal-color-row2" ng-class="data.Products.length < data.totalItems ? 'danger' : 'some'">{{data.totalItems}}</td>
-            <td data-th="Total Cost: " class="top-purpal-color-row2">{{data.totalCost}}</td>
-            <td data-th="Action: " class="top-purpal-color-row2 "><a href="" class="add-product-btn" ng-click="vm.track(data)">Track</a></td>
-            <td data-th="Action: " class="top-purpal-color-row2 "><a href="" class="add-product-btn" ng-click="vm.add(data)">Add Products</a></td>
-        </tr>
+  <div class="sub-header-title">Purchases</div>
+  <div class="search-box">
+    <input type="text" placeholder="Search by Purchase Name" ng-model="search">
+    <a href="#!/secure/purchases/new"><input class="add-new-btn" type="button" value="Add New"></a>
+  </div>
+  <table class="table-part" border="0" cellspacing="0" cellpadding="0">
+    <tr class="top-purpal-color-row">
+      <th>Purchase Name</th>
+      <th>Purchase Date</th>
+      <th>Total Items</th>
+      <th>Total Cost</th>
+      <th>Status</th>
+      <th>Action</th>
+      <th>data</th>
 
-    </table>
+    </tr>
+    <tr ng-repeat="data in vm.list | filter: search">
+      <td data-th="Purchase Name: " class="top-purpal-color-row2">
+        <!-- <a href="" ng-click="vm.edit(data)">{{data.purchaseName}}</a>  -->
+        {{data.purchaseName}}
+      </td>
+      <td data-th="Purchase Date: " class="top-purpal-color-row2">{{data.purchaseDate | date:"dd MMMM yyyy"}}</td>
+      <td data-th="Total Items: " class="top-purpal-color-row2" ng-class="data.Products.length < data.totalItems ? 'danger' : 'some'">{{data.totalItems}}</td>
+      <td data-th="Total Cost: " class="top-purpal-color-row2">{{data.totalCost}}</td>
+      <td data-th="Action: " class="top-purpal-color-row2 ">
+        <a href="" class="add-productAdd Products-btn" ng-click="vm.track(data)">Track</a>
+      </td>
+      <td data-th="Action: " class="top-purpal-color-row2 ">
+        <a href="" class="add-product-btn" ng-click="vm.add(data)">
+          {{data.Products.length >= data.totalItems? 'View':'Add Products'}}
+        </a>
+      </td>
+      <td class="top-purpal-color-row2">
+        {{data.Products.length}}
+      </td>
+    </tr>
+  </table>
 </div>

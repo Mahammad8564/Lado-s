@@ -1,8 +1,8 @@
-<div ng-init="vm.getList()">
+<div ng-init="vm.getDataByUserId()">
 
   <div class="sub-header-title">Sales Listing</div>
 
-  <div class="search-box"><input type="text" placeholder="Search by Branch Name" ng-model="vm.options.search" ng-change="vm.search()">
+  <div class="search-box"><input type="text" placeholder="Search by Product Code " ng-model="vm.search">
     <a href="#!/secureUser/sale/new"><input class="add-new-btn" type="button" value="Add New"></a>
   </div>
 
@@ -12,6 +12,7 @@
     <table class="table-part" border="0" cellspacing="0" cellpadding="0">
       <tr class="top-purpal-color-row">
         <th>
+
           <a href="" ng-click="vm.order('branchName',vm.asc)">
             <font>Product Code</font>
             <span ng-if="vm.asc['branchName'] === true">
@@ -27,28 +28,25 @@
         <th>Invoice</th>
         <!--<th>Status</th>-->
       </tr>
-      <tr>
-      <!--<tr ng-repeat="data in vm.list">-->
-        <td data-th="" class="top-purpal-color-row2"></td>
-        <td data-th="" class="top-purpal-color-row2"></td>
-        <td data-th="" class="top-purpal-color-row2"></td>
-        <td data-th="" class="top-purpal-color-row2"></td>
-      
-
+      <tr ng-repeat="list in vm.alreadySale | filter: vm.search | orderBy:'productName' ">
+        <td data-th="" class="top-purpal-color-row2">{{list.Product.productName}}</td>
+        <td data-th="" class="top-purpal-color-row2">{{list.Product.productCode}}</td>
+        <td data-th="" class="top-purpal-color-row2">{{list.price}}</td>
+        <td data-th="" class="top-purpal-color-row2">{{list.InvoiceId}}</td>
       </tr>
     </table>
   </div>
 
-  <div class="paging" ng-if="vm.list.length > 0" >
-        <span class="showing-text-bx">
+  <div class="paging" ng-if="vm.list.length > 0">
+    <span class="showing-text-bx">
             Showing {{ ((vm.options.page - 1) * vm.options.pagesize) + 1 }} to
             <t ng-if="(vm.options.page * vm.options.pagesize) > vm.options.totalItems">{{vm.options.totalItems}}</t>
             <t ng-if="(vm.options.page * vm.options.pagesize) < vm.options.totalItems">{{vm.options.page * vm.options.pagesize}}</t>
             of {{vm.options.totalItems}} User Records
         </span>
-        <div class="paging-text">
-            <ul uib-pagination ng-change="vm.pageChange()" boundary-links="true" max-size="4" force-ellipses="true" total-items="vm.options.totalItems" items-per-page="vm.options.pagesize" ng-model="vm.options.page" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
-        </div>
+    <div class="paging-text">
+      <ul uib-pagination ng-change="vm.pageChange()" boundary-links="true" max-size="4" force-ellipses="true" total-items="vm.options.totalItems" items-per-page="vm.options.pagesize" ng-model="vm.options.page" class="pagination-sm" previous-text="&lsaquo;"
+        next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
     </div>
-
+  </div>
 </div>

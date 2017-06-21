@@ -1,0 +1,77 @@
+<div ng-init="vm.activate()">
+  <div class="sub-header-title">Reports</div>
+  <form name="adminReport" novalidate>
+
+
+    <div class="add-category-box-cont">
+      <label><h4> Purchase:</h4></label>
+      <select class="select-action" name="PurchaseId" ng-model="vm.product.PurchaseId">
+              <option value="">Please Select</option>
+              <option ng-repeat="item in  vm.purchase" value="{{item.id}}">{{item.purchaseName}}</option>
+      </select>
+    </div>
+
+
+
+    <div class="add-category-box-cont" ng-init="vm.getCategoryList()">
+      <label><h4> Category: </h4></label>
+      <select required class="select-action" name="CategoryId" ng-model="vm.product.CategoryId">
+              <option value="">Please Select</option>
+              <option ng-repeat="item in vm.category | filter:{isActive :true}" value="{{item.id}}">{{item.categoryName}}</option>
+          </select>
+    </div>
+
+    <div class="add-category-box-cont">
+      <label><h4>Time Period :</h4> </label>
+      <div>
+        <label style="padding-top: 0px;"><h5>Frequency:</h5></label>
+        <input type="radio" ng-init="vm.option='frequency'" style="width: auto;" ng-model="vm.option" value="frequency">
+        <label style="padding-top: 0px;"><h5>Custom:</h5></label>
+        <input type="radio" ng-model="vm.option" style="width: auto;" value="custom">
+      </div>
+    </div>
+
+    <div class="add-category-box-cont" ng-if="vm.option == 'frequency'">
+      <label><h4> Filter By: </h4></label>
+      <select ng-init="vm.frequency = 'today'" ng-model="vm.frequency">
+                      <option value="today">Today</option>
+                      <option value="week">Last 7 Days</option>
+                      <option value="month">Last 30 Days</option>
+                      <option value="monthly">Monthly</option>
+                      <!--<option value="yearly">Yearly</option>-->
+      </select>
+
+    </div>
+
+    <div class="add-category-box-cont" ng-if="vm.option == 'custom'">
+      <form name="CustomerBasedReports">
+        <label><h4> Select Date :</h4></label>
+        <div>
+          <input style="width: auto;" type="date" readonly name="startDate" uib-datepicker-popup="" is-open="open.startDate" convert-to-date ng-model="vm.startDate" ng-click="open.startDate = !open.startDate" ng-max="vm.today" required>
+          <h3 style="width: auto;">
+            <label style="width: auto;">&nbsp; To</label>
+          </h3>
+          <input style="width: auto;" type="date" readonly name="endDate" uib-datepicker-popup="" is-open="open.endDate" convert-to-date ng-model="vm.endDate" ng-click="open.endDate = !open.endDate" ng-max="vm.today" required>
+          <span class="error-msg-reports-1" ng-if="CustomerBasedReports.fromdate3.$dirty && CustomerBasedReports.fromdate3.$error.max"><em>From</em> date should not be future date.</span>
+          <span class="error-msg-reports-1" ng-if="CustomerBasedReports.todate3.$dirty && CustomerBasedReports.todate3.$error.max"><em>To</em> date should not be future date.</span>
+          <span class="error-msg-reports-1" ng-if="CustomerBasedReports.todate3.$dirty && CustomerBasedReports.todate3.$error.min">Invalid date range. <em>To</em> date should be greater than <em>From</em> date.</span>
+          <span class="error-msg-reports-1">{{vm.error}}</span>
+        </div>
+      </form>
+
+    </div>
+  </form>
+</div>
+<div class="add-category-box-cont">
+  <label style="padding-top: 0px;">&nbsp;</label>
+  <div class="save-cancel-btn">
+    <input class="save-new-btn" type="submit" value="Genrate" ng-click="vm.save(adminReport)">
+    <input class="add-next-btn" type="button" value="Add Next" ng-click="vm.addNext(adminReport)">
+    <input class="cancel-new-btn" type="button" value="Cancel" ui-sref="secure.product"></div>
+</div>
+
+
+</form>
+</div>
+
+</div>

@@ -1,59 +1,72 @@
-﻿
+ (function() {
+   'use strict';
+   angular.module('lados').controller("ReportsController", ReportsController);
+   ReportsController.$inject = ['Authentication', 'Restangular', '$state'];
 
-(function () {
-    'use strict';
+   function ReportsController(Authentication, Restangular, $state) {
+     var vm = this;
+     vm.openCal1 = openCal1;
+     vm.openCal2 = openCal2;
+     vm.activet = activet;
+     vm.getAllList = getAllList;
+     vm.getSale = getSale;
+     vm.filter = filter;
+     vm.user = Authentication.user;
+     vm.list = [];
 
-    angular.module('lados').controller("ReportsController", ReportsController);
+     function openCal1() {
+       vm.open_datefrom = !vm.open_datefrom;
+     }
 
-    ReportsController.$inject = ['Restangular', '$state'];
+     function openCal2() {
+       vm.open_dateto = !vm.open_dateto;
+     }
 
-    function ReportsController(Restangular, $state) {
-        var vm = this;
-        vm.openCal1 = openCal1;
-        vm.openCal2 = openCal2;
-        vm.change = change;
+     function activet() {
+       vm.getAllList();
+     }
 
-        vm.getDropdownList = getDropdownList;
-        vm.getChartByDropdown1 = getChartByDropdown1;
-        vm.getChartByDropdown2 = getChartByDropdown2;
-        vm.getChartByDropdown3 = getChartByDropdown3;
+     function getAllList() {
+       Restangular.all('api/purchase').getList().then(function(res) {
+         vm.purchase = res.data;
+       });
+       Restangular.all('api/branch').getList().then(function(res) {
+         vm.branch = res.data;
+       });
+       Restangular.all('api/category').getList().then(function(res) {
+         vm.category = res.data;
+       });
+     }
 
-        function openCal1() {
-            vm.open_datefrom = !vm.open_datefrom;
-        }
+     function getSale() {
 
-        function openCal2() {
-            vm.open_dateto = !vm.open_dateto;
-        }
+       vm.totalProfit = 0;
+       Restangular.all('api/sale').getList().then(function(res) {
+         vm.list = res.data;
 
-        function change(){
-            
-        }
+         _.forEach(vm.list, function(List, key) {
+           vm.totalProfit += (List.price - List.Product.unitCost);
+         });
+       });
+     }
 
-        function getDropdownList() {
-            vm.getChartByDropdown1();
-            vm.getChartByDropdown2();
-            vm.getChartByDropdown3();
-        }
+     function filter() {
+       Restangular.all('api/sale/report').post(vm.product).then(function(res) {
+         swal(vm.user.username, "please wait", "success");
 
-        function getChartByDropdown1() {
-            Restangular.all('api/purchase').getList().then(function (res) {
-                vm.purchase = res.data;
-            });
-        }
+         vm.list.push(res.data)
 
-        function getChartByDropdown2() {
-            Restangular.all('api/branch').getList().then(function (res) {
-                vm.branch = res.data;
-            });
+         console.log(res.data);
 
-        }
+       }, function(err) {
+         vm.error = err.data.message;
+         vm.startProcessing = false;
+         swal('Not Found', 'Sorry ' + vm.user.username + ' data Not Found', "warning");
+       });
 
-        function getChartByDropdown3() {
-            Restangular.all('api/category').getList().then(function (res) {
-                vm.category = res.data;
-            });
-        }
-    }
 
-})();
+       //  console.log(vm.product);
+       //  vm.getSale();
+     }
+   }
+ })();

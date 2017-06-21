@@ -1,4 +1,5 @@
-﻿<div ng-init="vm.getList()">
+
+<div ng-init="vm.getList()">
   <div class="sub-header-title">Manage Category</div>
   <div class="search-box"><input type="text" placeholder="Search by Category Name" ng-model="vm.options.search" ng-change="vm.search()">
     <a href="#!/secure/category/new"><input class="add-new-btn" type="button" value="Add New"></a>
@@ -26,6 +27,7 @@
         <td data-th="Attributes: " class="top-purpal-color-row2"><a href="" ng-click="vm.edit(data)">{{data.categoryName}}</a></td>
         <td ng-if="data.isActive" data-th="Status: " class="top-purpal-color-row2">Active</td>
         <td ng-if="!data.isActive" data-th="Status: " class="top-purpal-color-row2">Inactive</td>
+
       </tr>
     </table>
   </div>
@@ -38,9 +40,8 @@
             of {{vm.options.totalItems}} User Records
         </span>
     <div class="paging-text">
-      <ul uib-pagination ng-change="vm.pageChange()" boundary-links="true" max-size="4" force-ellipses="true" total-items="vm.options.totalItems"
-        items-per-page="vm.options.pagesize" ng-model="vm.options.page" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;"
-        first-text="&laquo;" last-text="&raquo;"></ul>
+      <ul uib-pagination ng-change="vm.pageChange()" boundary-links="true" max-size="4" force-ellipses="true" total-items="vm.options.totalItems" items-per-page="vm.options.pagesize" ng-model="vm.options.page" class="pagination-sm" previous-text="&lsaquo;"
+        next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
     </div>
   </div>
 </div>

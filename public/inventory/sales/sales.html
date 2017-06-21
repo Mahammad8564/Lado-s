@@ -1,43 +1,39 @@
 <div ng-init="vm.getList()">
-    <div class="sub-header-title">Sales</div>
-    <div class="action-dropdown-menu">
+  <div class="sub-header-title">Sales</div>
+  <div class="action-dropdown-menu">
 
-        <div class="sortby-bx">
-            <label>Sort by</label>
-            <select class="select-action" ng-model="search.purchaseName">
+    <div class="sortby-bx">
+      <label>Sort by</label>
+      <select class="select-action" ng-model="search.purchaseName">
 					  <option value="">Select Inventory</option>
-					  <option value="Purchase 1">Purchase 1</option>
-					  <option value="Purchase 2">Purchase 2</option>
-					  <option value="Purchase 3">Purchase 3</option>
-					</select>
-            <select class="select-action" ng-model="search.branchName">
+					  <option   ng-repeat="purchase in vm.Purchaselist" >{{purchase.purchaseName}}</option>
+					   	</select>
+      <select class="select-action" ng-model="search.branchName">
 					  <option value="">Select Branch</option>
-					  <option value="Branch 1">Branch 1</option>
-					  <option value="Branch 2">Branch 2</option>
-					  <option value="Branch 3">Branch 3</option>
+					  <option   ng-repeat="branch in vm.Branchlist">{{branch.branchName}}</option>
 					</select>
-        </div>
     </div>
-    <table class="table-part" border="0" cellspacing="0" cellpadding="0">
-        <tr class="top-purpal-color-row">
-            <th>Product Code</th>
-            <th>Product Name</th>
-            <th>Date</th>
-            <th>Unit Cost</th>
-            <th>Unit Price</th>
-            <th>Selling Price</th>
-            <th>Profit</th>            
-            <th>Invoice</th>
-        </tr>
-        <tr ng-repeat="data in vm.list | filter: search.branchName | filter: search.purchaseName">
-            <td data-th="Product Code: " class="top-purpal-color-row2">{{data.Product.productCode}}</td>
-            <td data-th="Product Name: " class="top-purpal-color-row2">{{data.Product.productName}}</td>
-            <td data-th="Date: " class="top-purpal-color-row2">{{data.createdAt|date:'dd MMM yyyy'}}</td>
-            <td data-th="Unit Cost: " class="top-purpal-color-row2">{{data.Product.unitCost}}</td>
-            <td data-th="Unit Price: " class="top-purpal-color-row2">{{data.Product.unitPrice}}</td>
-            <td data-th="Selling Price: " class="top-purpal-color-row2">{{data.price}}</td>
-            <td data-th="Profit: " class="top-purpal-color-row2">{{data.price - data.Product.unitCost}}</td>
-            <td data-th="Invoice: " class="top-purpal-color-row2 "><a href="#">Invoice</a></td>
-        </tr>
-    </table>
+  </div>
+  <table class="table-part" border="0" cellspacing="0" cellpadding="0">
+    <tr class="top-purpal-color-row">
+      <th>Product Code</th>
+      <th>Product Name</th>
+      <th>Date</th>
+      <th>Unit Cost</th>
+      <th>Unit Price</th>
+      <th>Selling Price</th>
+      <th>Profit</th>
+      <th>Invoice</th>
+    </tr>
+    <tr ng-repeat="data in vm.list | filter: search.branchName | filter: search.purchaseName">
+      <td data-th="Product Code: " class="top-purpal-color-row2">{{data.Product.productCode}}</td>
+      <td data-th="Product Name: " class="top-purpal-color-row2">{{data.Product.productName}}</td>
+      <td data-th="Date: " class="top-purpal-color-row2">{{data.createdAt|date:'dd MMM yyyy'}}</td>
+      <td data-th="Unit Cost: " class="top-purpal-color-row2">{{data.Product.unitCost ||0 | currency:"&#8377;"}}</td>
+      <td data-th="Unit Price: " class="top-purpal-color-row2">{{data.Product.unitPrice || 0 | currency:"&#8377;"}}</td>
+      <td data-th="Selling Price: " class="top-purpal-color-row2">{{data.price ||0 | currency:"&#8377;"}}</td>
+      <td data-th="Profit: " class="top-purpal-color-row2">{{data.price - data.Product.unitCost ||0 | currency:"&#8377;"}}</td>
+      <td data-th="Invoice: " class="top-purpal-color-row2 "><a href="">Invoice</a></td>
+    </tr>
+  </table>
 </div>
