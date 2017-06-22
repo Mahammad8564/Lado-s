@@ -39,7 +39,7 @@
 
     function setInvoiceDetail() {
       vm.sale.date = Date.now();
-      vm.sale.InvoiceId = '#' + Date.now();
+      vm.sale.InvoiceId = Date.now();
       vm.sale.UserId = user.id;
     }
 

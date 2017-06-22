@@ -84,7 +84,7 @@ exports.create = function(req, res) {
         plain: true
       });
       res.json(objData);
-      next();
+
     }).catch(function(error) {
       res.status(400).status(500).send({
         message: getErrorMessage(error)
@@ -95,11 +95,11 @@ exports.create = function(req, res) {
       }, {
         where: {
           id: val.ProductId
+
         }
       })
       .then(function(obj) {
         return res.json(obj);
-        next();
       }).catch(function(error) {
         return res.status(400).send({
           message: getErrorMessage(error)
@@ -119,8 +119,8 @@ exports.update = function(req, res) {
       }
     })
     .then(function(obj) {
-      return res.json(obj);
-      next();
+      res.json(obj);
+      // next();
     }).catch(function(error) {
       return res.status(400).send({
         message: getErrorMessage(error)
@@ -138,7 +138,7 @@ exports.getById = function(req, res, next) {
     //include: []
   }).then(function(obj) {
     res.json(obj);
-    next();
+    // next();
   }).catch(function(err) {
     res.status(400).send({
       message: getErrorMessage(err)
@@ -184,67 +184,57 @@ exports.getByProductCode = function(req, res, next) {
 }
 
 
-exports.getReport = function(req, res) {
+exports.getReport = function(req, res, next) {
   var data = [];
-  var salesdata = [];
-  if (req.body.BranchId != 'All') {
-    console.log('------------BranchId-----------' + req.body.BranchId + '/n');
-    data.push({
-      "BranchId": req.body.BranchId
-    });
-  }
-  if (req.body.PurchaseId != 'All') {
-    console.log('------------------------------PurchaseId -----------------' + req.body.PurchaseId + '/n');
-    data.push({
-      "PurchaseId": req.body.PurchaseId
-    });
-  }
-  if (req.body.CategoryId != 'All') {
-    console.log('-----------------------CategoryId-------------------------' + req.body.CategoryId + '/n');
-    data.push({
-      "CategoryId": req.body.CategoryId
-    });
-  }
-
+  if (req.body.BranchId != 'All') data.push({
+    "BranchId": req.body.BranchId
+  });
+  if (req.body.PurchaseId != 'All') data.push({
+    "PurchaseId": req.body.PurchaseId
+  });
+  if (req.body.CategoryId != 'All') data.push({
+    "CategoryId": req.body.CategoryId
+  });
   Product.findAll({
     where: data,
     attributes: ['id']
-    //    include: [Branch, Category, Purchase]
   }).then(function(obj) {
-    console.log(JSON.stringify(obj));
-    // res.json(obj)
-    req.productData = obj;
-    getByProductData(req, res);
-  }).catch(function(err) {
-    res.status(400).send({
-      message: getErrorMessage(err)
-    });
-  });
-  /// Product findAll ends here
-}
+    var productIds = _.map((obj || []), function(product) {
+      return product.id;
+    }) || [];
 
-
-
-var getByProductData = function(req, res) {
-  console.log('-------------------------------------------------------------------sale data --------------');
-  var salesData = [];
-  _.forEach(req.productData, function(val, key) {
     Sale.findAll({
       where: {
-        ProductId: val.id
-      }
+        ProductId: productIds,
+
+        $or: [{
+          InvoiceId: {
+            $gte: req.body.frequency
+          }
+        }, {
+          InvoiceId: {
+            $gte: req.body.fromDate,
+            $lte: req.body.toDate
+          }
+        }]
+      },
+      include: [Product]
     }).then(function(productData) {
-      console.log(JSON.stringify(productData));
-      salesData.push({
-        productData
-      });
+      res.json(productData || [])
     }).catch(function(err) {
       res.status(400).send({
         message: getErrorMessage(err)
       });
     });
-  });
-  //    forEach end
-  res.json(salesData)
 
+
+
+  }).catch(function(err) {
+    res.status(400).send({
+      message: getErrorMessage(err)
+    });
+  });
+
+
+  /// Product findAll ends here
 }
