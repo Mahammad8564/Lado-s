@@ -1,9 +1,9 @@
  (function() {
    'use strict';
    angular.module('lados').controller("ReportsController", ReportsController);
-   ReportsController.$inject = ['Authentication', 'Restangular', '$state'];
+   ReportsController.$inject = ['Authentication', 'Restangular', '$state', '$scope'];
 
-   function ReportsController(Authentication, Restangular, $state) {
+   function ReportsController(Authentication, Restangular, $state, $scope) {
      var vm = this;
      vm.openCal1 = openCal1;
      vm.openCal2 = openCal2;
@@ -15,6 +15,7 @@
      vm.exportToPdf = exportToPdf;
      vm.enddate = new Date();
      vm.startdate = new Date();
+     vm.exportToExcel = exportToExcel;
 
      function openCal1() {
        vm.open_datefrom = !vm.open_datefrom;
@@ -29,7 +30,6 @@
      }
 
      function exportToPdf() {
-       console.log(document.getElementById('myReport'));
        html2canvas(document.getElementById('myReport'), {
          onrendered: function(canvas) {
            var data = canvas.toDataURL();

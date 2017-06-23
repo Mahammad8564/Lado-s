@@ -2,14 +2,12 @@
   <div ng-init="vm.activet()">
     <div class="sub-header-title">Reports</div>
 
-
-
-    <div class="add-category-box-cont">
+    <div class="add-category-box-cont" ng-if="vm.list.length > 0">
       <label ng-click="vm.exportToPdf()">
-           <h4><input type="button" value="Export To Pdf" /></h4>
+           <h4><input type="button" value="Export" /></h4>
       </label>
-    </div>
 
+    </div>
 
     <div class="add-category-box-cont">
       <label> <h4>Branch:</h4></label>

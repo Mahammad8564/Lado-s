@@ -34,6 +34,8 @@
      }
 
      function filter() {
+       vm.product.BranchId = Authentication.user.BranchId;
+       vm.product.UserId = Authentication.user.id;
        switch (vm.product.option) {
          case 'frequency':
            switch (vm.product.frequency) {
@@ -61,7 +63,7 @@
            vm.product.toDate = vm.product.endDate.getTime();
            break;
        }
-       Restangular.all('api/sale/report').post(vm.product).then(function(res) {
+       Restangular.all('api/sale/userReport').post(vm.product).then(function(res) {
          vm.list = res.data;
          vm.totalProfit = 0;
          _.forEach(vm.list, function(List, key) {
@@ -69,6 +71,7 @@
          });
        });
      }
+
 
      function exportToPdf() {
        console.log(document.getElementById('myReport'));
@@ -89,7 +92,7 @@
                }
              ]
            };
-           pdfMake.createPdf(docDefinition).download("report.pdf");
+           pdfMake.createPdf(docDefinition).download("Report.pdf");
          }
        });
      }

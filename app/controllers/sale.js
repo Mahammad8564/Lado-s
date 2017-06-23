@@ -25,6 +25,7 @@ exports.list = function(req, res) {
   req.options.include = [{
     model: Product,
     include: [Branch, Category, Purchase]
+
   }, User];
   Sale.findAndCountAll(req.options).then(function(arrs) {
     res.setHeader('total', arrs.count);
@@ -195,6 +196,9 @@ exports.getReport = function(req, res, next) {
   if (req.body.CategoryId != 'All') data.push({
     "CategoryId": req.body.CategoryId
   });
+  data.push({
+    "status": 'sold'
+  });
   Product.findAll({
     where: data,
     attributes: ['id']
@@ -206,7 +210,6 @@ exports.getReport = function(req, res, next) {
     Sale.findAll({
       where: {
         ProductId: productIds,
-
         $or: [{
           InvoiceId: {
             $gte: req.body.frequency
@@ -226,15 +229,66 @@ exports.getReport = function(req, res, next) {
         message: getErrorMessage(err)
       });
     });
-
-
-
   }).catch(function(err) {
     res.status(400).send({
       message: getErrorMessage(err)
     });
   });
+}
 
 
+exports.getUserReport = function(req, res, next) {
+  var data = [];
+  console.log('================req.body.BranchId===========');
+  console.log(req.body.BranchId);
+  data.push({
+    "BranchId": req.body.BranchId
+  });
+  if (req.body.PurchaseId != 'All') data.push({
+    "PurchaseId": req.body.PurchaseId
+  });
+  if (req.body.CategoryId != 'All') data.push({
+    "CategoryId": req.body.CategoryId
+  });
+  data.push({
+    "status": 'sold'
+  });
+
+  Product.findAll({
+    where: data,
+    attributes: ['id']
+  }).then(function(obj) {
+    var productIds = _.map((obj || []), function(product) {
+      return product.id;
+    }) || [];
+
+    Sale.findAll({
+      where: {
+        ProductId: productIds,
+        // UserId: req.body.UserId,
+        $or: [{
+          InvoiceId: {
+            $gte: req.body.frequency
+          }
+        }, {
+          InvoiceId: {
+            $gte: req.body.fromDate,
+            $lte: req.body.toDate
+          }
+        }]
+      },
+      include: [Product]
+    }).then(function(productData) {
+      res.json(productData || [])
+    }).catch(function(err) {
+      res.status(400).send({
+        message: getErrorMessage(err)
+      });
+    });
+  }).catch(function(err) {
+    res.status(400).send({
+      message: getErrorMessage(err)
+    });
+  });
   /// Product findAll ends here
 }

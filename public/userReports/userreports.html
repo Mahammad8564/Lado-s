@@ -2,15 +2,11 @@
   <div ng-init="vm.activate()">
     <div class="sub-header-title">Reports</div>
 
-
-
-    <div class="add-category-box-cont">
+    <div class="add-category-box-cont" ng-if="vm.list.length > 0">
       <label ng-click="vm.exportToPdf()">
-           <h4><input type="button" value="Export To Pdf" /></h4>
+           <h4><input type="button" value="Export" /></h4>
       </label>
     </div>
-
-
 
     <div class="add-category-box-cont">
       <label><h4> Purchase:</h4></label>
@@ -19,8 +15,6 @@
                <option ng-repeat="item in  vm.purchase" value="{{item.id}}">{{item.purchaseName}}</option>
       </select>
     </div>
-
-
 
     <div class="add-category-box-cont">
       <label><h4> Category: </h4></label>
@@ -41,7 +35,6 @@
     </div>
 
     <div class="add-category-box-cont" ng-if="vm.product.option == 'frequency'" ng-init="vm.product.endDate=''">
-
       <label ng-init="vm.product.startDate=''"><h4> Filter By: </h4></label>
       <select ng-init="vm.product.frequency = '1'" ng-model="vm.product.frequency">
                       <option value="1">All</option>
@@ -49,7 +42,6 @@
                       <option value="week">Last 7 Days</option>
                       <option value="month">Last 30 Days</option>
       </select>
-
     </div>
 
     <div class="add-category-box-cont" ng-init="vm.product.frequency='1'" ng-if="vm.product.option == 'custom'">
@@ -60,7 +52,6 @@
             <label style="width: auto;">&nbsp; To</label>
         </h3>
         <input style="width: auto;" type="date" readonly name="endDate" uib-datepicker-popup="" is-open="open.endDate" convert-to-date ng-model="vm.product.endDate" ng-click="open.endDate = !open.endDate" ng-max="vm.enddate" required>
-
       </div>
     </div>
 

@@ -21,5 +21,9 @@ module.exports = function(app) {
   app.route('/api/sale/report')
     .post(sale.getReport);
 
+  app.route('/api/sale/userReport')
+    .post(sale.getUserReport);
+
+
   app.param('saleId', sale.getById);
 }
