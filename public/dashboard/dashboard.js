@@ -31,7 +31,8 @@
      function getPurchase() {
        Restangular.all('api/purchase').getList().then(function(res) {
          vm.purchase = res.data;
-         vm.groupByPurchaseStatus = _.groupBy(res.data.Products, function(obj) {
+
+         vm.groupByPurchaseStatus = _.groupBy(res.data[0].Products, function(obj) {
            return obj.status;
          });
 
