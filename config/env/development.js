@@ -3,6 +3,6 @@
     port: 3306,
     dbname: "lados",
     dbusername: "root",
-    dbpass: "root",
+    dbpass: "123456",
     sessionSecret: 'developmentSessionSecret'
 }
