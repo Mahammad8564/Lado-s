@@ -1,4 +1,3 @@
-﻿
 var models = require('../models');
 var Purchase = models.Purchase;
 var Product = models.Product;
@@ -43,7 +42,6 @@ exports.getById = function(req, res, next) {
       id: req.params.purchaseId
     },
   }).then(function(obj) {
-    console.log("2");
     res.json(obj);
     next();
   }).catch(function(err) {

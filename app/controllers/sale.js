@@ -25,13 +25,11 @@ exports.list = function(req, res) {
   req.options.include = [{
     model: Product,
     include: [Branch, Category, Purchase]
-
   }, User];
   Sale.findAndCountAll(req.options).then(function(arrs) {
     res.setHeader('total', arrs.count);
     res.json(arrs.rows);
   }).catch(function(err) {
-    console.log(err);
     res.status(400).send({
       message: getErrorMessage(err)
     });
@@ -73,8 +71,6 @@ exports.create = function(req, res) {
     items[key].InvoiceId = InvoiceId;
     items[key].Address = Address;
     items[key] = val;
-
-    console.log(JSON.stringify(val));
     Sale.create(val).then(function(obj) {
       if (!obj) {
         return res.send({
@@ -203,6 +199,7 @@ exports.getReport = function(req, res, next) {
     where: data,
     attributes: ['id']
   }).then(function(obj) {
+
     var productIds = _.map((obj || []), function(product) {
       return product.id;
     }) || [];
@@ -239,8 +236,6 @@ exports.getReport = function(req, res, next) {
 
 exports.getUserReport = function(req, res, next) {
   var data = [];
-  console.log('================req.body.BranchId===========');
-  console.log(req.body.BranchId);
   data.push({
     "BranchId": req.body.BranchId
   });
@@ -265,7 +260,7 @@ exports.getUserReport = function(req, res, next) {
     Sale.findAll({
       where: {
         ProductId: productIds,
-        // UserId: req.body.UserId,
+        UserId: req.body.UserId,
         $or: [{
           InvoiceId: {
             $gte: req.body.frequency
@@ -290,5 +285,4 @@ exports.getUserReport = function(req, res, next) {
       message: getErrorMessage(err)
     });
   });
-  /// Product findAll ends here
 }

@@ -23,7 +23,10 @@ var getErrorMessage = function(err) {
 //getting List of
 //For Geting list of Products
 exports.list = function(req, res) {
-  Product.findAndCountAll(req.options).then(function(arrs) {
+  Product.findAndCountAll({
+
+    include: [Purchase, Category, Branch]
+  }).then(function(arrs) {
     res.setHeader('total', arrs.count);
     res.json(arrs.rows);
   }).catch(function(err) {
@@ -182,9 +185,9 @@ exports.getByBranchId = function(req, res, next) {
     where: {
       BranchId: req.params.BranchId
     },
+    include: [Purchase, Branch]
   }).then(function(obj) {
     res.json(obj);
-    next();
   }).catch(function(err) {
     res.status(400).send({
       message: getErrorMessage(err)

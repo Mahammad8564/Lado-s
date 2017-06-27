@@ -10,18 +10,16 @@
   <div class="tab1">
     <div class="sub-header-title">Inventory Summary</div>
     <div class="action-dropdown-menu">
-      <select class="select-action" name="tab1BranchDropdown" ng-model="search.branchName">
+      <select class="select-action" name="tab1BranchDropdown" ng-model="search.branchName" ng-init="search.branchName='all'" ng-change="vm.filterBranch(search.branchName);">
         <!-- ng-change="vm.changeTab1BranchDropdown(vm.tab1BranchDropdownId)" -->
-                <option value="">All</option>
-                <option ng-repeat="item in vm.branchCopy | filter:{isActive :true}"  >{{item.branchName}}</option>
+                <option value="all">All</option>
+                <option ng-repeat="item in vm.branchCopy | filter:{isActive :true}"   value="{{item.id}}" >{{item.branchName}}</option>
             </select>
     </div>
     <div class="dashboard-cont-box">
-      <div class="row">
-
-        <div class="col-md-4" ng-repeat="data in vm.branch | filter:{isActive :true} | filter:search.branchName">
+      <div class="row" ng-if="search.branchName==='all'">
+        <div class="col-md-4" ng-repeat="data in vm.branch | filter:{isActive :true} ">
           <div class="box_1">
-
             <div class="branch-1-heading">{{data.branchName}}</div>
             <div class="dashboard-bx">
               <div class="instoke-text-bx">In Stock: <span>{{vm.InStock[$index]||0}}</span></div>
@@ -29,26 +27,43 @@
             </div>
             <div class="branch-1-heading-btm"><strong>Total Items: </strong><span>{{vm.InStock[$index] + vm.Sold[$index] ||0}}</span></div>
           </div>
-
         </div>
-
       </div>
+
+      <div class="row" ng-if="search.branchName !='all'">
+        <div class="col-md-4">
+
+          <div class="box_1">
+            <div class="branch-1-heading"> {{vm.getFilter[0].Branch.branchName}}</div>
+            <div class="dashboard-bx">
+              <div class="instoke-text-bx">In Stock: <span> {{vm.groupByStatus.new.length || 0}}</span></div>
+              <div class="instoke-text-bx">Sold: <span>{{vm.groupByStatus.sold.length || 0}}</span></div>
+            </div>
+            <div class="branch-1-heading-btm"><strong>Total Items: </strong><span>{{vm.groupByStatus.new.length + vm.groupByStatus.sold.length}}</span></div>
+          </div>
+        </div>
+      </div>
+
+
+
 
       <div class="sub-header-title">Purchase Summary</div>
       <div class="action-dropdown-menu">
-        <select class="select-action" name="dropdown1" ng-model="vm.dropdown1" ng-change="vm.getChartByDropdown1()">
+        <select class="select-action" name="dropdown1" ng-model="vm.dropdown1" ng-change="vm.filterPurchase(vm.dropdown1)" ng-init="vm.dropdown1='All'">
                 <option value="All">All</option>
                 <option ng-repeat="item in vm.purchase" value="{{item.id}}">{{item.purchaseName}}</option>
             </select>
       </div>
       <div class="purchase-summary-box">
         <div class="row">
-          <div class="col-md-4" ng-repeat="data in vm.purchase">
+          <div class="col-md-4" ng-repeat="data in vm.purchase | filter:vm.dropdown1">
             <div class="box_1">
               <div class="row">
                 <div class="col-md-4"><label>Items</label><strong>{{data.totalItems}}</strong></div>
-                <div class="col-md-4"><label>In Stock</label><strong>60</strong></div>
-                <div class="col-md-4"><label>Sold</label><strong>70</strong></div>
+                <!-- <div class="instoke-text-bx">In Stock: <span></span></div> -->
+
+                <div class="col-md-4"><label>In Stock</label><strong>{{vm.groupByPurchaseStatus.new.length||0}}</strong></div>
+                <div class="col-md-4"><label>Sold</label><strong>{{vm.groupByPurchaseStatus.sold.length || 0}}</strong></div>
               </div>
               <div class="center-text-bx">{{data.purchaseName}}</div>
               <div class="row">
@@ -58,11 +73,16 @@
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>
   </div>
+
+
+
+
+
+
 
 
   <div class="tab2">

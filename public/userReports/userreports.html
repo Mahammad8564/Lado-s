@@ -1,10 +1,9 @@
 <form name="adminReport">
   <div ng-init="vm.activate()">
     <div class="sub-header-title">Reports</div>
-
     <div class="add-category-box-cont" ng-if="vm.list.length > 0">
       <label ng-click="vm.exportToPdf()">
-           <h4><input type="button" value="Export" /></h4>
+            <input type="button" class="btn-success" value="Export" />
       </label>
     </div>
 
@@ -74,12 +73,12 @@
     <div class="add-category-box-cont">
       <label style="padding-top: 0px;">&nbsp;</label>
       <div class="save-cancel-btn">
-        <input class="save-new-btn" type="button" value="Genrate" ng-click="vm.filter()">
+        <input class="save-new-btn" type="submit" value="Filter" ng-click="vm.filter()">
       </div>
     </div>
 
 </form>
-
+<!--================================================= list here  ========================-->
 <table ng-if="vm.list.length > 0" class="table-part" border="0" cellspacing="0" cellpadding="0" id="myReport">
   <tr class="top-purpal-color-row">
     <th>Product Code</th>
@@ -104,7 +103,8 @@
   <tr>
     <td colspan="6">
       <h4 style="float:right">
-        Total Profit
+         
+           Total {{vm.totalProfit>0?'Profit':'Loss'}}
       </h4>
     </td>
     <td>

@@ -1,7 +1,7 @@
 <div ng-init="vm.getList()">
   <div class="sub-header-title">Purchases</div>
   <div class="search-box">
-    <input type="text" placeholder="Search by Purchase Name" ng-model="search">
+    <input type="text" placeholder="Search by Purchase Name" ng-model="search.purchaseName">
     <a href="#!/secure/purchases/new"><input class="add-new-btn" type="button" value="Add New"></a>
   </div>
   <table class="table-part" border="0" cellspacing="0" cellpadding="0">
@@ -12,12 +12,10 @@
       <th>Total Cost</th>
       <th>Status</th>
       <th>Action</th>
-      <th>data</th>
-
     </tr>
-    <tr ng-repeat="data in vm.list | filter: search">
+    <tr ng-repeat="data in vm.list | filter:search:strict">
+
       <td data-th="Purchase Name: " class="top-purpal-color-row2">
-        <!-- <a href="" ng-click="vm.edit(data)">{{data.purchaseName}}</a>  -->
         {{data.purchaseName}}
       </td>
       <td data-th="Purchase Date: " class="top-purpal-color-row2">{{data.purchaseDate | date:"dd MMMM yyyy"}}</td>
@@ -30,9 +28,6 @@
         <a href="" class="add-product-btn" ng-click="vm.add(data)">
           {{data.Products.length >= data.totalItems? 'View':'Add Products'}}
         </a>
-      </td>
-      <td class="top-purpal-color-row2">
-        {{data.Products.length}}
       </td>
     </tr>
   </table>

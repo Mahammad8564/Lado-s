@@ -15,7 +15,6 @@
      vm.exportToPdf = exportToPdf;
      vm.enddate = new Date();
      vm.startdate = new Date();
-     vm.exportToExcel = exportToExcel;
 
      function openCal1() {
        vm.open_datefrom = !vm.open_datefrom;

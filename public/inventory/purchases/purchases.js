@@ -18,7 +18,6 @@
 
     if ($stateParams.id && $stateParams.id != 'new') {
       Restangular.one('api/purchase/' + $stateParams.id).get().then(function(res) {
-        console.log(res.data);
         vm.purchase = res.data;
       });
     }
@@ -32,7 +31,6 @@
 
 
     function save(form) {
-      console.log('..................................' + form.purchaseName);
       if (form.$invalid) {
         _.forEach(form.$error, function(err) {
           _.forEach(err, function(frm) {

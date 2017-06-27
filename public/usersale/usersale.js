@@ -44,7 +44,7 @@
     }
 
     function getAllProductByBranch() {
-      Restangular.one('api/getByBranchId/' + user.BranchId).get().then(function(res) {
+      Restangular.one('api/product/getByBranchId/' + user.BranchId).get().then(function(res) {
         vm.InStock = res.data;
       });
     }

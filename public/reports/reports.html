@@ -2,11 +2,8 @@
   <div ng-init="vm.activet()">
     <div class="sub-header-title">Reports</div>
 
-    <div class="add-category-box-cont" ng-if="vm.list.length > 0">
-      <label ng-click="vm.exportToPdf()">
-           <h4><input type="button" value="Export" /></h4>
-      </label>
-
+    <div class="add-category-box-cont" style="width:200px;" ng-if="vm.list.length > 0">
+      <input type="button" class="w3-btn w3-green" ng-click="vm.exportToPdf()" value="Export" />
     </div>
 
     <div class="add-category-box-cont">
@@ -24,8 +21,6 @@
                <option ng-repeat="item in  vm.purchase" value="{{item.id}}">{{item.purchaseName}}</option>
       </select>
     </div>
-
-
 
     <div class="add-category-box-cont">
       <label><h4> Category: </h4></label>
@@ -64,31 +59,30 @@
         <h3 style="width: auto;">
             <label style="width: auto;">&nbsp; To</label>
         </h3>
-        <input style="width: auto;" type="date" readonly name="endDate" uib-datepicker-popup="" is-open="open.endDate" convert-to-date ng-model="vm.product.endDate" ng-click="open.endDate = !open.endDate" ng-max="vm.enddate" required>
+        <input style="width: auto;" type="date" readonly name="endDate" uib-datepicker-popup="" is-open="open.endDate" convert-to-date ng-model="vm.product.endDate" ng-click="open.endDate = !open.endDate" ng-max="vm.enddate" ng-min="vm.product.startDate" required>
 
       </div>
     </div>
 
 
-    <div class="add-category-box-cont" ng-if="vm.product.option == 'custom'">
+    <div class="add-category-box-cont" ng-if="vm.product.option == 'custom'" style="color:red">
       <span class="error-msg-reports-1" ng-if="adminReport.startDate.$dirty && adminReport.startDate.$error.max"><em>Start</em> date should not be future date.</span>
       <span class="error-msg-reports-1" ng-if="adminReport.startDate.$dirty && adminReport.startDate.$error.min">Invalid date range. <em>To</em> date should be greater than <em>From</em> date.</span>
       <span class="error-msg-reports-1">{{vm.error}}</span>
     </div>
 
-    <div class="add-category-box-cont" ng-if="vm.product.option == 'custom'">
+    <div class="add-category-box-cont" ng-if="vm.product.option == 'custom'" style="color:red">
       <span class="error-msg-reports-1" ng-if="adminReport.endDate.$dirty && adminReport.endDate.$error.max"><em>End</em> date should not be future date.</span>
       <span class="error-msg-reports-1" ng-if="adminReport.endDate.$dirty && adminReport.endDate.$error.min">Invalid date range. <em>To</em> date should be greater than <em>From</em> date.</span>
       <span class="error-msg-reports-1">{{vm.error}}</span>
+
     </div>
-
-
 
 
     <div class="add-category-box-cont">
       <label style="padding-top: 0px;">&nbsp;</label>
       <div class="save-cancel-btn">
-        <input class="save-new-btn" type="button" value="Genrate" ng-click="vm.filter()">
+        <input class="save-new-btn" type="submit" value="Genrate" ng-click="vm.filter()">
       </div>
     </div>
 
@@ -118,7 +112,7 @@
   <tr>
     <td colspan="6">
       <h4 style="float:right">
-        Total Profit
+         Total {{vm.totalProfit>0?'Profit':'Loss'}}
       </h4>
     </td>
     <td>

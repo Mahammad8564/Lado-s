@@ -31,7 +31,7 @@ module.exports = function(app) {
   app.route('/api/groupByBranchId/:BranchId')
     .get(product.groupByBranchId);
 
-  app.route('/api/getByBranchId/:BranchId')
+  app.route('/api/product/getByBranchId/:BranchId')
     .get(product.getByBranchId);
 
   app.route('/api/getByBranchIdAndSold/:BranchId')
@@ -65,7 +65,6 @@ module.exports = function(app) {
 
 
   app.param('productId', product.getById);
-  // app.param('purchaseId', product.getByPurchaseId);
 
 
 }

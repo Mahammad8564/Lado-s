@@ -1,213 +1,212 @@
-(function() {
-  'use strict';
+ (function() {
+   'use strict';
 
-  angular.module('lados').controller('DashboardController', DashboardController);
+   angular.module('lados').controller('DashboardController', DashboardController);
 
-  DashboardController.$inject = ['Restangular', '$state', '$q'];
+   DashboardController.$inject = ['Restangular', '$state', '$q'];
 
-  function DashboardController(Restangular, $state, $q) {
-    var vm = this;
-    vm.getTotalPriceByPurchse = getTotalPriceByPurchse;
-    vm.getStats = getStats;
-    vm.branchName = [];
-    vm.InStock = [];
-    vm.Sold = [];
-    vm.tab1BranchDropdownId = 'All';
-    vm.branch = [];
+   function DashboardController(Restangular, $state, $q) {
+     var vm = this;
+     vm.getTotalPriceByPurchse = getTotalPriceByPurchse;
+     vm.getStats = getStats;
+     vm.filterBranch = filterBranch;
+     vm.getPurchase = getPurchase;
+     vm.branchName = [];
+     vm.InStock = [];
+     vm.Sold = [];
+     vm.tab1BranchDropdownId = 'All';
+     vm.branch = [];
 
-    function getStats() {
-      vm.branch.forEach(function(element) {
+     function filterBranch(id) {
+       if (id != 'all') {
+         Restangular.one('api/product/getByBranchId/' + id).get().then(function(res) {
+           vm.getFilter = res.data;
+           vm.groupByStatus = _.groupBy(res.data, function(obj) {
+             return obj.status;
+           });
+         });
+       }
+     }
 
-        Restangular.one('api/unsold/' + element.id).get().then(function(res) {
-          vm.InStock.push(res.data);
-        });
-        Restangular.one('api/sold/' + element.id).get().then(function(res) {
-          vm.Sold.push(res.data);
-        });
-      }, this);
+     function getPurchase() {
+       Restangular.all('api/purchase').getList().then(function(res) {
+         vm.purchase = res.data;
+         vm.groupByPurchaseStatus = _.groupBy(res.data.Products, function(obj) {
+           return obj.status;
+         });
 
-      vm.TotalInStock = vm.InStock.reduce(function(acc, val) {
-        return acc + val;
-      }, 0);
-
-      vm.TotalSold = vm.Sold.reduce(function(acc, val) {
-        return acc + val;
-      }, 0);
-    }
-
-    // vm.changeTab1BranchDropdown = function(tab1BranchDropdownId) {
-    //   if (tab1BranchDropdownId) {
-    //     if (tab1BranchDropdownId === 'All') {
-    //       Restangular.all('api/branch').getList().then(function(res) {
-    //         vm.branch = res.data;
-    //       });
-    //     } else {
-    //       Restangular.one('api/branch/' + tab1BranchDropdownId).get().then(function(res) {
-    //
-    //         vm.branch = res.data;
-    //       });
-    //
-    //     }
-    //   }
-    // }
+       });
+     }
 
 
 
-    //===============================================Tab 2===============================================
-    vm.getChartData1 = getChartData1;
-    vm.getChartData2 = getChartData2;
-    vm.getChartData3 = getChartData3;
+     function getStats() {
+       vm.branch.forEach(function(element) {
 
-    vm.getList = getList;
+         Restangular.one('api/unsold/' + element.id).get().then(function(res) {
+           vm.InStock.push(res.data);
+         });
+         Restangular.one('api/sold/' + element.id).get().then(function(res) {
+           vm.Sold.push(res.data);
+         });
+       }, this);
 
-    vm.getChartByDropdown1 = getChartByDropdown1;
-    vm.getChartByDropdown2 = getChartByDropdown2;
-    vm.getChartByDropdown3 = getChartByDropdown3;
-    vm.profit = []; // vm.getChartByDropdown4 = getChartByDropdown4;
+       vm.TotalInStock = vm.InStock.reduce(function(acc, val) {
+         return acc + val;
+       }, 0);
 
-    vm.activate = activate;
-
-    vm.dropdown1 = 'All';
-    vm.dropdown2 = 'All';
-    vm.dropdown3 = 'All';
-    vm.dropdown4 = 'All';
-
-
-    Restangular.all('api/branch').getList().then(function(res) {
-      vm.branch = res.data;
-      vm.branchCopy = res.data;
-    });
-
-    function activate() {
-      vm.getList(function() {
-        vm.getStats();
-        vm.getChartData1();
-        vm.getChartData2();
-        vm.getChartData3();
-      });
-    }
-
-    function getList(cb) {
-
-      Restangular.all('api/purchase').getList().then(function(res) {
-        vm.purchase = res.data;
-      });
-
-      Restangular.all('api/branch').getList().then(function(res) {
-        vm.branch = res.data;
-        cb();
-      });
+       vm.TotalSold = vm.Sold.reduce(function(acc, val) {
+         return acc + val;
+       }, 0);
+     }
 
 
-      // Restangular.all('api/branch').getList().then(function(res) {
-      //   vm.branch = res.data;
-      //   vm.branchCopy = res.data;
-      // });
 
-    }
+     //===============================================Tab 2===============================================
+     vm.getChartData1 = getChartData1;
+     vm.getChartData2 = getChartData2;
+     vm.getChartData3 = getChartData3;
 
+     vm.getList = getList;
 
-    function getTotalPriceByPurchse(id) {
-      Restangular.one('api/getTotalPrice/' + id).get().then(function(res) {
-        vm.profit = res.data;
-      });
-    }
+     vm.getChartByDropdown1 = getChartByDropdown1;
+     vm.getChartByDropdown2 = getChartByDropdown2;
+     vm.getChartByDropdown3 = getChartByDropdown3;
+     vm.profit = [];
 
-    function getChartByDropdown1() {
-      vm.getChartData1();
-    }
+     vm.activate = activate;
 
-    function getChartByDropdown2() {
-      vm.getChartData2();
-    }
-
-    function getChartByDropdown3() {
-      vm.getChartData3();
-    }
+     vm.dropdown1 = 'All';
+     vm.dropdown2 = 'All';
+     vm.dropdown3 = 'All';
+     vm.dropdown4 = 'All';
 
 
-    function getChartData1() {
+     Restangular.all('api/branch').getList().then(function(res) {
+       vm.branch = res.data;
+       vm.branchCopy = res.data;
+     });
 
-      if (vm.dropdown1 == 'All') {
-        vm.labels1 = [];
-        vm.data1 = [];
-        vm.branch.forEach(function(element) {
-          vm.labels1.push(element.branchName);
-          Restangular.all('api/getByBranchId/' + element.id).getList().then(function(res) {
-            vm.data1.push(res.data.length);
-          });
-        }, this);
-      } else {
-        vm.labels1 = [];
-        vm.data1 = [];
-        vm.branch.forEach(function(element) {
-          vm.labels1.push(element.branchName);
-          Restangular.all('api/getByBranchIdByInventory/' + element.id + '/' + vm.dropdown1).getList().then(function(res) {
-            vm.data1.push(res.data.length);
-          });
-        }, this);
-      }
+     function activate() {
+       vm.getPurchase()
+       vm.getList(function() {
+         vm.getStats();
+         vm.getChartData1();
+         vm.getChartData2();
+         vm.getChartData3();
+       });
+     }
 
-    }
+     function getList(cb) {
 
-    function getChartData2() {
+       Restangular.all('api/branch').getList().then(function(res) {
+         vm.branch = res.data;
+         cb();
+       });
+     }
 
-      vm.noDataFound = false;
-      vm.labels2 = ['In Stock', 'Sold'];
 
-      if (vm.dropdown2 == 'All') {
-        vm.data2 = [];
-        Restangular.one('api/unsold/all').get().then(function(res) {
-          vm.data2.push(res.data);
-          if (res.data == 0) {
-            vm.noDataFound = true;
-          }
-        });
-        Restangular.one('api/sold/all').get().then(function(res) {
-          vm.data2.push(res.data);
-          if (res.data == 0) {
-            vm.noDataFound = true;
-          }
-        });
-      } else {
-        vm.data2 = [];
-        Restangular.one('api/unsold/' + vm.dropdown2).get().then(function(res) {
-          vm.data2.push(res.data);
-          if (res.data == 0) {
-            vm.noDataFound = true;
-          }
-        });
-        Restangular.one('api/sold/' + vm.dropdown2).get().then(function(res) {
-          vm.data2.push(res.data);
-          if (res.data == 0) {
-            vm.noDataFound = true;
-          }
-        });
-      }
+     function getTotalPriceByPurchse(id) {
+       Restangular.one('api/getTotalPrice/' + id).get().then(function(res) {
+         vm.profit = res.data;
+       });
+     }
 
-    }
+     function getChartByDropdown1() {
+       vm.getChartData1();
+     }
 
-    function getChartData3() {
-      if (vm.dropdown3 == 'All') {
-        vm.labels3 = [];
-        vm.data3 = [];
-        vm.branch.forEach(function(element) {
-          vm.labels3.push(element.branchName);
-          Restangular.all('api/getByBranchIdAndSold/' + element.id).getList().then(function(res) {
-            vm.data3.push(res.data.length);
-          });
-        }, this);
-      } else {
-        vm.labels3 = [];
-        vm.data3 = [];
-        vm.branch.forEach(function(element) {
-          vm.labels3.push(element.branchName);
-          Restangular.all('api/getByBranchIdByInventoryAndSold/' + element.id + '/' + vm.dropdown3).getList().then(function(res) {
-            vm.data3.push(res.data.length);
-          });
-        }, this);
-      }
-    }
-  }
+     function getChartByDropdown2() {
+       vm.getChartData2();
+     }
 
-})();
+     function getChartByDropdown3() {
+       vm.getChartData3();
+     }
+
+
+     function getChartData1() {
+
+       if (vm.dropdown1 == 'All') {
+         vm.labels1 = [];
+         vm.data1 = [];
+         vm.branch.forEach(function(element) {
+           vm.labels1.push(element.branchName);
+           Restangular.all('api/product/getByBranchId/' + element.id).getList().then(function(res) {
+             vm.data1.push(res.data.length);
+           });
+         }, this);
+       } else {
+         vm.labels1 = [];
+         vm.data1 = [];
+         vm.branch.forEach(function(element) {
+           vm.labels1.push(element.branchName);
+           Restangular.all('api/getByBranchIdByInventory/' + element.id + '/' + vm.dropdown1).getList().then(function(res) {
+             vm.data1.push(res.data.length);
+           });
+         }, this);
+       }
+
+     }
+
+     function getChartData2() {
+
+       vm.noDataFound = false;
+       vm.labels2 = ['In Stock', 'Sold'];
+
+       if (vm.dropdown2 == 'All') {
+         vm.data2 = [];
+         Restangular.one('api/unsold/all').get().then(function(res) {
+           vm.data2.push(res.data);
+           if (res.data == 0) {
+             vm.noDataFound = true;
+           }
+         });
+         Restangular.one('api/sold/all').get().then(function(res) {
+           vm.data2.push(res.data);
+           if (res.data == 0) {
+             vm.noDataFound = true;
+           }
+         });
+       } else {
+         vm.data2 = [];
+         Restangular.one('api/unsold/' + vm.dropdown2).get().then(function(res) {
+           vm.data2.push(res.data);
+           if (res.data == 0) {
+             vm.noDataFound = true;
+           }
+         });
+         Restangular.one('api/sold/' + vm.dropdown2).get().then(function(res) {
+           vm.data2.push(res.data);
+           if (res.data == 0) {
+             vm.noDataFound = true;
+           }
+         });
+       }
+
+     }
+
+     function getChartData3() {
+       if (vm.dropdown3 == 'All') {
+         vm.labels3 = [];
+         vm.data3 = [];
+         vm.branch.forEach(function(element) {
+           vm.labels3.push(element.branchName);
+           Restangular.all('api/getByBranchIdAndSold/' + element.id).getList().then(function(res) {
+             vm.data3.push(res.data.length);
+           });
+         }, this);
+       } else {
+         vm.labels3 = [];
+         vm.data3 = [];
+         vm.branch.forEach(function(element) {
+           vm.labels3.push(element.branchName);
+           Restangular.all('api/getByBranchIdByInventoryAndSold/' + element.id + '/' + vm.dropdown3).getList().then(function(res) {
+             vm.data3.push(res.data.length);
+           });
+         }, this);
+       }
+     }
+   }
+
+ })();

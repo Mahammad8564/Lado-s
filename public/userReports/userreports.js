@@ -74,7 +74,6 @@
 
 
      function exportToPdf() {
-       console.log(document.getElementById('myReport'));
        html2canvas(document.getElementById('myReport'), {
          onrendered: function(canvas) {
            var data = canvas.toDataURL();

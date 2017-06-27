@@ -36,12 +36,8 @@
           },
           function(isConfirm) {
             if (isConfirm) {
-              swal("Deleted!", "Your imaginary file has been deleted.", "success");
               location.reload();
-            } else {
-
-              swal("Cancelled", "Your imaginary file is safe :)", "success");
-            }
+            } else {}
           });
       }, function(err) {
         vm.error = err.data.message;
