@@ -5,8 +5,6 @@
       <div class="row">
         <div class="col-md-2">
           <div class="box-track">{{vm.TotalItem || 0}} </div><span>Total Items</span></div>
-        <!--<div class="col-md-2">
-                    <div class="box-track">70</div><span>Added Items</span></div>-->
         <div class="col-md-2">
           <div class="box-track">{{vm.TotalCost || 0 | currency:"&#8377;" }}</div><span>Total Cost</span></div>
         <div class="col-md-2">
@@ -19,9 +17,8 @@
           <div class="box-track">{{vm.TotalPrice - vm.TotalCost |currency:"&#8377;" || 0}} </div><span>Profit</span></div>
       </div>
     </div>
-
-
   </div>
+
   <br />
   <div class="clear-both">
     <div class="sub-header-title">Charts Summary</div>

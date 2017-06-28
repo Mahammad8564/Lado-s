@@ -29,5 +29,11 @@ module.exports = function(app) {
     .post(sale.getUserReport);
 
 
+
+
+  app.route('/api/sale/invoice/:InvoiceId')
+    .get(sale.getByInvoiceId);
+
+
   app.param('saleId', sale.getById);
 }

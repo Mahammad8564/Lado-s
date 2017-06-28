@@ -9,6 +9,13 @@
     vm.getList = getList;
     vm.branchlist = getAllBranch;
     vm.purchase = getAllPurchase;
+    vm.invoice = invoice;
+
+    function invoice(id) {
+      $state.go('secure.invoice', {
+        InvoiceId: id
+      });
+    }
 
     function getList() {
       Restangular.all('api/sale').getList().then(function(res) {
@@ -30,6 +37,7 @@
         vm.Branchlist = res.data;
       });
     }
+
 
     function activet() {
       getAllPurchase();

@@ -7,8 +7,6 @@
   </div>
 
   <div>
-    <!--<h2 class="no-record-found-text" ng-if="!vm.list.length">No data found</h2>-->
-
     <table class="table-part" border="0" cellspacing="0" cellpadding="0">
       <tr class="top-purpal-color-row">
         <th>
@@ -24,14 +22,15 @@
         </th>
         <th>Product Name</th>
         <th>Price</th>
-        <th>Invoice</th>
-        <!--<th>Status</th>-->
+        <th>Action</th>
       </tr>
       <tr ng-repeat="list in vm.alreadySale | filter: vm.search | orderBy:'productName' ">
         <td data-th="" class="top-purpal-color-row2">{{list.Product.productName}}</td>
         <td data-th="" class="top-purpal-color-row2">{{list.Product.productCode}}</td>
         <td data-th="" class="top-purpal-color-row2">{{list.price}}</td>
-        <td data-th="" class="top-purpal-color-row2"> #{{list.InvoiceId}}</td>
+        <td data-th="" class="top-purpal-color-row2">
+          <a ng-click="vm.invoice(list.InvoiceId)">Invoice</a>
+        </td>
       </tr>
     </table>
   </div>

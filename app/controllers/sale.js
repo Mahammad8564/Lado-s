@@ -286,3 +286,25 @@ exports.getUserReport = function(req, res, next) {
     });
   });
 }
+
+
+
+
+
+exports.getByInvoiceId = function(req, res, next) {
+
+  Sale.findAll({
+    where: {
+      InvoiceId: req.params.InvoiceId
+    },
+    include: [User, Product]
+  }).then(function(obj) {
+    res.json(obj);
+    next();
+  }).catch(function(err) {
+    res.status(400).send({
+      message: getErrorMessage(err)
+    });
+  });
+
+}

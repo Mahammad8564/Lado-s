@@ -227,6 +227,8 @@
         controller: 'UserSaleController',
         controllerAs: 'vm'
       })
+
+
       .state('secureUser.edit-sale', {
         url: '/sale/{id}',
         params: {
@@ -267,12 +269,26 @@
         controller: 'NotificationsController',
         controllerAs: 'vm'
       })
-      .state('secure.invoice', {
-        url: '/invoice',
-        templateUrl: '/order/invoice.html',
+      .state('secureUser.invoice', {
+        url: '/invoice/{InvoiceId}',
+        params: {
+          InvoiceId: null
+        },
+        templateUrl: '/invoice/invoice.html',
         title: 'Invoice',
-        highlight: 'invoice',
-        controller: 'OrderController',
+        highlight: 'sale',
+        controller: 'invoiceController',
+        controllerAs: 'vm'
+      })
+      .state('secure.invoice', {
+        url: '/invoice/{InvoiceId}',
+        params: {
+          InvoiceId: null
+        },
+        templateUrl: '/invoice/invoice.html',
+        title: 'Invoice',
+        highlight: 'inventory',
+        controller: 'invoiceController',
         controllerAs: 'vm'
       })
 
@@ -305,6 +321,7 @@
         controller: 'UserController',
         controllerAs: 'vm'
       });
+
 
     $urlRouterProvider.otherwise('/login');
   }

@@ -4,18 +4,26 @@
 
   angular.module('lados').controller('UserSaleController', UserSaleController);
 
-  UserSaleController.$inject = ['Authentication', 'Restangular', '$state', '$q', '$scope'];
+  UserSaleController.$inject = ['Authentication', 'Restangular', '$state', '$q', '$scope', '$stateParams'];
 
-  function UserSaleController(Authentication, Restangular, $state, $q, $scope) {
+  function UserSaleController(Authentication, Restangular, $state, $q, $scope, $stateParams) {
     var vm = this;
     var user = Authentication.user;
     vm.addNew = addNew;
     vm.getDataByUserId = getDataByUserId;
     vm.removeColumn = removeColumn;
     vm.setInvoiceDetail = setInvoiceDetail;
+    vm.invoice = invoice;
     vm.productArry = [{}];
     vm.sale = {};
     vm.sale.purchase = [];
+
+    function invoice(id) {
+      $state.go('secureUser.invoice', {
+        InvoiceId: id
+      });
+    }
+
 
     function addNew(index) {
       vm.productArry.push({});
