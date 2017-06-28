@@ -12,26 +12,26 @@
     <div class="action-dropdown-menu">
       <select class="select-action" name="tab1BranchDropdown" ng-model="search.branchName" ng-init="search.branchName='all'" ng-change="vm.filterBranch(search.branchName);">
                  <option value="all">All</option>
-                <option ng-repeat="item in vm.branchCopy | filter:{isActive :true}"   value="{{item.id}}" >{{item.branchName}}</option>
+                <option ng-repeat="item in vm.BranchDropdownList | filter:{isActive :true}"   value="{{item.id}}" >{{item.branchName}}</option>
             </select>
     </div>
 
     <div class="dashboard-cont-box">
-      <div class="row" ng-if="search.branchName==='all'">
-        <div class="col-md-4 " ng-repeat="data in vm.branch | filter:{isActive :true} ">
-          <div class="box_1 w3-animate-zoom">
+      <div class="row " ng-if="search.branchName==='all'">
+        <div class="col-md-4" ng-repeat="data in vm.branch |filter:{isActive :true} ">
+          <div class="box_1 ">
             <div class="branch-1-heading">{{data.branchName}}</div>
             <div class="dashboard-bx">
-              <div class="instoke-text-bx">In Stock: <span>{{vm.InStock[$index]||0}}</span></div>
-              <div class="instoke-text-bx">Sold: <span>{{vm.Sold[$index] || 0}}</span></div>
+              <div class="instoke-text-bx">In Stock: <span>{{vm.branchStock[$index].new.length||0}}</span></div>
+              <div class="instoke-text-bx">Sold: <span>{{vm.branchStock[$index].sold.length || 0}}</span></div>
             </div>
-            <div class="branch-1-heading-btm"><strong>Total Items: </strong><span>{{vm.InStock[$index] + vm.Sold[$index] ||0}}</span></div>
+            <div class="branch-1-heading-btm"><strong>Total Items: </strong><span>{{vm.branchStock[$index].new.length + vm.branchStock[$index].sold.length ||0}}</span></div>
           </div>
         </div>
       </div>
 
       <div class="row" ng-if="search.branchName !='all'">
-        <div class="col-md-4 w3-animate-zoom">
+        <div class="col-md-4 ">
 
           <div class="box_1">
             <div class="branch-1-heading"> {{vm.getFilter[0].Branch.branchName}}</div>
@@ -56,7 +56,7 @@
       <div class="purchase-summary-box">
         <div class="row" ng-if="vm.dropdown1 ==='all'">
           <div class="col-md-4" ng-repeat="data in vm.purchase ">
-            <div class="box_1 w3-animate-zoom">
+            <div class="box_1 ">
               <div class="row">
                 <div class="col-xs-4 col-sm-4 col-md-4"><label>Items</label><strong>{{data.totalItems}}</strong></div>
                 <div class="col-xs-4 col-sm-4 col-md-4"><label>In Stock</label><strong>{{vm.stock[$index].new.length}}</strong></div>
@@ -75,7 +75,7 @@
         <div class="row" ng-if="vm.dropdown1 !='all'">
           <div class="col-md-4">
 
-            <div class="box_1 w3-animate-zoom">
+            <div class="box_1 ">
               <div class="row">
                 <div class="col-xs-4 col-sm-4 col-md-4"><label>Items</label><strong>{{vm.getFilterPurchase.totalItems}}</strong></div>
                 <div class="col-xs-4 col-sm-4 col-md-4"><label>In Stock</label><strong>{{vm.groupByStatus1.new.length}}</strong></div>
@@ -103,17 +103,19 @@
       <div class="col-6 sub-header-title" style="margin-bottom:0px">Inventory Distribution</div>
       <div class="charts-content-padding">
         <div class="action-dropdown-menu dropdown-toggle-btn">
-          <select class="select-action" name="dropdown1" ng-init="vm.inventoryDistribution='all'" ng-model="vm.inventoryDistribution" ng-change="vm.getChartByDropdown1(vm.inventoryDistribution)">
+          <select class="select-action" name="dropdown1" ng-init="vm.inventoryDistribution='All'" ng-model="vm.inventoryDistribution" ng-change="vm.getChartData1()">
                 <option value="All">All</option>
                 <option ng-repeat="item in vm.purchase" value="{{item.id}}">{{item.purchaseName}}</option>
             </select>
         </div>
+
         <div class="chart-toggle-btn">
           <ul ng-init="changeChart1 = 'bar'">
             <li><a href="" ng-class="{'active':changeChart1 === 'bar'}" ng-click="changeChart1 = 'bar'">Bar</a></li>
             <li><a href="" ng-class="{'active':changeChart1 === 'pie'}" ng-click="changeChart1 = 'pie'">Pie</a></li>
           </ul>
         </div>
+
         <div class="charts-align" ng-if="changeChart1 == 'bar'">
           <canvas id="bar" class="chart chart-bar" chart-data="vm.data1" chart-labels="vm.labels1" height="300" width="400">
                     </canvas>
@@ -126,15 +128,17 @@
     </div>
 
 
+
     <div class="dashboard-bx-align">
       <div class="col-6 sub-header-title" style="margin-bottom:0px">Inventory Track & Sales</div>
       <div class="charts-content-padding">
         <div class="action-dropdown-menu dropdown-toggle-btn">
           <select class="select-action" name="dropdown2" ng-model="vm.dropdown2" ng-change="vm.getChartByDropdown2()">
                 <option value="All">All</option>
-                <option ng-repeat="item in vm.branch" value="{{item.id}}">{{item.branchName}}</option>
+                <option ng-repeat="item in vm.BranchDropdownList" value="{{item.id}}">{{item.branchName}}</option>
             </select>
         </div>
+
         <div class="chart-toggle-btn">
           <ul ng-init="changeChart2 = 'pie'">
             <li><a href="" ng-class="{'active':changeChart2 === 'bar'}" ng-click="changeChart2 = 'bar'">Bar</a></li>

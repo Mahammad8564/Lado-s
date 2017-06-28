@@ -222,17 +222,6 @@ exports.groupByBranchId = function(req, res, next) {
     res.json(obj);
   });
 
-  // Product.findAll({
-  //     where: { BranchId: req.params.BranchId },
-  //     attributes: ['status', [sequelize.fn('count', sequelize.col('likes.id')), 'likecount']],
-  //     include: [{ attributes: [], model: Like }],
-  //     group: ['status']
-  // }).then(function (obj) {
-  //     res.json(obj);
-  //     next();
-  // }).catch(function (err) {
-  //     res.status(400).send({ message: getErrorMessage(err) });
-  // });
 
 }
 
@@ -244,7 +233,7 @@ exports.getByBranchIdByInventory = function(req, res, next) {
     },
   }).then(function(obj) {
     res.json(obj);
-    next();
+    // next();
   }).catch(function(err) {
     res.status(400).send({
       message: getErrorMessage(err)
@@ -261,7 +250,7 @@ exports.getByBranchIdByInventoryAndSold = function(req, res, next) {
     },
   }).then(function(obj) {
     res.json(obj);
-    next();
+    // next();
   }).catch(function(err) {
     res.status(400).send({
       message: getErrorMessage(err)

@@ -8,7 +8,7 @@
   function PurchasesController(Authentication, Restangular, $state, $stateParams) {
     var vm = this;
     vm.today = new Date();
-    // vm.purchase.purchaseDate = new Date();
+
     vm.user = Authentication.user;
     vm.save = save;
     vm.getList = getList;
@@ -18,6 +18,10 @@
 
     if ($stateParams.id && $stateParams.id != 'new') {
       Restangular.one('api/purchase/' + $stateParams.id).get().then(function(res) {
+        if ($stateParams.id != 'new') {
+          vm.Savedisable = true;
+        }
+
         vm.purchase = res.data;
       });
     }
@@ -51,7 +55,6 @@
         });
       } else {
         Restangular.one('api/purchase/' + vm.purchase.id).patch(vm.purchase).then(function(res) {
-          // SweetAlert.swal("Material updated successfully!");
           swal(vm.purchase.purchaseName, "purchase is updated successfully", "success");
           $state.go('secure.purchases');
         }, function(err) {
@@ -64,7 +67,9 @@
     function edit(obj) {
       $state.go('secure.edit-purchases', {
         id: obj.id
+
       });
+
     }
 
     function add(obj) {

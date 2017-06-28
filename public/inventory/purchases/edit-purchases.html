@@ -29,12 +29,12 @@
       <input type="number" name="totalCost" ng-model="vm.purchase.totalCost" min="0" required>
       <span class="validation-msg-error" ng-if="(purchaseForm.totalCost.$dirty || vm.isSubmitted) && purchaseForm.totalCost.$error.required"><i><b>Total Cost</b></i> is required.</span>
     </div>
+
     <div class="add-category-box-cont">
       <label style="padding-top: 0px;">&nbsp;</label>
       <div class="save-cancel-btn">
-        <input class="save-new-btn" type="submit" value="Save" ng-click="vm.save(purchaseForm)">
-        <input class="cancel-new-btn" type="button" value="Cancel" ui-sref="secure.purchases">
-      </div>
+        <input class="save-new-btn" type="submit" ng-if="!vm.Savedisable" value="Save" ng-click="vm.save(purchaseForm)">
+        <input class="cancel-new-btn" type="button" value="Back" ui-sref="secure.purchases"> </div>
     </div>
   </form>
 </div>

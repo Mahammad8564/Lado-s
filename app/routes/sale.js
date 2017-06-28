@@ -14,6 +14,10 @@ module.exports = function(app) {
   app.route('/api/sale/product/:UserId')
     .get(sale.getByUserId);
 
+  app.route('/api/sale/sold/:branchId')
+    .get(sale.getByUserId);
+
+
   app.route('/api/sale/getByProductCode/:productCode')
     .get(sale.getByProductCode);
 
