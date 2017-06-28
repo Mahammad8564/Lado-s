@@ -134,6 +134,8 @@
            vm.labels1.push(element.branchName);
            Restangular.all('api/product/getByBranchId/' + element.id).getList().then(function(res) {
              vm.data1.push(res.data.length);
+             vm.data1.push(0);
+
            });
          }, this);
        } else {
@@ -143,6 +145,8 @@
            vm.labels1.push(element.branchName);
            Restangular.all('api/getByBranchIdByInventory/' + element.id + '/' + vm.dropdown1).getList().then(function(res) {
              vm.data1.push(res.data.length);
+             vm.data1.push(0);
+
            });
          }, this);
        }
@@ -164,6 +168,8 @@
          });
          Restangular.one('api/sold/all').get().then(function(res) {
            vm.data2.push(res.data);
+           vm.data2.push(0);
+
            if (res.data == 0) {
              vm.noDataFound = true;
            }
@@ -178,6 +184,8 @@
          });
          Restangular.one('api/sold/' + vm.dropdown2).get().then(function(res) {
            vm.data2.push(res.data);
+           vm.data2.push(0);
+
            if (res.data == 0) {
              vm.noDataFound = true;
            }
@@ -194,6 +202,8 @@
            vm.labels3.push(element.branchName);
            Restangular.all('api/getByBranchIdAndSold/' + element.id).getList().then(function(res) {
              vm.data3.push(res.data.length);
+             vm.data3.push(0);
+
            });
          }, this);
        } else {
@@ -201,8 +211,11 @@
          vm.data3 = [];
          vm.branch.forEach(function(element) {
            vm.labels3.push(element.branchName);
+
            Restangular.all('api/getByBranchIdByInventoryAndSold/' + element.id + '/' + vm.dropdown3).getList().then(function(res) {
              vm.data3.push(res.data.length);
+             vm.data3.push(0);
+
            });
          }, this);
        }
