@@ -17,8 +17,6 @@ var getErrorMessage = function(err) {
   }
 }
 
-//getting List of
-//For Geting list of Purchases
 exports.list = function(req, res) {
   req.options.include = [Product];
   Purchase.findAndCountAll(req.options).then(function(arrs) {
@@ -32,6 +30,11 @@ exports.list = function(req, res) {
   });
 }
 
+
+
+
+
+
 exports.read = function(req, res) {
   res.json(req.purchase);
 }
@@ -41,6 +44,7 @@ exports.getById = function(req, res, next) {
     where: {
       id: req.params.purchaseId
     },
+    include: [Product]
   }).then(function(obj) {
     res.json(obj);
     next();

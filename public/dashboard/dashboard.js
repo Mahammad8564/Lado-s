@@ -11,6 +11,7 @@
      vm.getStats = getStats;
      vm.filterBranch = filterBranch;
      vm.getPurchase = getPurchase;
+     vm.filterPurchase = filterPurchase;
      vm.branchName = [];
      vm.InStock = [];
      vm.Sold = [];
@@ -28,12 +29,55 @@
        }
      }
 
+     function filterPurchase(id) {
+       if (id != 'all') {
+         console.log(id);
+         Restangular.one('api/purchase/' + id).get().then(function(res) {
+
+           vm.getFilterPurchase = res.data;
+
+           console.log(vm.getFilterPurchase);
+           vm.total1 = _.sumBy(res.data.Products, function(o) {
+             return o.unitPrice;
+           });
+
+           vm.groupByStatus1 = _.groupBy(res.data.Products, function(obj) {
+             return obj.status;
+           });
+
+           vm.cost1 = _.sumBy(res.data.Products, function(o) {
+             return o.unitCost;
+           });
+
+
+         });
+       } else {
+         vm.getPurchase();
+       }
+     }
+
      function getPurchase() {
        Restangular.all('api/purchase').getList().then(function(res) {
          vm.purchase = res.data;
+         vm.stock = [];
+         vm.total = [];
+         vm.cost = [];
+         vm.price = 0;
+         _.forEach(res.data, function(value, key) {
 
-         vm.groupByPurchaseStatus = _.groupBy(res.data[0].Products, function(obj) {
-           return obj.status;
+           vm.stock[key] = _.groupBy(res.data[key].Products, function(obj) {
+             return obj.status;
+           });
+
+           vm.total[key] = _.sumBy(res.data[key].Products, function(o) {
+             return o.unitPrice;
+           });
+
+           vm.cost[key] = _.sumBy(res.data[key].Products, function(o) {
+             return o.unitCost;
+           });
+
+
          });
 
        });
@@ -89,9 +133,9 @@
      });
 
      function activate() {
-       vm.getPurchase()
        vm.getList(function() {
          vm.getStats();
+         vm.getPurchase();
          vm.getChartData1();
          vm.getChartData2();
          vm.getChartData3();

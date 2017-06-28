@@ -1,6 +1,7 @@
 ﻿
 var models = require('../models');
 var Branch = models.Branch;
+var Product = models.Product;
 var User = models.User;
 var Sequelize = require('sequelize');
 var _ = require('underscore');
@@ -20,8 +21,10 @@ var getErrorMessage = function(err) {
 //getting List of
 //For Geting list of Branchs
 exports.list = function(req, res) {
+  req.options.include = [Product];
   Branch.findAndCountAll(req.options).then(function(arrs) {
     res.setHeader('total', arrs.count);
+
     res.json(arrs.rows);
   }).catch(function(err) {
     console.log(err);
@@ -40,7 +43,7 @@ exports.getById = function(req, res, next) {
     where: {
       id: req.params.branchId
     },
-    //include: []
+    include: [Product]
   }).then(function(obj) {
     req.branch = obj;
     next();

@@ -1,73 +1,73 @@
-﻿<div id="wrapper">
 
-    <!-- Navigation -->
-    <nav class="navbar-inverse main-header" role="navigation">
-        <!-- Brand and toggle get mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+<div id="wrapper">
+
+  <!-- Navigation -->
+  <nav class="navbar-inverse main-header" role="navigation">
+    <!-- Brand and toggle get mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#"><img src="images/logo.png" alt="" /></a>
-        </div>
-        <!-- Top Menu Items -->
-        <ul class="nav navbar-right top-nav">
+      <a class="navbar-brand" ui-sref="secure.dashboard"><img src="images/logo.png" alt="" /></a>
+    </div>
+    <!-- Top Menu Items -->
+    <ul class="nav navbar-right top-nav">
 
-            <li class="dropdown">
-                <a href="" class="dropdown-toggle" data-toggle="dropdown" ng-click="vm.logout()"> <i class="user-img"> <img src="images/default.png" alt=""/></i> </a>
-                <!--<ul class="dropdown-menu">
+      <li class="dropdown">
+        <a href="" class="dropdown-toggle" data-toggle="dropdown" ng-click="vm.logout()"> <i class="user-img"> <img src="images/default.png" alt=""/></i> </a>
+        <!--<ul class="dropdown-menu">
                     <li><a href="#"><i class="fa fa-fw fa-user"></i> My Account</a></li>
                     <li class="divider"></li>
                     <li><a href="#"><i class="fa fa-fw fa-power-off"></i> Sign Out</a></li>
                 </ul>-->
-            </li>
-        </ul>
-        <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+      </li>
+    </ul>
+    <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
 
-        <!-- /.navbar-collapse -->
-    </nav>
+    <!-- /.navbar-collapse -->
+  </nav>
 
-    <div id="page-wrapper">
-        <div class="main-top-icon-box">
-            <ul>
-                <li ng-class="{'active' : $root.toState.highlight === 'dashboard'}"><a ui-sref="secure.dashboard"><span><img src="images/dashboard-icon.png" alt="" /></span>Dashboard</a><i ng-class="{'li-arrow-corner' : $root.toState.highlight === 'dashboard'}"></i></li>
-                <li ng-class="{'active' : $root.toState.highlight === 'inventory'}"><a ui-sref="secure.inventory"><span><img src="images/inventory.png" alt="" /></span>Inventory</a><i ng-class="{'li-arrow-corner' : $root.toState.highlight === 'inventory'}"></i></li>
-                <li ng-class="{'active' : $root.toState.highlight === 'category'}"><a ui-sref="secure.category"><span><img src="images/categories.png" alt="" /></span>Categories</a><i ng-class="{'li-arrow-corner' : $root.toState.highlight === 'category'}"></i></li>
-                <li ng-class="{'active' : $root.toState.highlight === 'branch'}"><a ui-sref="secure.branch"><span><img src="images/branches.png" alt="" /></span>Branches</a><i ng-class="{'li-arrow-corner' : $root.toState.highlight === 'branch'}"></i></li>
-                <li ng-class="{'active' : $root.toState.highlight === 'user'}"><a ui-sref="secure.user"><span><img src="images/users.png" alt="" /></span>Users</a><i ng-class="{'li-arrow-corner' : $root.toState.highlight === 'user'}"></i></li>
-                <li ng-class="{'active' : $root.toState.highlight === 'notifications'}"><a ui-sref="secure.notifications"><span><img src="images/notification-icon.png" alt="" /></span>Notifications</a><i ng-class="{'li-arrow-corner' : $root.toState.highlight === 'notifications'}"></i></li>
-                <li ng-class="{'active' : $root.toState.highlight === 'reports'}"><a ui-sref="secure.reports"><span><img src="images/reports-icon.png" alt="" /></span>Reports</a><i ng-class="{'li-arrow-corner' : $root.toState.highlight === 'reports'}"></i></li>
-            </ul>
-        </div>
-
-        <div class="main-contant-box">
-            <ui-view></ui-view>
-        </div>
-        <!-- /.container-fluid -->
-
+  <div id="page-wrapper">
+    <div class="main-top-icon-box">
+      <ul>
+        <li ng-class="{'active' : $root.toState.highlight === 'dashboard'}"><a ui-sref="secure.dashboard"><span><img src="images/dashboard-icon.png" alt="" /></span>Dashboard</a><i ng-class="{'li-arrow-corner' : $root.toState.highlight === 'dashboard'}"></i></li>
+        <li ng-class="{'active' : $root.toState.highlight === 'inventory'}"><a ui-sref="secure.inventory"><span><img src="images/inventory.png" alt="" /></span>Inventory</a><i ng-class="{'li-arrow-corner' : $root.toState.highlight === 'inventory'}"></i></li>
+        <li ng-class="{'active' : $root.toState.highlight === 'category'}"><a ui-sref="secure.category"><span><img src="images/categories.png" alt="" /></span>Categories</a><i ng-class="{'li-arrow-corner' : $root.toState.highlight === 'category'}"></i></li>
+        <li ng-class="{'active' : $root.toState.highlight === 'branch'}"><a ui-sref="secure.branch"><span><img src="images/branches.png" alt="" /></span>Branches</a><i ng-class="{'li-arrow-corner' : $root.toState.highlight === 'branch'}"></i></li>
+        <li ng-class="{'active' : $root.toState.highlight === 'user'}"><a ui-sref="secure.user"><span><img src="images/users.png" alt="" /></span>Users</a><i ng-class="{'li-arrow-corner' : $root.toState.highlight === 'user'}"></i></li>
+        <li ng-class="{'active' : $root.toState.highlight === 'notifications'}"><a ui-sref="secure.notifications"><span><img src="images/notification-icon.png" alt="" /></span>Notifications</a><i ng-class="{'li-arrow-corner' : $root.toState.highlight === 'notifications'}"></i></li>
+        <li ng-class="{'active' : $root.toState.highlight === 'reports'}"><a ui-sref="secure.reports"><span><img src="images/reports-icon.png" alt="" /></span>Reports</a><i ng-class="{'li-arrow-corner' : $root.toState.highlight === 'reports'}"></i></li>
+      </ul>
     </div>
-    <!-- /#page-wrapper -->
+
+    <div class="main-contant-box">
+      <ui-view></ui-view>
+    </div>
+    <!-- /.container-fluid -->
+
+  </div>
+  <!-- /#page-wrapper -->
 
 </div>
 <div class="main-footer">© 2017 Lado's Designer Studio. All rights reserved.</div>
 
 <script>
-    $(document).ready(function () {
-        $("#content div").hide(); // Initially hide all content
-        $("#tabs li:first").attr("id", "current"); // Activate first tab
-        $("#content div:first").fadeIn(); // Show first tab content
+  $(document).ready(function() {
+    $("#content div").hide(); // Initially hide all content
+    $("#tabs li:first").attr("id", "current"); // Activate first tab
+    $("#content div:first").fadeIn(); // Show first tab content
 
-        $('#tabs a').click(function (e) {
-            e.preventDefault();
-            $("#content div").hide(); //Hide all content
-            $("#tabs li").attr("id", ""); //Reset id's
-            $(this).parent().attr("id", "current"); // Activate this
-            $('#' + $(this).attr('title')).fadeIn(); // Show content for current tab
-        });
-    })();
-
+    $('#tabs a').click(function(e) {
+      e.preventDefault();
+      $("#content div").hide(); //Hide all content
+      $("#tabs li").attr("id", ""); //Reset id's
+      $(this).parent().attr("id", "current"); // Activate this
+      $('#' + $(this).attr('title')).fadeIn(); // Show content for current tab
+    });
+  })();
 </script>
 
 
