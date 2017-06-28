@@ -50,6 +50,9 @@ module.exports = function(app) {
   app.route('/api/getTotalPriceByBranchId/:BranchId')
     .get(product.getTotalPriceByBranchId);
 
+  app.route('/api/getByBranchId/:BranchId')
+    .get(product.getByBranchId);
+
   app.route('/api/getTotalItemByBranchId/:BranchId')
     .get(product.getTotalItemByBranchId);
   //
