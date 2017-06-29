@@ -86,3 +86,16 @@
     </tr>
   </table>
 </div>
+
+
+<span class="w3-btn w3-red" style="margin-top:20px;" ng-if="vm.user.userrole=='admin'">
+  <a ui-sref="secure.inventory" style="text-decoration: none;color:white">
+    Back
+  </a>
+</span>
+
+<span class="w3-btn w3-red" style="margin-top:20px;" ng-if="vm.user.userrole=='user'">
+<a ui-sref="secureUser.sale" style="text-decoration: none;color:white">
+  Back
+</a>
+</span>

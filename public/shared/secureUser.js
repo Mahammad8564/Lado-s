@@ -2,7 +2,6 @@
   'use strict';
 
   angular.module('lados').controller('secureUserController', secureUserController);
-
   secureUserController.$inject = ['Authentication', 'Restangular', '$state'];
 
   function secureUserController(Authentication, Restangular, $state) {
@@ -17,18 +16,15 @@
     }
 
 
-
-
     function logout() {
       Restangular.one('signout').get().then(function(res) {
         swal({
-            title: "Are you sure?",
-            text: "You will not be able to recover this imaginary file!",
-            type: "warning",
+            title: "You Want To Logout ?",
+            // text: "You will not be able to recover this imaginary file!",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, delete it!",
-            cancelButtonText: "No, cancel plx!",
+            confirmButtonText: "Yes!",
+            cancelButtonText: " cancel!",
             closeOnConfirm: false,
             closeOnCancel: true
           },
@@ -41,12 +37,10 @@
         vm.error = err.data.message;
         vm.startProcessing = false;
       });
-
     }
 
     function toggle() {
       $(".navbar").slideToggle();
     }
   }
-
 })();

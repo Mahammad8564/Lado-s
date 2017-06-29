@@ -67,6 +67,7 @@ module.exports = function(app) {
 
 
 
+
   app.param('productId', product.getById);
 
 

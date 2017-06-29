@@ -30,7 +30,11 @@
     }
 
     function removeColumn(index) {
-      vm.productArry.splice(index, 1);
+      if (index > 0) {
+        vm.productArry.splice(index, 1);
+      }
+      // vm.productArry.remove(index);
+
     }
 
     function getDataByBranch() {

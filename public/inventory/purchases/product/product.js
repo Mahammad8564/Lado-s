@@ -14,7 +14,7 @@
     vm.edit = edit;
     vm.add = add;
     vm.getCategoryList = getCategoryList;
-
+    vm.cancel = cancel;
     Restangular.one('api/purchase/' + $stateParams.purchaseId).get().then(function(res) {
       vm.purchaseName = res.data.purchaseName;
       vm.totalItems = res.data.totalItems;
@@ -35,10 +35,14 @@
     function getList() {
       Restangular.all('api/productByPurchase/' + $stateParams.purchaseId).getList().then(function(res) {
         vm.list = res.data;
-        // vm.options.totalItems = parseInt(res.headers('total'));
       });
     }
 
+    function cancel() {
+      $state.go('secure.product', {
+        purchaseId: $stateParams.purchaseId
+      });
+    }
 
     function save(form) {
 

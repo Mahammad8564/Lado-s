@@ -24,12 +24,12 @@
     function logout() {
       Restangular.one('signout').get().then(function(res) {
         swal({
-            title: "Are you sure?",
-            type: "warning",
+            title: "You Want To Logout ?",
+
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, delete it!",
-            cancelButtonText: "No, cancel plx!",
+            confirmButtonText: "Yes!",
+            cancelButtonText: "No!",
             closeOnConfirm: false,
             closeOnCancel: true
           },

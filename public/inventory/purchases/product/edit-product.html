@@ -47,9 +47,9 @@
     <div class="add-category-box-cont">
       <label style="padding-top: 0px;">&nbsp;</label>
       <div class="save-cancel-btn">
-        <input class="save-new-btn" type="submit" value="Save" ng-click="vm.save(productForm)">
-        <input class="add-next-btn" type="button" ng-if="vm.list.length < vm.totalItems" value="Add Next" ng-click="vm.addNext(productForm)">
-        <input class="cancel-new-btn" type="button" value="Cancel" ui-sref="secure.product"></div>
+        <input class="save-new-btn" type="submit" ng-if="vm.list.length <= vm.totalItems" value="Save" ng-click="vm.save(productForm)">
+        <input class="add-next-btn" type="button" ng-if="vm.list.length <= vm.totalItems" value="Add Next" ng-click="vm.addNext(productForm)">
+        <input class="cancel-new-btn" type="button" value="Cancel" ng-click="vm.cancel()"></div>
 
     </div>
   </form>

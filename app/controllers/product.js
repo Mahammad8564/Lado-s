@@ -222,7 +222,7 @@ exports.groupByBranchId = function(req, res, next) {
     res.json(obj);
   });
 
-
+  Product
 }
 
 exports.getByBranchIdByInventory = function(req, res, next) {
