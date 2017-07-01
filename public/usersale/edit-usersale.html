@@ -1,118 +1,118 @@
-<div ng-init="vm.getList()">
+<form name="salesForm" novalidate>
+	<div ng-init="vm.setInvoiceDetail()">
 
-<div class="sub-header-title">Sale</div>
+		<div class="sub-header-title">Sale </div>
 
-	<div>
-		<!--<div class="invoice-header">
-			<p><img src="images/newlogo.png" alt="ProT Boutique"></p>
-			<p>B-303, Balleshwar Square, Opp. Iskon Temple</p>
-			<p>S.G. Highway Ahmedabad - 380054</p>
-			<div class="print" ng-click="vm.print('printable')">Print</div>
-		</div>-->
+		<div>
+			<div class="invoice-header">
+				<p><img src="images/newlogo.png" alt="ProT Boutique"></p>
+				<p>B-303, Balleshwar Square, Opp. Iskon Temple</p>
+				<p>S.G. Highway Ahmedabad - 380054</p>
+			</div>
 
-		<div class="customer-address-box">
+			<div class="customer-address-box">
+				<div class="customer-left-bx">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+						<tbody>
+							<tr>
+								<td align="left">Customer Name:</td>
+								<td align="left" style="padding: 0 0 10px 0px;">
+									<input type="text" name="customerName" ng-model="vm.sale.customerName" ng-minlength="2" ng-maxlength="50" required="required" placeholder="Customer Name" class="form-control">
 
-			<div class="customer-left-bx">
+									<span class="validation-msg-error" ng-if="(salesForm.customerName.$dirty || vm.isSubmitted) && salesForm.customerName.$error.required"><b>Customer Name</b>  is required.</span>
+									<span class="validation-msg-error" ng-if="(salesForm.customerName.$dirty || vm.isSubmitted) && salesForm.customerName.$error.minlength"><b>Customer Name</b>  should be at least 2 characters long.</span>
+									<span class="validation-msg-error" ng-if="(salesForm.customerName.$dirty || vm.isSubmitted) && salesForm.customerName.$error.maxlength"><b>Customer Name</b> should not be more than 50 characters long.</span>
+								</td>
+							</tr>
+							<tr>
+								<td align="left">Address:</td>
+								<td align="left" style="padding: 0 0 10px 0px;">
+									<textarea name="Address" ng-model="vm.sale.Address" ng-minlength="2" ng-maxlength="50" required="required" placeholder="Address" class="form-control"></textarea>
+									<span class="validation-msg-error" ng-if="(salesForm.Address.$dirty || vm.isSubmitted) && salesForm.Address.$error.required"><b>Address</b>  is required.</span>
+									<span class="validation-msg-error" ng-if="(salesForm.Address.$dirty || vm.isSubmitted) && salesForm.Address.$error.minlength"> <b>Address</b> should be at least 2 characters long.</span>
+									<span class="validation-msg-error" ng-if="(salesForm.Address.$dirty || vm.isSubmitted) && salesForm.Address.$error.maxlength"> <b>Address</b> should not be more than 50 characters long.</span>
+								</td>
+							</tr>
+							<tr>
+								<td align="left">Mobile No:</td>
+								<td align="left">
+									<!-- <input type="text" name="MobileNumber" ng-pattern="/^[0-9]{1,11}$/" ng-model="vm.customer.mobileNumber" ng-minlength="10" ng-maxlength="11" required="required"> -->
+									<input id="" name="MobileNumber" placeholder="Mobile Number" required="required" ng-pattern="/^[0-9]{1,11}$/" type="text" ng-model="vm.sale.MobileNumber" ng-minlength="10" ng-maxlength="10" class="form-control">
+									<span class="validation-msg-error" ng-if="(salesForm.MobileNumber.$dirty || vm.isSubmitted) && salesForm.MobileNumber.$error.required"><i><b>Mobile Number</b></i> is required.</span>
+									<span class="validation-msg-error" ng-if="(salesForm.MobileNumber.$dirty || vm.isSubmitted) && (salesForm.MobileNumber.$error.pattern || salesForm.MobileNumber.$error.minlength || salesForm.MobileNumber.$error.maxlength)">
+								 	Enter a valid 10-digit
+								 	<i><b>Mobile Number</b></i>.</span>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="customer-right-bx customer-left-bx-rt">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+						<tbody>
+
+							<tr>
+								<td align="right" style="padding: 0 0 10px 0px;">Invoice Date:</td>
+								<td align="right" style="padding: 0 0 10px 0px;">{{vm.sale.date | date: dd/mm/yyyy}}</td>
+							</tr>
+							<tr>
+								<td align="right" style="padding: 0 0 10px 0px;">Due Date:</td>
+								<td align="right" style="padding: 0 0 10px 0px;"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="contant-table-bx">
 				<table width="100%" border="0" cellspacing="0" cellpadding="0">
 					<tbody>
 						<tr>
-							<td align="left">Customer Name:</td>
-							<td align="left" style="padding: 0 0 10px 0px;">
-								<input type="text" name="name" ng-model="vm.customer.name" ng-minlength="2" ng-maxlength="50" required>
-							</td>
+							<th align="center">Sr. No.</th>
+							<th align="center">Product Code</th>
+							<th align="center">Product Name</th>
+							<th align="center">Qty</th>
+							<th align="center">Price</th>
+							<th align="center">Action </th>
 						</tr>
-						<tr>
-							<td align="left">Address:</td>
-							<td align="left" style="padding: 0 0 10px 0px;">
-								<input type="text" name="address" ng-model="vm.customer.address" ng-minlength="2" ng-maxlength="50" required>
+						<tr ng-repeat="arr in vm.productArry">
+							<td>{{$index+1}}
+								<td>
+									<input list="productCodeList[$index]" id="productCode[$index]" name="productCode[$index]" placeholder="Product Code" autocomplete="off" ng-model="vm.sale.purchase[$index].productCode" ng-blur="productCodeBlur(vm.sale.purchase[$index].productCode,$index)"
+									  ng-change="productCodeChange($index)" class="form-control">
+									<span class="validation-msg-error" ng-if="(salesForm.productCode[$index].$dirty || vm.isSubmitted) && salesForm.productCode[$index].$error.required"><b>Product Code</b> is required.</span>
+									<span class="validation-msg-error" ng-if="(salesForm.productCode[$index].$dirty || vm.isSubmitted) && salesForm.productCode[$index].$error.minlength"><b>Product Code</b>should be at least 2 characters long.</span>
+									<span class="validation-msg-error" ng-if="(salesForm.productCode[$index].$dirty || vm.isSubmitted) && salesForm.productCode[$index].$error.maxlength"><b>Product Code</b> should not be more than 50 characters long.</span>
+									<datalist id="productCodeList[$index]">
+	 							    <option ng-repeat="product in vm.UnSoldItem | orderBy:'productCode'" value="{{product.productCode}}" >
+										</option>
+	  							</datalist>
+								</td>
 							</td>
-						</tr>
-						<tr>
-							<td align="left">Mobile No:</td>
-							<td align="left">
-								<input type="text" name="mobileNumber" ng-model="vm.customer.mobileNumber" ng-minlength="2" ng-maxlength="50" required>
+							<td>
+								{{vm.sale.purchase[$index].productName}}
+								<!-- <input type="text" name="productName[$index]" ng-model="vm.sale.purchase[$index].productName" readonly> -->
+							</td>
+							<td>
+								{{vm.sale.qty}}
+								<!-- <input type="text" name="qty" ng-model="vm.sale.qty" disabled="disabled"> -->
+							</td>
+							<td>
+								{{vm.sale.purchase[$index].price |currency:"&#8377;"}}
+								<!-- <input type="text" name="unitPrice[$index]" ng-model="vm.sale.purchase[$index].price" disabled="disabled"> -->
+							</td>
+							<td>
+								<a href="" class="add-product-btn" ng-click="vm.addNew($index)"><b> + Add </b></a> &emsp;
+								<a href="" class="remove-product-btn" ng-click="vm.removeColumn($index)"><b> Remove </b></a>
 							</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
-			<div class="customer-right-bx customer-left-bx-rt">
-				<table width="100%" border="0" cellspacing="0" cellpadding="0">
-					<tbody>
-						<tr>
-							<td align="right" style="padding: 0 0 10px 0px;">Invoice #:</td>
-							<td align="right" style="padding: 0 0 10px 0px;">{{vm.newList.id|leadingZero}}</td>
-						</tr>
-						<tr>
-							<td align="right" style="padding: 0 0 10px 0px;">Invoice Date:</td>
-							<td align="right" style="padding: 0 0 10px 0px;">{{vm.date | date: dd/mm/yyyy}}</td>
-						</tr>
-						<!--<tr>
-			  <td align="right">P.O. #:</td>
-			  <td align="right">1742/2014</td>
-			</tr>-->
-						<tr>
-							<td align="right" style="padding: 0 0 10px 0px;">Due Date:</td>
-							<td align="right" style="padding: 0 0 10px 0px;">18/03/2017</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
 		</div>
-		<div class="contant-table-bx">
-			<table width="100%" border="0" cellspacing="0" cellpadding="0">
-				<tbody>
-					<tr>
-						<th align="center">Sr. No.</th>
-						<th align="center">Product Code</th>
-						<th align="center">Product Name</th>
-						<th align="center">Qty</th>
-						<th align="center">Price</th>
-						<th align="center">Action</th>
-					</tr>
-					<tr>
-						<td align="center">1</td>
-						<td>
-							<input type="text" name="mobileNumber" ng-model="vm.customer.productCode">
-						</td>
-						<td>
-							<input type="text" name="mobileNumber" ng-model="vm.customer.productName" disabled>
-						</td>
-						<td>
-							<input type="text" name="mobileNumber" ng-model="vm.customer.qty" disabled>
-						</td>
-						<td>
-							<input type="text" name="mobileNumber" ng-model="vm.customer.UnitPrice">
-						</td>
-						<td><a href="" class="add-product-btn" ng-click="vm.track(data)">+</a></td>
-					</tr>
-					<!--<tr>
-						<td id="border-bottom-table" class="border-bottom-table-0px">&nbsp</td>
-						<td id="border-bottom-table" class="border-bottom-table-0px" align="right">Subtotal</td>
-						<td align="center">{{vm.totalamount}}</td>
-					</tr>
-					<tr>
-						<td class="border-bottom-table-0px">&nbsp</td>
-						<td class="border-bottom-table-0px" align="right">Discount</td>
-						<td align="center">-</td>
-					</tr>
-					<tr>
-						<td class="border-bottom-table-0px">&nbsp</td>
-						<td class="border-bottom-table-0px" style=" font-weight:bold; font-size:16px;" align="right">Total</td>
-						<td class="border-bottom-table" style="border-bottom:1px solid #ccc; background:#f6f6f6; font-weight:bold; font-size:16px;"
-						 align="center">{{vm.totalamount}}</td>
-					</tr>-->
-
-
-				</tbody>
-			</table>
-		</div>
-
-
-		<div class="search-box">
-			<a href="#!/secureUser/sale/new"><input class="add-new-btn2" type="button" value="Add New"></a>
-		</div>
-
-
 	</div>
-</div>
+
+	<div class="search-box">
+		<input class="add-new-btn2" type="submit" ng-click="save(salesForm)" value="Sale">
+	</div>
+
+</form>

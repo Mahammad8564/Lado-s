@@ -1,0 +1,101 @@
+<div class="sub-header-title">
+  Invoice </div>
+<div id="myInvoice">
+  <div class="invoice-header">
+    <p><img src="images/newlogo.png" alt="ProT Boutique"></p>
+    <p>B-303, Balleshwar Square, Opp. Iskon Temple</p>
+    <p>S.G. Highway Ahmedabad - 380054</p>
+    <div class="print" ng-click="vm.exportToPdf()">Print</div>
+  </div>
+
+  <div class="customer-address-box">
+    <div class="customer-left-bx">
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+          <tr>
+            <td align="left">Customer Name:</td>
+            <td align="left" style="padding: 0 0 10px 0px;">
+              {{vm.invoice[0].customerName}}
+            </td>
+          </tr>
+          <tr>
+            <td align="left">Address:</td>
+            <td align="left" style="padding: 0 0 10px 0px;">
+              {{vm.invoice[0].Address}}
+            </td>
+          </tr>
+          <tr>
+            <td align="left">Mobile No:</td>
+            <td align="left">
+              {{vm.invoice[0].MobileNumber}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="customer-right-bx customer-left-bx-rt">
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+          <tr>
+            <td align="right" style="padding: 0 0 10px 0px;">Invoice:</td>
+            <td align="right" style="padding: 0 0 10px 0px;">
+              #{{vm.invoice[0].InvoiceId}}
+            </td>
+          </tr>
+          <tr>
+            <td align="right" style="padding: 0 0 10px 0px;">Sale Date:</td>
+            <td align="right" style="padding: 0 0 10px 0px;">
+              {{vm.invoice[0].InvoiceId | date: dd/mm/yyyy}} </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <table class="table-part" border="0" cellspacing="0" cellpadding="0">
+    <tr class="top-purpal-color-row">
+      <th>Product Name</th>
+      <th>Product Code </th>
+      <th>Product Tag </th>
+      <th>Price </th>
+    </tr>
+    <tr ng-repeat="data in vm.invoice ">
+      <td data-th="Purchase Name: " class="top-purpal-color-row2">
+        {{data.Product.productName}}
+      </td>
+      <td data-th="Purchase Name: " class="top-purpal-color-row2">
+        {{data.Product.productCode}}
+      </td>
+
+      <td data-th="Purchase Name: " class="top-purpal-color-row2">
+        {{data.Product.productTag}}
+      </td>
+      <td data-th="Purchase Name: " class="top-purpal-color-row2">
+        {{data.Product.unitPrice}}
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3">
+        <h4 style="float:right">
+           Total
+        </h4>
+      </td>
+      <td>
+        {{ vm.total |currency:"&#8377;"}}
+      </td>
+    </tr>
+  </table>
+</div>
+
+
+<span class="w3-btn w3-red" style="margin-top:20px;" ng-if="vm.user.userrole=='admin'">
+  <a ui-sref="secure.inventory" style="text-decoration: none;color:white">
+    Back
+  </a>
+</span>
+
+<span class="w3-btn w3-red" style="margin-top:20px;" ng-if="vm.user.userrole=='user'">
+<a ui-sref="secureUser.sale" style="text-decoration: none;color:white">
+  Back
+</a>
+</span>

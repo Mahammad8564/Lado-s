@@ -1,41 +1,40 @@
 <div>
-    <div class="sub-header-title">Add/Edit Purchase</div>
-    <form name="purchaseForm" novalidate>
-        <div class="add-category-box-cont">
-            <label>Purchase Name:</label>
-            <input type="text" name="purchaseName" ng-model="vm.purchase.purchaseName" ng-minlength="2" ng-maxlength="50" required>
-            <span class="validation-msg-error" ng-if="(purchaseForm.purchaseName.$dirty || vm.isSubmitted) && purchaseForm.purchaseName.$error.required"><i><b>Purchase name</b></i> is required.</span>
-            <span class="validation-msg-error" ng-if="(purchaseForm.purchaseName.$dirty || vm.isSubmitted) && purchaseForm.purchaseName.$error.minlength"><i><b>Purchase name</b></i> should be at least 2 characters long.</span>
-            <span class="validation-msg-error" ng-if="(purchaseForm.purchaseName.$dirty || vm.isSubmitted) && purchaseForm.purchaseName.$error.maxlength"><i><b>Purchase name</b></i> should not be more than 50 characters long.</span>
-        </div>
-        <div class="add-category-box-cont">
-            <label>Purchase Date:</label>
-            <input type="date" readonly name="purchaseDate" uib-datepicker-popup="" is-open="open.dob" convert-to-date ng-model="vm.purchase.purchaseDate"
-                ng-click="open.dob = !open.dob" ng-max="vm.today" required>
-            <span class="validation-msg-error" ng-if="(purchaseForm.purchaseDate.$dirty || vm.isSubmitted) && purchaseForm.purchaseDate.$error.max"><i><b>Purchase Date</b></i> should not be future date.</span>
-            <span class="validation-msg-error" ng-if="(purchaseForm.purchaseDate.$dirty || vm.isSubmitted) && purchaseForm.purchaseDate.$error.required"><i><b>Purchase Date</b></i> is required.</span>
-        </div>
+  <div class="sub-header-title">Add/Edit Purchase</div>
+  <form name="purchaseForm" novalidate>
+    <div class="add-category-box-cont">
+      <label>Purchase Name:</label>
+      <input type="text" name="purchaseName" ng-model="vm.purchase.purchaseName" ng-minlength="2" ng-maxlength="50" required>
+      <span class="validation-msg-error" ng-if="(purchaseForm.purchaseName.$dirty || vm.isSubmitted) && purchaseForm.purchaseName.$error.required"><i><b>Purchase name</b></i> is required.</span>
+      <span class="validation-msg-error" ng-if="(purchaseForm.purchaseName.$dirty || vm.isSubmitted) && purchaseForm.purchaseName.$error.minlength"><i><b>Purchase name</b></i> should be at least 2 characters long.</span>
+      <span class="validation-msg-error" ng-if="(purchaseForm.purchaseName.$dirty || vm.isSubmitted) && purchaseForm.purchaseName.$error.maxlength"><i><b>Purchase name</b></i> should not be more than 50 characters long.</span>
+    </div>
+    <div class="add-category-box-cont">
+      <label>Purchase Date:</label>
+      <input type="date" readonly name="purchaseDate" uib-datepicker-popup="" is-open="open.dob" convert-to-date ng-model="vm.purchase.purchaseDate" ng-click="open.dob = !open.dob" ng-max="vm.today" required>
+      <span class="validation-msg-error" ng-if="(purchaseForm.purchaseDate.$dirty || vm.isSubmitted) && purchaseForm.purchaseDate.$error.max"><i><b>Purchase Date</b></i> should not be future date.</span>
+      <span class="validation-msg-error" ng-if="(purchaseForm.purchaseDate.$dirty || vm.isSubmitted) && purchaseForm.purchaseDate.$error.required"><i><b>Purchase Date</b></i> is required.</span>
+    </div>
 
-        <div class="add-category-box-cont">
-            <label>Description:</label>
-            <textarea rows="4" cols="50" name="description" ng-model="vm.purchase.description"></textarea>
-        </div>
-        <div class="add-category-box-cont">
-            <label>Total Items:</label>
-            <input type="number" name="totalItems" ng-model="vm.purchase.totalItems" required>
-            <span class="validation-msg-error" ng-if="(purchaseForm.totalItems.$dirty || vm.isSubmitted) && purchaseForm.totalItems.$error.required"><i><b>Total Items</b></i> is required.</span>
-        </div>
-        <div class="add-category-box-cont">
-            <label>Total Cost:</label>
-            <input type="number" name="totalCost" ng-model="vm.purchase.totalCost" required>
-            <span class="validation-msg-error" ng-if="(purchaseForm.totalCost.$dirty || vm.isSubmitted) && purchaseForm.totalCost.$error.required"><i><b>Total Cost</b></i> is required.</span>
-        </div>
-        <div class="add-category-box-cont">
-            <label style="padding-top: 0px;">&nbsp;</label>
-            <div class="save-cancel-btn">
-                <input class="save-new-btn" type="button" value="Save" ng-click="vm.save(purchaseForm)">
-                <input class="cancel-new-btn" type="button" value="Cancel" ui-sref="secure.purchases">
-            </div>
-        </div>
-    </form>
+    <div class="add-category-box-cont">
+      <label>Description:</label>
+      <textarea rows="4" cols="50" name="description" ng-model="vm.purchase.description"></textarea>
+    </div>
+    <div class="add-category-box-cont">
+      <label>Total Items:</label>
+      <input type="number" name="totalItems" ng-model="vm.purchase.totalItems" min="0" required>
+      <span class="validation-msg-error" ng-if="(purchaseForm.totalItems.$dirty || vm.isSubmitted) && purchaseForm.totalItems.$error.required"><i><b>Total Items</b></i> is required.</span>
+    </div>
+    <div class="add-category-box-cont">
+      <label>Total Cost:</label>
+      <input type="number" name="totalCost" ng-model="vm.purchase.totalCost" min="0" required>
+      <span class="validation-msg-error" ng-if="(purchaseForm.totalCost.$dirty || vm.isSubmitted) && purchaseForm.totalCost.$error.required"><i><b>Total Cost</b></i> is required.</span>
+    </div>
+
+    <div class="add-category-box-cont">
+      <label style="padding-top: 0px;">&nbsp;</label>
+      <div class="save-cancel-btn">
+        <input class="save-new-btn" type="submit" ng-if="!vm.Savedisable" value="Save" ng-click="vm.save(purchaseForm)">
+        <input class="cancel-new-btn" type="button" value="Back" ui-sref="secure.purchases"> </div>
+    </div>
+  </form>
 </div>

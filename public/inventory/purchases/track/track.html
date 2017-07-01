@@ -1,20 +1,29 @@
-<div>
-    <div class="sub-header-title"><span>{{vm.purchase.purchaseName}}</span> - Track</div>
+<div ng-init="vm.activate()">
+  <div class="sub-header-title"><span>{{vm.purchase[0].Purchase.purchaseName}}</span> - Track</div>
 
-    <div class="purchase-track-box" ng-init="vm.activate()">
-           
-           <div class="row">
-            <div class="col-md-2"><div class="box-track">{{vm.purchase.totalItems}}</div><span>Total Items</span></div>
-            <div class="col-md-2"><div class="box-track">{{vm.list.length}}</div><span>Added Items</span></div>
-            <div class="col-md-2"><div class="box-track">{{vm.purchase.totalCost}}</div><span>Total Cost</span></div>
-            <div ng-repeat="obj in vm.groupByBranch" class="col-md-2"><div class="box-track">{{obj.length}}</div><span>{{obj,key}}</span></div>
-            <!--<div class="col-md-2"><div class="box-track">20</div><span>Branch 2</span></div>-->
-            <!--<div class="col-md-2"><div class="box-track">40</div><span>Branch 3</span></div>-->
-            <div class="col-md-2"><div class="box-track">{{vm.groupByStatus.new.length || 0}}</div><span>In Stock Items</span></div>
-            <div class="col-md-2"><div class="box-track">{{vm.groupByStatus.sold.length || 0}}</div><span>Sold Items</span></div>
-            <div class="col-md-2"><div class="box-track">60,000</div><span>Total Price</span></div>
-            <div class="col-md-2"><div class="box-track">40,000</div><span>Profit</span></div>
-           </div>
+  <div class="purchase-track-box">
+
+    <div class="row">
+      <div class="col-md-2">
+        <div class="box-track">{{vm.purchase[0].Purchase.totalItems ||0}}</div><span>Total Items</span></div>
+      <div class="col-md-2">
+        <div class="box-track">{{vm.purchase.length ||0}}</div><span>Added Items</span></div>
+      <div class="col-md-2">
+        <div class="box-track">{{vm.purchase[0].Purchase.totalCost ||0}}</div><span>Total Cost</span></div>
+
+      <div ng-repeat="obj in vm.groupByBranch" class="col-md-2">
+        <div class="box-track">saurabh</div><span>11</span></div>
+      <!--<div class="col-md-2"><div class="box-track">20</div><span>Branch 2</span></div>-->
+      <!--<div class="col-md-2"><div class="box-track">40</div><span>Branch 3</span></div>-->
+      <div class="col-md-2">
+        <div class="box-track">{{vm.groupByStatus.new.length || 0}}</div><span>In Stock Items</span></div>
+      <div class="col-md-2">
+        <div class="box-track">{{vm.groupByStatus.sold.length || 0}}</div><span>Sold Items</span></div>
+      <div class="col-md-2">
+        <div class="box-track">{{vm.totalPrice}}</div><span>Total Price</span></div>
+      <div class="col-md-2">
+        <div class="box-track">{{vm.totalPrice -vm.purchase[0].Purchase.totalCost }}</div><span>Profit</span></div>
     </div>
+  </div>
 
 </div>

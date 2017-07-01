@@ -1,15 +1,15 @@
 var branch = require('../../app/controllers/branch');
 var queryBuilder = require('../../app/helper/queryBuilder');
 
-module.exports = function (app) {
-    app.route('/api/branch')
-        .get(queryBuilder.queryBuilder, branch.list)
-        .post(branch.create);
+module.exports = function(app) {
+  app.route('/api/branch')
+    .get(queryBuilder.queryBuilder, branch.list)
+    .post(branch.create);
 
-    app.route('/api/branch/:branchId')
-        .get(branch.read)
-        .patch(branch.update)
-        //.delete(measurement.delete);
+  app.route('/api/branch/:branchId')
+    .get(branch.read)
+    .patch(branch.update)
 
-    app.param('branchId', branch.getById);
+
+  app.param('branchId', branch.getById);
 }
